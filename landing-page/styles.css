@@ -288,3 +288,84 @@ main {
     padding: 56px 0 48px;
   }
 }
+
+/* ---------- AYUDA / PREGUNTAS FRECUENTES ---------- */
+.faq {
+  max-width: 48rem;
+  margin-left: clamp(1.5rem, 6vw, 6rem);
+  margin-right: auto;
+}
+
+.faq > h2 {
+  text-align: center;
+}
+
+.faq__grupo {
+  margin-top: 2.5rem;
+  margin-bottom: 0.75rem;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--negritas);
+  text-align: left;
+}
+
+/* Cada pregunta es una caja redondeada con fondo distinto al del body */
+.faq__item {
+  margin-bottom: 0.75rem;
+  padding-inline: 1.25rem;
+  border-radius: 1rem;
+  background: var(--blanco);
+  border: 2px solid transparent;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.faq__item:hover {
+  border-color: var(--cta);
+  box-shadow: 0 0 0 1px rgba(244, 63, 94, 0.12);
+}
+
+.faq__item summary {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.75rem;
+  padding: 1.25rem 0;
+  list-style: none;              /* quita el triangulito por defecto */
+  cursor: pointer;
+  font-weight: 500;
+  color: var(--titulos);
+  text-align: left;
+}
+.faq__item summary::-webkit-details-marker { display: none; }
+
+/* Negrita al pasar el mouse, al enfocar con teclado y cuando está abierta */
+.faq__item summary:hover,
+.faq__item summary:focus-visible,
+.faq__item[open] summary { font-weight: 700; }
+
+/* Flecha: apunta hacia ABAJO cuando está cerrada */
+.faq__item summary::after {
+  content: "";
+  flex: none;
+  width: 0.6rem;
+  height: 0.6rem;
+  border-right: 3px solid var(--cta);
+  border-bottom: 3px solid var(--cta);
+  transform: translateY(-0.2rem) rotate(45deg);
+  transition: transform 0.2s;
+}
+
+/* Flecha: apunta hacia ARRIBA cuando está abierta */
+.faq__item[open] summary::after {
+  transform: translateY(0.2rem) rotate(-135deg);
+}
+
+.faq__respuesta {
+  max-width: 42rem;
+  padding-bottom: 1.25rem;
+  line-height: 1.65;
+  color: var(--negritas);
+  text-align: left;
+}
