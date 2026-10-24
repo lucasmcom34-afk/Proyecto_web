@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear cuenta – Impulso</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        /* Aplica el tema guardado antes de pintar la página (evita el parpadeo) */
+        (function () {
+            try {
+                var guardado = localStorage.getItem("tema");
+                var sistemaOscuro = window.matchMedia("(prefers-color-scheme: dark)").matches;
+                if (guardado === "oscuro" || (!guardado && sistemaOscuro)) {
+                    document.documentElement.classList.add("oscuro");
+                }
+            } catch (e) {}
+        })();
+    </script>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <main class="page">
+
+        <!-- FORMULARIO -->
+        <section class="register-card">
+            <a href="../index.html" class="brand" aria-label="Impulso, ir al inicio">
+                <svg class="brand-logo" viewBox="0 0 600 552" fill="currentColor" fill-rule="evenodd" aria-hidden="true"><path d="M7 546.1C5.9 545.4 5.8 544.7 6.5 543.7C7 542.9 12.3 536 18.2 528.4C24.1 520.7 31.1 511.6 33.7 508L38.5 501.5L56 500.8C84.5 499.8 107.2 496.6 141 489C187.1 478.7 242.8 455.4 290 426.7C369.8 378.1 437.1 309.2 487.8 224C492.8 215.7 510.6 180.4 513.8 172.5C528.3 137.1 538.3 100.1 540.6 73.8C541.4 64.6 541 64.4 534.4 70.8C531.7 73.4 526.9 77.9 523.7 80.8C520.6 83.8 517.7 87.4 517.4 88.8C513.3 106 509.2 120.5 505.9 129.5C438.9 309.7 263.3 449.3 83 465.5C74.5 466.3 67.1 466.5 66.7 466.1C66.3 465.7 69.7 460.2 74.2 453.9C78.8 447.6 84.3 439.8 86.5 436.5C97.9 419.4 100.1 417 105.1 417C108.9 417 130 413.6 136 412C137.9 411.5 143.1 410.2 147.5 409.1C165.7 404.7 183.5 399.4 193.5 395.2C196.2 394.1 203.9 391.1 210.5 388.5C232.7 379.8 254.7 368.4 282.2 351.6C294.5 344.1 295.5 343.4 314 329.8C385.6 277.4 451.8 192.7 475.1 123.8C478.7 113 478.3 112.7 468.6 117.4C446.1 128.2 427.8 134.1 400.4 139.2C387.8 141.5 340.2 142.5 328.7 140.6C319.9 139.2 324 137 341 134C419.4 120.4 501.6 71 537 16.1C544.9 3.9 545.7 3.7 552.2 13.5C601.4 87.6 607.5 176.6 568.4 249.2C566 253.7 564 257.6 564 258C564 258.8 559.9 262.2 559.4 261.8C559.2 261.6 560 257.6 561.1 252.9C570.5 213.6 571.9 173.5 565 141.2C563.3 133.7 562.2 134.9 557.9 148.6C549.1 176.8 527.1 226.9 518 239.5C517.6 240.1 515.6 243.7 513.5 247.5C475.3 318.1 393.1 407.7 326.5 451.1C297.5 470.1 279.5 480.4 253.5 493.3C241.8 499.1 221 508.4 216 510C214.6 510.5 211 511.8 208 513C205 514.2 195.8 517.3 187.5 520C179.2 522.8 171.1 525.4 169.3 526C165.5 527.3 157 529.5 146.5 532.1C142.1 533.2 136.9 534.5 135 535C124.9 537.6 105.6 540.8 77.5 544.5C62.8 546.5 9.3 547.7 7 546.1ZM497.5 544.4C473.9 540.8 468 539.8 462 538.4C428.1 530.4 406.9 522.8 377.5 508.1C360.3 499.6 357.2 497.8 339.9 486.3C328.2 478.6 324.1 475.4 325.1 474.7C325.3 474.5 332.2 469.7 340.4 464.1L355.3 453.8L358.4 455.4C360.1 456.3 363.8 458.4 366.5 460C401.9 481.3 465.2 501 498.3 501L502.5 501L518.5 522.2C527.3 533.9 534.6 544.1 534.8 544.8C535.3 546.5 509.5 546.3 497.5 544.4ZM462 465.8C438.2 461.9 405.5 451 385.5 440.4C377.8 436.3 377.8 436.3 385.2 430.1C388.7 427.1 395.5 421.1 400.3 416.6C405.2 412.2 409.5 408.5 409.8 408.5C410.2 408.5 413.9 409.7 418 411.2C422.1 412.6 429.2 414.8 433.7 416.1C443.3 418.7 443.7 419.1 454.2 434.5C458.3 440.6 464.6 449.8 468.3 455C472 460.2 475 465.1 475 465.8C475 467.2 470.3 467.2 462 465.8ZM118 394.8C118 394 120.7 389.3 124.1 384.4C131.2 374.1 147.2 349.8 151.8 342.5C153.5 339.8 158.6 331.4 163.1 324C167.7 316.6 173.2 307.6 175.4 304C177.7 300.4 180 296.6 180.7 295.5C204.4 255.7 222.3 235.5 246.6 221.2C256.8 215.1 256.6 215 257.4 228.2C258.6 247.1 265.1 276.9 269.2 281.4C269.6 282 270 283 270 283.7C270 286.4 281.1 309.1 286.7 317.8C288.8 321.2 289.8 323.6 289.3 324.5C288.6 325.6 269.3 339 268.4 339C268.2 339 266.1 340.4 263.7 342C257 346.5 255.9 346.1 252 337.8C243.1 318.4 237.9 305 233.4 289.2C231.6 283 222.4 297.8 198.5 345.5L181.4 379.5L173.4 382.2C160.9 386.4 144.1 390.8 130.5 393.5C126.7 394.2 122.3 395.1 120.8 395.5C118.7 396 118 395.9 118 394.8ZM306.4 310.7C305.3 307.8 309.8 290.4 315.4 275.5C330 237 366.7 195.4 410.8 167.5C414.2 165.3 419.6 161.8 422.7 159.8C432.1 153.7 432 154.9 422 168.5C412.9 180.9 402.2 196.1 396.7 204.5C390.4 214.3 381 229.9 381 230.7C381 231.1 380.4 232.1 379.6 232.9C378.8 233.8 375.2 240.4 371.7 247.5C365.3 260.3 365 260.7 352.9 272.5C338.3 286.6 320.9 301.8 308.3 311.3C307.4 311.9 306.8 311.7 306.4 310.7Z"/></svg>
+                Impulso
+            </a>
+
+            <button class="theme-toggle" id="themeToggle" type="button"></button>
+
+            <div class="header">
+                <span class="eyebrow">CREAR CUENTA</span>
+                <h1>Empezá con Impulso.</h1>
+                <p>Creá tu cuenta y empezá a ordenar tu emprendimiento.</p>
+            </div>
+
+            <form id="registerForm" class="register-form">
+                <div class="form-group">
+                    <label for="name">Nombre completo</label>
+                    <input type="text" id="name" name="name" placeholder="Juan Pérez" autocomplete="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Correo electrónico</label>
+                    <input type="email" id="email" name="email" placeholder="tu@email.com" autocomplete="email" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="password">Contraseña</label>
+                        <div class="input-wrapper">
+                            <input type="password" id="password" name="password" placeholder="••••••••" autocomplete="new-password" minlength="8" required>
+                            <button class="password-toggle" type="button" data-target="password">Mostrar</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirmPassword">Repetir contraseña</label>
+                        <div class="input-wrapper">
+                            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="••••••••" autocomplete="new-password" minlength="8" required>
+                            <button class="password-toggle" type="button" data-target="confirmPassword">Mostrar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <label class="terms">
+                    <input type="checkbox" id="terms" required>
+                    <span>Acepto los términos y condiciones.</span>
+                </label>
+
+                <p id="formMessage" class="form-message" role="alert" hidden></p>
+
+                <button class="submit-button" id="submitButton" type="submit">
+                    Crear cuenta <span aria-hidden="true">→</span>
+                </button>
+
+                <p class="login-link">
+                    ¿Ya tenés una cuenta?
+                    <a href="/login/login.html">Iniciar sesión</a>
+                </p>
+            </form>
+        </section>
+
+        <!-- PANEL DERECHO -->
+        <aside class="visual-panel">
+            <div class="blob blob-1" aria-hidden="true"></div>
+            <div class="blob blob-2" aria-hidden="true"></div>
+            <div class="blob blob-3" aria-hidden="true"></div>
+
+            <div class="visual-content">
+                <span class="visual-badge">TU NEGOCIO</span>
+                <h2>Todo en un<br>solo lugar.</h2>
+
+                <ul class="feature-list">
+                    <li class="feature"><span class="feature-icon" aria-hidden="true">✓</span>Finanzas, inventario y ventas conectados</li>
+                    <li class="feature"><span class="feature-icon" aria-hidden="true">✓</span>Tareas y clientes siempre a mano</li>
+                    <li class="feature"><span class="feature-icon" aria-hidden="true">✓</span>Listo en 5 minutos, sin instalar nada</li>
+                </ul>
+            </div>
+        </aside>
+
+    </main>
+</body>
+</html>
