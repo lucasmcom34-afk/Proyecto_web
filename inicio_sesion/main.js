@@ -19,6 +19,78 @@ themeToggle.addEventListener("click", () => {
     actualizarBotonTema();
 });
 
+/* =========================
+   MENSAJES DE BIENVENIDA
+========================= */
+const heroMessage = document.getElementById("heroMessage");
+const heroMessageText = document.getElementById("heroMessageText");
+const mensajesBienvenida = [
+    { texto: "¡Bienvenido!" },
+    {
+        titulo: "¿Sabías que...?",
+        texto: "En Argentina, los pequeños emprendimientos representan más del 99% del tejido empresarial y generan más de la mitad del empleo formal. ¡Haz que el tuyo despegue con Impulso!"
+    },
+    {
+        titulo: "¿Sabías que...?",
+        texto: "Un emprendedor pasa en promedio más de 5 horas a la semana alternando entre diferentes aplicaciones. Con Impulso, tienes todas tus herramientas centralizadas en un solo lugar."
+    },
+    {
+        titulo: "¿Sabías que...?",
+        texto: "El crecimiento de un negocio no depende solo de una gran idea, sino de la constancia y el orden operativo diario. ¡Pongamos manos a la obra!"
+    },
+];
+let mensajeActual = 0;
+
+function actualizarMensajeBienvenida(mensaje, animar = true) {
+    heroMessageText.replaceChildren();
+
+    if (mensaje.titulo) {
+        heroMessageText.classList.add("hero-message-fact");
+        const titulo = document.createElement("strong");
+        const texto = document.createElement("span");
+        titulo.textContent = mensaje.titulo;
+        texto.textContent = mensaje.texto;
+        heroMessageText.append(titulo, texto);
+    } else {
+        heroMessageText.classList.remove("hero-message-fact");
+        heroMessageText.textContent = mensaje.texto;
+    }
+
+    heroMessage.setAttribute("aria-label", [mensaje.titulo, mensaje.texto].filter(Boolean).join(" "));
+    if (animar) {
+        heroMessageText.style.animation = "none";
+        void heroMessageText.offsetWidth;
+        heroMessageText.style.animation = "";
+    }
+}
+
+function mostrarSiguienteMensaje(animar = true) {
+    mensajeActual = (mensajeActual + 1) % mensajesBienvenida.length;
+    actualizarMensajeBienvenida(mensajesBienvenida[mensajeActual], animar);
+    heroMessage.classList.remove("saliendo");
+}
+
+setInterval(() => {
+    const siguienteEsDato = (mensajeActual + 1) % mensajesBienvenida.length !== 0;
+    if (mensajeActual !== 0 && siguienteEsDato) {
+        mostrarSiguienteMensaje(false);
+        return;
+    }
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        mostrarSiguienteMensaje();
+        return;
+    }
+
+    heroMessage.classList.add("saliendo");
+}, 15000);
+
+heroMessage.addEventListener("animationend", (event) => {
+    if (event.target !== heroMessage || !heroMessage.classList.contains("saliendo")) return;
+
+    mostrarSiguienteMensaje(mensajeActual === mensajesBienvenida.length - 1);
+});
+
 
 /* =========================
    MOSTRAR / OCULTAR CONTRASEÑA
