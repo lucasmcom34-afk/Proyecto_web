@@ -1,14 +1,12 @@
-import authRoutes from "./routes/auth.js";
 import "dotenv/config";
 import express from "express";
-import cors from "cors";
-import { pool } from "./db.js";
 import path from "path";
 import { fileURLToPath } from "url";
+import { pool } from "./db.js";
+import authRoutes from "./routes/auth.js";
 
 const app = express();
 
-app.use(cors());
 app.use(express.json());
 app.use("/api/auth", authRoutes);
 
@@ -19,6 +17,7 @@ app.use("/img", express.static(path.join(raiz, "img")));
 app.use("/landing_page", express.static(path.join(raiz, "landing_page")));
 app.use("/inicio_sesion", express.static(path.join(raiz, "inicio_sesion")));
 app.use("/registro", express.static(path.join(raiz, "registro")));
+app.use("/dashboard", express.static(path.join(raiz, "dashboard")));
 
 app.get("/api/health", async (req, res) => {
   try {
@@ -29,6 +28,11 @@ app.get("/api/health", async (req, res) => {
     res.status(500).json({ ok: false, error: "No se pudo conectar a la base de datos" });
   }
 });
+
+// Limpieza de registros pendientes vencidos (cada hora)
+setInterval(() => {
+  pool.query("DELETE FROM registros_pendientes WHERE expira_en < NOW()").catch(console.error);
+}, 60 * 60 * 1000);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Servidor en http://localhost:${PORT}`));

@@ -77,7 +77,7 @@ registerForm.addEventListener("submit", async (event) => {
     submitButton.disabled = true;
 
     try {
-        const respuesta = await fetch("http://localhost:3000/api/auth/register", {
+        const respuesta = await fetch("/api/auth/register", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ nombre: nombre, email: email, password: password })
@@ -91,11 +91,8 @@ registerForm.addEventListener("submit", async (event) => {
             return;
         }
 
-        mostrarMensaje("Tu cuenta se creó con exito, redirigiendo...", "ok");
-
-        setTimeout(() => {
-            window.location.href = "../inicio_sesion/login.html";
-        }, 1500);
+        mostrarMensaje("Te enviamos un correo. Verificalo para continuar", "ok");
+        registerForm.reset();
 
     } catch (error) {
         mostrarMensaje("No se pudo conectar con el servidor. Intentá de nuevo en un momento.");

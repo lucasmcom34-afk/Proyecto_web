@@ -114,6 +114,13 @@ const formError = document.getElementById("formError");
 
 function mostrarError(mensaje) {
     formError.textContent = mensaje;
+    formError.classList.remove("ok");
+    formError.hidden = false;
+}
+
+function mostrarExito(mensaje) {
+    formError.textContent = mensaje;
+    formError.classList.add("ok");
     formError.hidden = false;
 }
 
@@ -133,7 +140,7 @@ loginForm.addEventListener("submit", async (event) => {
     loginButton.textContent = "Ingresando...";
 
     try {
-        const respuesta = await fetch("http://localhost:3000/api/auth/login",{
+        const respuesta = await fetch("/api/auth/login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email: email, password: clave })
@@ -159,3 +166,14 @@ loginForm.addEventListener("submit", async (event) => {
         loginButton.textContent = "Iniciar sesión";
     }
 });
+
+
+/* =========================
+   RESULTADO DE LA VERIFICACIÓN DE CORREO
+========================= */
+const params = new URLSearchParams(window.location.search);
+if (params.get("verificado") === "ok") {
+    mostrarExito("¡Cuenta confirmada! Ya podés iniciar sesión.");
+} else if (params.get("verificado") === "error") {
+    mostrarError("El link es inválido o venció. Volvé a registrarte.");
+}

@@ -361,3 +361,9 @@ input:focus {
   .blob, .hero h1 > span, .hero-message-fact span { animation: none; opacity: 1; }
   * { transition: none !important; }
 }
+
+.form-error.ok {
+    color: #15803d;
+    background: #dcfce7;
+    border-color: #86efac;
+}
