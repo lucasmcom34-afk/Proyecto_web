@@ -77,7 +77,7 @@ registerForm.addEventListener("submit", async (event) => {
     submitButton.disabled = true;
 
     try {
-        const respuesta = await fetch("/registro", {
+        const respuesta = await fetch("http://localhost:3000/api/auth/register", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ nombre: nombre, email: email, password: password })
@@ -86,15 +86,15 @@ registerForm.addEventListener("submit", async (event) => {
         const datos = await respuesta.json();
 
         if (!respuesta.ok) {
-            mostrarMensaje(datos.mensaje || "Ocurrió un error.");
+            mostrarMensaje(datos.error || "Ocurrió un error.");
             submitButton.disabled = false;
             return;
         }
 
-        mostrarMensaje("Cuenta creada correctamente. Te llevamos al inicio de sesión…", "ok");
+        mostrarMensaje("Tu cuenta se creó con exito, redirigiendo...", "ok");
 
         setTimeout(() => {
-            window.location.href = "/login/login.html";
+            window.location.href = "../inicio_sesion/login.html";
         }, 1500);
 
     } catch (error) {

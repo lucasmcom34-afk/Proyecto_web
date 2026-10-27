@@ -133,7 +133,7 @@ loginForm.addEventListener("submit", async (event) => {
     loginButton.textContent = "Ingresando...";
 
     try {
-        const respuesta = await fetch("/login", {
+        const respuesta = await fetch("http://localhost:3000/api/auth/login",{
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email: email, password: clave })
@@ -142,7 +142,7 @@ loginForm.addEventListener("submit", async (event) => {
         const datos = await respuesta.json();
 
         if (!respuesta.ok) {
-            mostrarError(datos.mensaje || "Credenciales inválidas.");
+            mostrarError(datos.error || "Credenciales inválidas.");
             return;
         }
 
