@@ -1,7 +1,167 @@
-@import url("../inicio_sesion/estilos.css");
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    box-sizing: border-box;
+    font-family: "Plus Jakarta Sans", "Segoe UI", Arial, sans-serif;
+    background: radial-gradient(circle at center,
+        #e11d48 0%,
+        #be123c 22%,
+        #881337 45%,
+        #4c0519 70%,
+        #1c0a10 100%);
+    background-attachment: fixed;
+}
 
 .recuperar {
-    max-width: 420px;
-    margin: 60px auto;
-    padding: 0 16px;
+    width: 100%;
+    max-width: 400px;
+    background: #ffffff;
+    color: #111827;
+    border-radius: 14px;
+    padding: 32px 28px;
+    box-shadow:
+        0 0 0 10px rgba(76, 5, 25, 0.35),
+        0 0 0 22px rgba(76, 5, 25, 0.22),
+        0 0 0 38px rgba(76, 5, 25, 0.12),
+        0 20px 60px rgba(0, 0, 0, 0.45);
+}
+
+.recuperar .marca {
+    margin: 0 0 6px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #f43f5e;
+}
+
+.recuperar h2 {
+    margin: 0 0 6px;
+    font-size: 22px;
+    color: #111827;
+}
+
+.recuperar .login-description {
+    margin: 0 0 20px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #6b7280;
+}
+
+.recuperar .form-group {
+    margin-bottom: 14px;
+}
+
+.recuperar label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 13px;
+    color: #374151;
+}
+
+.recuperar input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 12px;
+    font-size: 14px;
+    color: #111827;
+    background: #ffffff;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+}
+
+.recuperar input:focus {
+    outline: none;
+    border-color: #f43f5e;
+    box-shadow: 0 0 0 3px rgba(244, 63, 94, 0.2);
+}
+
+.recuperar .form-error {
+    margin: 0 0 12px;
+    padding: 10px 12px;
+    font-size: 13px;
+    border-radius: 8px;
+    color: #b91c1c;
+    background: #fee2e2;
+}
+
+.recuperar .form-error.ok {
+    color: #15803d;
+    background: #dcfce7;
+}
+
+.recuperar .login-button {
+    width: 100%;
+    height: 42px;
+    margin-top: 6px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+    background: #f43f5e;
+    cursor: pointer;
+}
+
+.recuperar .login-button:hover {
+    background: #e11d48;
+}
+
+.recuperar .login-button:disabled {
+    opacity: 0.6;
+    cursor: default;
+}
+
+.recuperar .register {
+    margin: 18px 0 0;
+    text-align: center;
+    font-size: 13px;
+}
+
+.recuperar .register a {
+    color: #f43f5e;
+    text-decoration: none;
+}
+
+.recuperar .campo-clave {
+    position: relative;
+}
+
+.recuperar .campo-clave input {
+    padding-right: 44px;
+}
+
+.recuperar .ojo {
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    transform: translateY(-50%);
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: none;
+    border-radius: 6px;
+    background: transparent;
+    color: #6b7280;
+    cursor: pointer;
+}
+
+.recuperar .ojo:hover {
+    color: #f43f5e;
+    background: rgba(244, 63, 94, 0.08);
+}
+
+.recuperar .ojo svg {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
 }
