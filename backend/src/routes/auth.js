@@ -133,14 +133,14 @@ router.post("/login", async (req, res) => {
     const recordar = remember === true;
 
     const token = jwt.sign({ id: usuario.id }, process.env.JWT_SECRET, {
-      expiresIn: recordar ? "30d" : "1d",
+      expiresIn: recordar ? "7d" : "1d",
     });
 
     const { maxAge, ...opcionesBase } = COOKIE_OPTS;
     res.cookie(
       "token",
       token,
-      recordar ? { ...opcionesBase, maxAge: 30 * 24 * 60 * 60 * 1000 } : opcionesBase
+      recordar ? { ...opcionesBase, maxAge: 7 * 24 * 60 * 60 * 1000 } : opcionesBase
     );
 
     res.json({
@@ -173,8 +173,8 @@ router.get("/me", requireAuth, async (req, res) => {
 
 // LOGOUT: borra la cookie
 router.post("/logout", (req, res) => {
-  const { maxAge, ...opciones } = COOKIE_OPTS;
-  res.clearCookie("token", opciones);
+  res.clearCookie("token", COOKIE_OPTS);
   res.json({ mensaje: "Sesión cerrada" });
 });
+
 export default router;
