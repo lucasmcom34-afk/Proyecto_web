@@ -19,8 +19,8 @@ const COOKIE_OPTS = {
 };
 
 const limiteRegistro = rateLimit({
-  windowMs: 60 * 60 * 1000,
-  max: 5,
+  windowMs: 1 * 60 * 1000,
+  max: 10,
   message: { error: "Demasiados intentos. Probá más tarde." },
 });
 
