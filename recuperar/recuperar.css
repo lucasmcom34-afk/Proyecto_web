@@ -1,0 +1,7 @@
+@import url("../inicio_sesion/estilos.css");
+
+.recuperar {
+    max-width: 420px;
+    margin: 60px auto;
+    padding: 0 16px;
+}

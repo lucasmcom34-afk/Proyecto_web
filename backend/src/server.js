@@ -16,6 +16,7 @@ app.use("/api/auth", authRoutes);
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const raiz = path.join(__dirname, "../..");
 
+app.use("/recuperar", express.static(path.join(raiz, "recuperar")));
 app.use("/img", express.static(path.join(raiz, "img")));
 app.use("/landing_page", express.static(path.join(raiz, "landing_page")));
 app.use("/inicio_sesion", express.static(path.join(raiz, "inicio_sesion")));
@@ -36,6 +37,7 @@ app.get("/api/health", async (req, res) => {
 
 // Limpieza de registros pendientes vencidos (cada hora)
 setInterval(() => {
+  pool.query("DELETE FROM reset_tokens WHERE expira_en < NOW()").catch(console.error);
   pool.query("DELETE FROM registros_pendientes WHERE expira_en < NOW()").catch(console.error);
 }, 60 * 60 * 1000);
 

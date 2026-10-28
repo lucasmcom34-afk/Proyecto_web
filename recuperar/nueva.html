@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nueva contraseña – Impulso</title>
+    <link rel="stylesheet" href="./recuperar.css">
+    <script src="./nueva.js" defer></script>
+</head>
+<body>
+    <main class="recuperar">
+        <h2>Elegí una nueva contraseña</h2>
+
+        <form id="resetForm" novalidate>
+            <div class="form-group">
+                <label for="password">Nueva contraseña</label>
+                <input type="password" id="password" minlength="8" autocomplete="new-password" required>
+            </div>
+            <div class="form-group">
+                <label for="confirm">Repetir contraseña</label>
+                <input type="password" id="confirm" minlength="8" autocomplete="new-password" required>
+            </div>
+            <p class="form-error" id="msg" role="alert" hidden></p>
+            <button type="submit" class="login-button" id="btn">Cambiar contraseña</button>
+        </form>
+    </main>
+</body>
+</html>

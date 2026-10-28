@@ -4,7 +4,7 @@ import crypto from "crypto";
 import rateLimit from "express-rate-limit";
 import jwt from "jsonwebtoken";
 import { pool } from "../db.js";
-import { enviarVerificacion } from "../mailer.js";
+import { enviarVerificacion, enviarReset } from "../mailer.js";
 import { requireAuth } from "../middleware/auth.js";
 
 const router = Router();
@@ -21,6 +21,12 @@ const COOKIE_OPTS = {
 const limiteRegistro = rateLimit({
   windowMs: 1 * 60 * 1000,
   max: 10,
+  message: { error: "Demasiados intentos. Probá más tarde." },
+});
+
+const limiteForgot = rateLimit({
+  windowMs: 60 * 60 * 1000,
+  max: 5,
   message: { error: "Demasiados intentos. Probá más tarde." },
 });
 
@@ -175,6 +181,80 @@ router.get("/me", requireAuth, async (req, res) => {
 router.post("/logout", (req, res) => {
   res.clearCookie("token", COOKIE_OPTS);
   res.json({ mensaje: "Sesión cerrada" });
+});
+
+// OLVIDÉ MI CONTRASEÑA: manda el mail (misma respuesta exista o no el email)
+router.post("/forgot", limiteForgot, async (req, res) => {
+  const { email } = req.body;
+  const respuesta = { mensaje: "Si el correo está registrado, te enviamos un link para cambiar tu contraseña." };
+
+  if (!email) return res.status(400).json({ error: "Faltan datos" });
+
+  try {
+    const { rows } = await pool.query(
+      "SELECT id, nombre, email FROM usuarios WHERE email = $1",
+      [email.trim().toLowerCase()]
+    );
+    const usuario = rows[0];
+
+    if (usuario) {
+      const token = crypto.randomBytes(32).toString("hex");
+      await pool.query(
+        `INSERT INTO reset_tokens (usuario_id, token_hash, expira_en)
+         VALUES ($1, $2, NOW() + INTERVAL '30 minutes')
+         ON CONFLICT (usuario_id) DO UPDATE
+         SET token_hash = $2, expira_en = NOW() + INTERVAL '30 minutes'`,
+        [usuario.id, hashToken(token)]
+      );
+      const link = `${process.env.BASE_URL}/recuperar/nueva.html?token=${token}`;
+      await enviarReset(usuario.email, usuario.nombre, link);
+    }
+
+    res.json(respuesta);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "No se pudo procesar la solicitud" });
+  }
+});
+
+// RESET: cambia la contraseña con el token del mail
+router.post("/reset", async (req, res) => {
+  const { token, password } = req.body;
+
+  if (!token || !password) return res.status(400).json({ error: "Faltan datos" });
+  if (password.length < 8) {
+    return res.status(400).json({ error: "La contraseña debe tener al menos 8 caracteres" });
+  }
+
+  const client = await pool.connect();
+  try {
+    await client.query("BEGIN");
+
+    const { rows } = await client.query(
+      `SELECT usuario_id FROM reset_tokens
+       WHERE token_hash = $1 AND expira_en > NOW()
+       FOR UPDATE`,
+      [hashToken(String(token))]
+    );
+
+    if (rows.length === 0) {
+      await client.query("ROLLBACK");
+      return res.status(400).json({ error: "El link es inválido o venció" });
+    }
+
+    const passwordHash = await bcrypt.hash(password, SALT_ROUNDS);
+    await client.query("UPDATE usuarios SET password_hash = $1 WHERE id = $2", [passwordHash, rows[0].usuario_id]);
+    await client.query("DELETE FROM reset_tokens WHERE usuario_id = $1", [rows[0].usuario_id]);
+
+    await client.query("COMMIT");
+    res.json({ mensaje: "Contraseña actualizada" });
+  } catch (err) {
+    await client.query("ROLLBACK");
+    console.error(err);
+    res.status(500).json({ error: "Error del servidor" });
+  } finally {
+    client.release();
+  }
 });
 
 export default router;

@@ -66,3 +66,34 @@ export async function enviarVerificacion(email, nombre, link) {
 </table>`,
   });
 }
+
+export async function enviarReset(email, nombre, link) {
+  await transporter.sendMail({
+    from: process.env.MAIL_FROM,
+    to: email,
+    subject: "Restablecé tu contraseña de Impulso",
+    text: `Hola ${nombre},\n\nPara elegir una nueva contraseña ingresá a este link (vence en 30 minutos):\n${link}\n\nSi no lo pediste vos, ignorá este mensaje.\n\nGracias,\nEl equipo de Impulso`,
+    html: `
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#ffffff;">
+  <tr>
+    <td style="padding:24px 16px;">
+      <table role="presentation" align="left" width="100%" cellpadding="0" cellspacing="0" style="max-width:500px;margin:0;font-family:${FUENTE};color:#2a2a2a;">
+        <tr><td style="font-size:14px;color:${COLOR};padding-bottom:8px;">Cuenta de Impulso</td></tr>
+        <tr><td style="font-size:24px;font-weight:300;color:${COLOR};padding-bottom:20px;">Restablecé tu contraseña</td></tr>
+        <tr><td style="font-size:14px;line-height:22px;padding-bottom:12px;">Hola ${escapar(nombre)},</td></tr>
+        <tr><td style="font-size:14px;line-height:22px;padding-bottom:20px;">Recibimos una solicitud para cambiar la contraseña de tu cuenta.</td></tr>
+        <tr><td style="padding-bottom:20px;">
+          <a href="${link}" style="display:inline-block;background:${COLOR};color:#ffffff;font-size:14px;font-weight:600;text-decoration:none;padding:10px 24px;">Cambiar contraseña</a>
+        </td></tr>
+        <tr><td style="font-size:12px;line-height:18px;color:#666666;padding-bottom:20px;">
+          Si el botón no funciona, copiá y pegá este link:<br>
+          <a href="${link}" style="color:${COLOR};word-break:break-all;">${link}</a>
+        </td></tr>
+        <tr><td style="font-size:14px;line-height:22px;padding-bottom:20px;">Este link vence en 30 minutos. Si no lo pediste vos, ignorá este mensaje.</td></tr>
+        <tr><td style="font-size:14px;line-height:22px;">Gracias,<br>El equipo de Impulso</td></tr>
+      </table>
+    </td>
+  </tr>
+</table>`,
+  });
+}
