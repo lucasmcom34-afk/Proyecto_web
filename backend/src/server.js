@@ -2,12 +2,15 @@ import "dotenv/config";
 import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
+import cookieParser from "cookie-parser";
 import { pool } from "./db.js";
 import authRoutes from "./routes/auth.js";
+import { requirePage } from "./middleware/auth.js";
 
 const app = express();
 
 app.use(express.json());
+app.use(cookieParser());
 app.use("/api/auth", authRoutes);
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -17,7 +20,9 @@ app.use("/img", express.static(path.join(raiz, "img")));
 app.use("/landing_page", express.static(path.join(raiz, "landing_page")));
 app.use("/inicio_sesion", express.static(path.join(raiz, "inicio_sesion")));
 app.use("/registro", express.static(path.join(raiz, "registro")));
-app.use("/dashboard", express.static(path.join(raiz, "dashboard")));
+
+// Dashboard protegido: sin cookie válida redirige al login
+app.use("/dashboard", requirePage, express.static(path.join(raiz, "dashboard")));
 
 app.get("/api/health", async (req, res) => {
   try {

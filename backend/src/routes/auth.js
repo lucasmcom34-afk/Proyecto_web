@@ -2,14 +2,21 @@ import { Router } from "express";
 import bcrypt from "bcrypt";
 import crypto from "crypto";
 import rateLimit from "express-rate-limit";
+import jwt from "jsonwebtoken";
 import { pool } from "../db.js";
 import { enviarVerificacion } from "../mailer.js";
+import { requireAuth } from "../middleware/auth.js";
 
 const router = Router();
 const SALT_ROUNDS = 10;
-
-// Cambiá este valor si tu archivo de login se llama distinto
 const LOGIN_PAGE = "/inicio_sesion/login.html";
+
+const COOKIE_OPTS = {
+  httpOnly: true,
+  secure: process.env.NODE_ENV === "production",
+  sameSite: "lax",
+  maxAge: 7 * 24 * 60 * 60 * 1000, // 7 días, igual que JWT_EXPIRES
+};
 
 const limiteRegistro = rateLimit({
   windowMs: 60 * 60 * 1000,
@@ -99,9 +106,9 @@ router.get("/verify", async (req, res) => {
   }
 });
 
-// LOGIN
+// LOGIN: valida credenciales y entrega el JWT en una cookie httpOnly
 router.post("/login", async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password, remember } = req.body;
 
   if (!email || !password) {
     return res.status(400).json({ error: "Faltan datos" });
@@ -123,6 +130,19 @@ router.post("/login", async (req, res) => {
       return res.status(401).json({ error: "Credenciales inválidas" });
     }
 
+    const recordar = remember === true;
+
+    const token = jwt.sign({ id: usuario.id }, process.env.JWT_SECRET, {
+      expiresIn: recordar ? "30d" : "1d",
+    });
+
+    const { maxAge, ...opcionesBase } = COOKIE_OPTS;
+    res.cookie(
+      "token",
+      token,
+      recordar ? { ...opcionesBase, maxAge: 30 * 24 * 60 * 60 * 1000 } : opcionesBase
+    );
+
     res.json({
       mensaje: "Login correcto",
       usuario: { id: usuario.id, nombre: usuario.nombre, email: usuario.email },
@@ -133,4 +153,28 @@ router.post("/login", async (req, res) => {
   }
 });
 
+
+// ME: devuelve el usuario de la sesión actual
+router.get("/me", requireAuth, async (req, res) => {
+  try {
+    const { rows } = await pool.query(
+      "SELECT id, nombre, email FROM usuarios WHERE id = $1",
+      [req.user.id]
+    );
+    if (rows.length === 0) {
+      return res.status(401).json({ error: "No autenticado" });
+    }
+    res.json({ usuario: rows[0] });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Error del servidor" });
+  }
+});
+
+// LOGOUT: borra la cookie
+router.post("/logout", (req, res) => {
+  const { maxAge, ...opciones } = COOKIE_OPTS;
+  res.clearCookie("token", opciones);
+  res.json({ mensaje: "Sesión cerrada" });
+});
 export default router;

@@ -143,7 +143,11 @@ loginForm.addEventListener("submit", async (event) => {
         const respuesta = await fetch("/api/auth/login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email: email, password: clave })
+            body: JSON.stringify({
+                email: email,
+                password: clave,
+                remember: document.getElementById("remember").checked
+            })
         });
 
         const datos = await respuesta.json();
@@ -177,3 +181,16 @@ if (params.get("verificado") === "ok") {
 } else if (params.get("verificado") === "error") {
     mostrarError("El link es inválido o venció. Volvé a registrarte.");
 }
+
+/* =========================
+   SI YA HAY SESIÓN, IR AL DASHBOARD
+========================= */
+(async () => {
+    // No redirigir si venimos de la verificación de correo
+    if (params.get("verificado")) return;
+
+    try {
+        const r = await fetch("/api/auth/me");
+        if (r.ok) window.location.replace("../dashboard/dashboard.html");
+    } catch (e) {}
+})();
