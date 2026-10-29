@@ -173,21 +173,26 @@ loginForm.addEventListener("submit", async (event) => {
 
 
 /* =========================
-   RESULTADO DE LA VERIFICACIÓN DE CORREO
+   RESULTADOS EN LA URL (verificación de correo y Google)
 ========================= */
 const params = new URLSearchParams(window.location.search);
+
 if (params.get("verificado") === "ok") {
     mostrarExito("¡Cuenta confirmada! Ya podés iniciar sesión.");
 } else if (params.get("verificado") === "error") {
     mostrarError("El link es inválido o venció. Volvé a registrarte.");
 }
 
+if (params.get("google") === "error") {
+    mostrarError("No pudimos iniciar sesión con Google. Intentá de nuevo.");
+}
+
 /* =========================
    SI YA HAY SESIÓN, IR AL DASHBOARD
 ========================= */
 (async () => {
-    // No redirigir si venimos de la verificación de correo
-    if (params.get("verificado")) return;
+    // No redirigir si venimos de la verificación de correo o de un error de Google
+    if (params.get("verificado") || params.get("google")) return;
 
     try {
         const r = await fetch("/api/auth/me");

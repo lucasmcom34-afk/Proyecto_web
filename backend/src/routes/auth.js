@@ -6,6 +6,7 @@ import jwt from "jsonwebtoken";
 import { pool } from "../db.js";
 import { enviarVerificacion, enviarReset } from "../mailer.js";
 import { requireAuth } from "../middleware/auth.js";
+import { OAuth2Client } from "google-auth-library";
 
 const router = Router();
 const SALT_ROUNDS = 10;
@@ -131,6 +132,10 @@ router.post("/login", async (req, res) => {
       return res.status(401).json({ error: "Credenciales inválidas" });
     }
 
+    if (!usuario.password_hash) {
+      return res.status(401).json({ error: "Esta cuenta se creó con Google. Iniciá sesión con Google." });
+    }
+
     const coincide = await bcrypt.compare(password, usuario.password_hash);
     if (!coincide) {
       return res.status(401).json({ error: "Credenciales inválidas" });
@@ -254,6 +259,81 @@ router.post("/reset", async (req, res) => {
     res.status(500).json({ error: "Error del servidor" });
   } finally {
     client.release();
+  }
+});
+
+// GOOGLE: cliente OAuth
+const googleClient = () =>
+  new OAuth2Client(
+    process.env.GOOGLE_CLIENT_ID,
+    process.env.GOOGLE_CLIENT_SECRET,
+    `${process.env.BASE_URL}/api/auth/google/callback`
+  );
+
+// GOOGLE: redirige a la pantalla de Google
+router.get("/google", (req, res) => {
+  const state = crypto.randomBytes(16).toString("hex");
+  res.cookie("g_state", state, { ...COOKIE_OPTS, maxAge: 10 * 60 * 1000 });
+
+  const url = googleClient().generateAuthUrl({
+    scope: ["openid", "email", "profile"],
+    state,
+    prompt: "select_account",
+  });
+  res.redirect(url);
+});
+
+// GOOGLE: vuelta desde Google, crea o vincula el usuario e inicia sesión
+router.get("/google/callback", async (req, res) => {
+  const { code, state } = req.query;
+  const guardado = req.cookies?.g_state;
+  res.clearCookie("g_state", COOKIE_OPTS);
+
+  if (!code || !state || state !== guardado) {
+    return res.redirect(`${LOGIN_PAGE}?google=error`);
+  }
+
+  try {
+    const client = googleClient();
+    const { tokens } = await client.getToken(String(code));
+    const ticket = await client.verifyIdToken({
+      idToken: tokens.id_token,
+      audience: process.env.GOOGLE_CLIENT_ID,
+    });
+    const p = ticket.getPayload();
+
+    if (!p.email || !p.email_verified) {
+      return res.redirect(`${LOGIN_PAGE}?google=error`);
+    }
+
+    const email = p.email.toLowerCase();
+    const existente = await pool.query(
+      "SELECT id FROM usuarios WHERE google_id = $1 OR email = $2",
+      [p.sub, email]
+    );
+
+    let id;
+    if (existente.rows.length > 0) {
+      id = existente.rows[0].id;
+      await pool.query(
+        "UPDATE usuarios SET google_id = $1 WHERE id = $2 AND google_id IS NULL",
+        [p.sub, id]
+      );
+    } else {
+      const nombre = (p.name || email.split("@")[0]).slice(0, 100);
+      const nuevo = await pool.query(
+        "INSERT INTO usuarios (nombre, email, google_id) VALUES ($1, $2, $3) RETURNING id",
+        [nombre, email, p.sub]
+      );
+      id = nuevo.rows[0].id;
+    }
+
+    const token = jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "7d" });
+    res.cookie("token", token, { ...COOKIE_OPTS, maxAge: 7 * 24 * 60 * 60 * 1000 });
+    res.redirect("/dashboard/dashboard.html");
+  } catch (err) {
+    console.error(err);
+    res.redirect(`${LOGIN_PAGE}?google=error`);
   }
 });
 
