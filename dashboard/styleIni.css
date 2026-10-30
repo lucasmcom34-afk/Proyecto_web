@@ -1,0 +1,183 @@
+:root {
+    /* Paleta Nexa - Modo Claro (Identidad Base) */
+    --fondo: #d5d9e6;
+    --superficie: #adb4cc;
+    --violeta-principal: #7C6CFF;
+    --violeta-hover: #5548CE;
+    --purpura: #925AFF;
+    --azul: #168BFF;
+    
+    /* Textos */
+    --texto-claro: #F5F6FA;
+    --texto-secundario: #959BAD;
+    
+    /* Degradados para elementos modernos */
+    --borde-gradiente: linear-gradient(135deg, #7C6CFF, #925AFF);
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+body {
+    background-color: var(--fondo);
+    color: var(--texto-claro);
+    line-height: 1.5;
+}
+
+/* ================= ENCABEZADO ================= */
+header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 3rem;
+    background-color: var(--superficie);
+    border-bottom: 1px solid rgba(124, 108, 255, 0.2);
+}
+
+header p {
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: var(--violeta-principal);
+}
+
+nav {
+    display: flex;
+    gap: 2rem;
+}
+
+nav a {
+    color: var(--texto-secundario);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+nav a:hover {
+    color: var(--texto-claro);
+}
+
+/* ================= CONTENEDORES GENERALES ================= */
+/* Se elimina el 100vh para permitir un flujo natural y se agrupan tipo tarjetas */
+main, section {
+    display: flex;
+    flex-direction: column;
+    margin: 2rem auto;
+    padding: 2rem;
+    width: 90%;
+    max-width: 800px;
+    background-color: var(--superficie);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(149, 155, 173, 0.1);
+}
+
+h1, h2, h3 {
+    color: var(--texto-claro);
+    margin-bottom: 0.5rem;
+}
+
+main p, section > p {
+    color: var(--texto-secundario);
+    margin-bottom: 1.5rem;
+}
+
+/* ================= RENDIMIENTO MENSUAL ================= */
+#rendMensual {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 1.5rem;
+}
+
+#rendMensual h2 {
+    width: 100%;
+}
+
+.mensual {
+    flex: 1;
+    min-width: 200px;
+    height: 120px;
+    background: linear-gradient(145deg, var(--superficie), var(--fondo));
+    border: 1px solid rgba(124, 108, 255, 0.3);
+    border-radius: 12px;
+}
+
+/* ================= ACCIONES RÁPIDAS ================= */
+#aRapidas {
+    gap: 1rem;
+}
+
+.opcion {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 1.5rem;
+    background-color: var(--fondo);
+    border-radius: 12px;
+    text-decoration: none;
+    border: 1px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.opcion:hover {
+    background-color: var(--violeta-hover);
+    border-color: var(--violeta-principal);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(124, 108, 255, 0.15);
+}
+
+.opcion section {
+    /* Resetea los estilos de <section> global para que no apliquen dentro del botón */
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    align-items: flex-start;
+}
+
+.opcion h3 {
+    color: var(--violeta-principal);
+    font-size: 1.1rem;
+    margin-bottom: 0.2rem;
+}
+
+.opcion:hover h3, .opcion:hover p {
+    color: var(--texto-claro);
+}
+
+.opcion p {
+    color: var(--texto-secundario);
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+/* ================= ACTIVIDADES RECIENTES ================= */
+.movimiento {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid rgba(149, 155, 173, 0.1);
+}
+
+.movimiento:last-child {
+    border-bottom: none;
+}
+
+.movimiento h4 {
+    color: var(--texto-claro);
+    font-weight: 500;
+}
+
+.movimiento p {
+    color: var(--texto-secundario);
+    font-size: 0.85rem;
+    margin: 0;
+}
