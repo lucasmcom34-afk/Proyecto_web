@@ -1,34 +1,47 @@
+
+/* ================= PALETA IMPULSO ================= */
+
 :root {
-    /* Paleta Nexa - Modo Claro (Identidad Base) */
-    --fondo: #d5d9e6;
-    --superficie: #adb4cc;
-    --violeta-principal: #7C6CFF;
-    --violeta-hover: #5548CE;
-    --purpura: #925AFF;
-    --azul: #168BFF;
-    
-    /* Textos */
-    --texto-claro: #F5F6FA;
-    --texto-secundario: #959BAD;
-    
-    /* Degradados para elementos modernos */
-    --borde-gradiente: linear-gradient(135deg, #7C6CFF, #925AFF);
+    --titulos: #0F172A;
+    --negritas: #334155;
+    --texto: #64748B;
+    --fondo: #F8FAFC;
+    --cta: #F43F5E;
+    --borde: #E2E8F0;
+    --blanco: #FFFFFF;
+    --superficie: var(--blanco);
+
+    --fuente: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
 }
+
+/* ================= MODO OSCURO ================= */
+
+:root.oscuro {
+    --titulos: #F8FAFC;
+    --negritas: #E2E8F0;
+    --texto: #94A3B8;
+    --fondo: #0F172A;
+    --borde: #334155;
+    --superficie: #1E293B;
+}
+
+/* ================= CONFIGURACIÓN GENERAL ================= */
 
 * {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-family: var(--fuente);
 }
 
 body {
     background-color: var(--fondo);
-    color: var(--texto-claro);
+    color: var(--titulos);
     line-height: 1.5;
 }
 
 /* ================= ENCABEZADO ================= */
+
 header {
     display: flex;
     flex-direction: row;
@@ -36,13 +49,31 @@ header {
     align-items: center;
     padding: 1.5rem 3rem;
     background-color: var(--superficie);
-    border-bottom: 1px solid rgba(124, 108, 255, 0.2);
+    border-bottom: 1px solid var(--borde);
 }
 
-header p {
+/* Logo y nombre IMPULSO */
+
+header .brand {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+
     font-weight: bold;
     font-size: 1.2rem;
-    color: var(--violeta-principal);
+    color: var(--cta);
+
+    text-decoration: none;
+}
+
+header .brand img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+
+header .brand:hover {
+    color: var(--cta);
 }
 
 nav {
@@ -51,18 +82,18 @@ nav {
 }
 
 nav a {
-    color: var(--texto-secundario);
+    color: var(--texto);
     text-decoration: none;
     font-weight: 500;
     transition: color 0.3s ease;
 }
 
 nav a:hover {
-    color: var(--texto-claro);
+    color: var(--titulos);
 }
 
 /* ================= CONTENEDORES GENERALES ================= */
-/* Se elimina el 100vh para permitir un flujo natural y se agrupan tipo tarjetas */
+
 main, section {
     display: flex;
     flex-direction: column;
@@ -72,21 +103,22 @@ main, section {
     max-width: 800px;
     background-color: var(--superficie);
     border-radius: 16px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(149, 155, 173, 0.1);
+    box-shadow: 0 8px 32px rgba(15, 23, 42, 0.08);
+    border: 1px solid var(--borde);
 }
 
 h1, h2, h3 {
-    color: var(--texto-claro);
+    color: var(--titulos);
     margin-bottom: 0.5rem;
 }
 
 main p, section > p {
-    color: var(--texto-secundario);
+    color: var(--texto);
     margin-bottom: 1.5rem;
 }
 
 /* ================= RENDIMIENTO MENSUAL ================= */
+
 #rendMensual {
     flex-direction: row;
     flex-wrap: wrap;
@@ -99,15 +131,25 @@ main p, section > p {
 }
 
 .mensual {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centrado vertical */ 
+    align-items: center;     /* Centrado horizontal */
+    text-align: center;
+
     flex: 1;
     min-width: 200px;
     height: 120px;
+
     background: linear-gradient(145deg, var(--superficie), var(--fondo));
-    border: 1px solid rgba(124, 108, 255, 0.3);
+    border: 1px solid var(--borde);
     border-radius: 12px;
+
 }
 
 /* ================= ACCIONES RÁPIDAS ================= */
+
 #aRapidas {
     gap: 1rem;
 }
@@ -125,14 +167,14 @@ main p, section > p {
 }
 
 .opcion:hover {
-    background-color: var(--violeta-hover);
-    border-color: var(--violeta-principal);
+    background-color: var(--superficie);
+    border-color: var(--cta);
     transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(124, 108, 255, 0.15);
+    box-shadow: 0 10px 20px rgba(244, 63, 94, 0.15);
 }
 
 .opcion section {
-    /* Resetea los estilos de <section> global para que no apliquen dentro del botón */
+    /* Se conservan los estilos originales */
     margin: 0;
     padding: 0;
     width: 100%;
@@ -143,28 +185,30 @@ main p, section > p {
 }
 
 .opcion h3 {
-    color: var(--violeta-principal);
+    color: var(--cta);
     font-size: 1.1rem;
     margin-bottom: 0.2rem;
 }
 
-.opcion:hover h3, .opcion:hover p {
-    color: var(--texto-claro);
+.opcion:hover h3,
+.opcion:hover p {
+    color: var(--titulos);
 }
 
 .opcion p {
-    color: var(--texto-secundario);
+    color: var(--texto);
     font-size: 0.9rem;
     margin: 0;
 }
 
 /* ================= ACTIVIDADES RECIENTES ================= */
+
 .movimiento {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 1rem;
-    border-bottom: 1px solid rgba(149, 155, 173, 0.1);
+    border-bottom: 1px solid var(--borde);
 }
 
 .movimiento:last-child {
@@ -172,12 +216,14 @@ main p, section > p {
 }
 
 .movimiento h4 {
-    color: var(--texto-claro);
+    color: var(--negritas);
     font-weight: 500;
 }
 
 .movimiento p {
-    color: var(--texto-secundario);
+    color: var(--texto);
     font-size: 0.85rem;
     margin: 0;
 }
+
+   

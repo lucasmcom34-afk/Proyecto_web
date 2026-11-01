@@ -1,33 +1,98 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Dashboard</title>
     <link rel="stylesheet" href="styleIni.css">
     <script src="main.js" defer></script>
 </head>
 <body>
     <header>
-        <p>IMPULSO</p>
+        <a href="../landing_page/index.html"
+           class="brand"
+           aria-label="Impulso, ir al inicio">
+
+            <img src="../img/logo-removebg-preview.png" alt="">
+
+            <span>IMPULSO</span>
+
+        </a>
+  
         <nav>
-            <a href="">Inicio</a>
-            <a href="">Inventario</a>
-            <a href="">Caja</a>
-            <a href="">Reportes</a>
+            <a href="index.html" id="btnInicio">Inicio</a>
+            <a href="inventario.html" id="btnInventario">Inventario</a>
+            <a href="caja.html" id="btnCaja">Caja</a>
+            <a href="reportes.html" id="btnReportes">Reportes</a>
         </nav>
     </header>
-    <main>
-        <h1>Hola, [Nombre]</h1>
-        <p>Resumen de [MES] [AÑO]</p>
+    <main> 
+        <h1>Hola, <span id="nombreUsuario">Usuario</span></h1>
+        <p id="resumenMensual">Resumen de [MES] [AÑO]</p>
         <div id="Aviso"></div>
     </main>
+    <!--
     <section id="rendMensual">
         <h2>Rendimiento Mensual</h2>
-        <div class="Mensual"></div>
-        <div class="Mensual"></div>
-        <div class="Mensual"></div>
+        <div class="mensual">
+            <h3>Ventas</h3>
+            <p id="ventasMes">$0</p>
+        </div>
+        <div class="mensual">
+            <h3>Gastos</h3>
+            <p id="gastosMes">$0</p>
+        </div>
+        <div class="mensual">
+            <h3>Balance</h3>
+            <p id="balanceMes">$0</p>
+        </div>
     </section>
+    -->
+    <!-- RENDIMIENTO MENSUAL -->
+
+        <section id="rendMensual">
+
+            <h2>Rendimiento mensual</h2>
+
+            <div class="filtros">
+
+                <select id="mesSeleccionado" aria-label="Seleccionar mes">
+                </select>
+
+                <select id="anioSeleccionado" aria-label="Seleccionar año">
+                </select>
+
+            </div>
+
+
+            <div class="mensual">
+
+                <h3>Ventas</h3>
+
+                <p id="ventasMes">$0</p>
+
+            </div>
+
+
+            <div class="mensual">
+
+                <h3>Gastos</h3>
+
+                <p id="gastosMes">$0</p>
+
+            </div>
+
+
+            <div class="mensual">
+
+                <h3>Balance</h3>
+
+                <p id="balanceMes">$0</p>
+
+            </div>
+
+        </section>
+
     <section id="aRapidas">
         <h2>Acciones Rápidas</h2>
 
