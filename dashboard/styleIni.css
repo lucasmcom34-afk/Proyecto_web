@@ -226,4 +226,112 @@ main p, section > p {
     margin: 0;
 }
 
+
+/* ==========================================
+   CAJA - FORMULARIOS
+========================================== */
+
+#seccionVenta,
+#seccionGasto {
+    width: 100%;
+}
+
+#formVenta,
+#formGasto {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    max-width: 600px;
+}
+
+#formVenta input,
+#formVenta select,
+#formGasto input,
+#formGasto select {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#formVenta button,
+#formGasto button {
+    cursor: pointer;
+}
+
+#resumenCaja {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+#resumenCaja .mensual {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex: 1;
+    min-width: 200px;
+    height: 120px;
+}
+
+/* Movimientos */
+
+#contenedorMovimientos {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+#contenedorMovimientos .movimiento {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+}
+
+
+/* ========================================
+   INVENTARIO - FORMULARIOS
+======================================== */
+
+#seccionProducto {
+    width: 100%;
+    padding: 25px;
+}
+
+/* Distribución del formulario */
+#formProducto {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 20px;
+    row-gap: 12px;
+    width: 100%;
+}
+
+/* Campos del formulario */
+#formProducto label {
+    margin-bottom: 0;
+}
+
+#formProducto input,
+#formProducto select {
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+/* Botón de guardar */
+#formProducto button {
+    grid-column: 1 / -1;
+    justify-self: start;
+    margin-top: 8px;
+}
+
+/* Adaptación a pantallas pequeñas */
+@media (max-width: 768px) {
+    #formProducto {
+        grid-template-columns: 1fr;
+    }
+}
+
    

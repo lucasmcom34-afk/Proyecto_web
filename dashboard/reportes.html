@@ -4,8 +4,187 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reportes</title>
+    <link rel="stylesheet" href="styleIni.css">
+    <script src="reportes.js" defer></script>
 </head>
 <body>
-    
+    <!-- ENCABEZADO -->
+    <header>
+        <a href="../landing_page/index.html" class="brand"
+           aria-label="IMPULSO, ir al inicio">
+            <img src="../img/logo-removebg-preview.png" alt="">
+            <span>IMPULSO</span>
+        </a>
+
+        <nav>
+            <a href="../landing_page/index.html" id="btnInicio">Inicio</a>
+            <a href="inventario.html" id="btnInventario">Inventario</a>
+            <a href="caja.html" id="btnCaja">Caja</a>
+            <a href="reportes.html" id="btnReportes" class="activo">Reportes</a>
+        </nav>
+    </header>
+
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main>
+
+        <h1>Reportes</h1>
+        <p>Analizá el rendimiento de tu negocio y consultá tus resultados.</p>
+
+
+        <!-- FILTROS -->
+        <section id="filtrosReportes">
+
+            <h2>Período de consulta</h2>
+
+            <div class="filtros">
+
+                <div>
+                    <label for="mesReporte">Mes</label>
+                    <select id="mesReporte">
+                        <option value="0">Todos los meses</option>
+                        <option value="1">Enero</option>
+                        <option value="2">Febrero</option>
+                        <option value="3">Marzo</option>
+                        <option value="4">Abril</option>
+                        <option value="5">Mayo</option>
+                        <option value="6">Junio</option>
+                        <option value="7">Julio</option>
+                        <option value="8">Agosto</option>
+                        <option value="9">Septiembre</option>
+                        <option value="10">Octubre</option>
+                        <option value="11">Noviembre</option>
+                        <option value="12">Diciembre</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="anioReporte">Año</label>
+                    <select id="anioReporte">
+                        <option value="0">Todos los años</option>
+                    </select>
+                </div>
+
+                <button type="button" id="btnFiltrarReportes">
+                    Aplicar filtros
+                </button>
+
+            </div>
+        </section>
+
+
+        <!-- RESUMEN GENERAL -->
+        <section id="resumenReportes">
+
+            <h2>Resumen general</h2>
+
+            <div class="mensual">
+
+                <article class="tarjeta">
+                    <h3>Total de ventas</h3>
+                    <p id="totalVentasReporte">$0,00</p>
+                </article>
+
+                <article class="tarjeta">
+                    <h3>Total de gastos</h3>
+                    <p id="totalGastosReporte">$0,00</p>
+                </article>
+
+                <article class="tarjeta">
+                    <h3>Balance neto</h3>
+                    <p id="balanceReporte">$0,00</p>
+                </article>
+
+            </div>
+        </section>
+
+
+        <!-- INDICADORES -->
+        <section id="indicadoresReportes">
+
+            <h2>Indicadores del negocio</h2>
+
+            <div class="mensual">
+
+                <article class="tarjeta">
+                    <h3>Cantidad de ventas</h3>
+                    <p id="cantidadVentas">0</p>
+                </article>
+
+                <article class="tarjeta">
+                    <h3>Productos vendidos</h3>
+                    <p id="cantidadProductosVendidos">0</p>
+                </article>
+
+                <article class="tarjeta">
+                    <h3>Promedio por venta</h3>
+                    <p id="promedioVenta">$0,00</p>
+                </article>
+
+            </div>
+        </section>
+
+
+        <!-- PRODUCTOS MÁS VENDIDOS -->
+        <section id="productosMasVendidos">
+
+            <h2>Productos más vendidos</h2>
+
+            <div id="contenedorProductosVendidos">
+
+                <p id="sinProductosVendidos">
+                    Todavía no hay ventas registradas para este período.
+                </p>
+
+                <table id="tablaProductosVendidos" hidden>
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Unidades vendidas</th>
+                            <th>Total generado</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="listaProductosVendidos"></tbody>
+                </table>
+
+            </div>
+        </section>
+
+
+        <!-- MOVIMIENTOS -->
+        <section id="movimientosReportes">
+
+            <h2>Detalle de movimientos</h2>
+
+            <div class="filtros">
+                <select id="tipoMovimiento">
+                    <option value="todos">Todos los movimientos</option>
+                    <option value="venta">Ventas</option>
+                    <option value="gasto">Gastos</option>
+                </select>
+            </div>
+
+            <div id="contenedorMovimientosReporte">
+
+                <p id="sinMovimientosReporte">
+                    No hay movimientos registrados para este período.
+                </p>
+
+                <table id="tablaMovimientosReporte" hidden>
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Tipo</th>
+                            <th>Descripción</th>
+                            <th>Importe</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="listaMovimientosReporte"></tbody>
+                </table>
+
+            </div>
+        </section>
 </body>
 </html>
