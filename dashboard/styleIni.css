@@ -1,6 +1,6 @@
-
 /* ================= PALETA IMPULSO ================= */
 
+/* Modo claro: valores de inicio_sesion/estilos.css */
 :root {
     --titulos: #0F172A;
     --negritas: #334155;
@@ -12,10 +12,15 @@
     --superficie: var(--blanco);
 
     --fuente: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+    /* Variables complementarias para los componentes */
+    --superficie-elevada: var(--superficie);
+    --fondo-control: var(--fondo);
+    --fondo-control-secundario: var(--borde);
+    --cta-hover: #E11D48;
 }
 
-/* ================= MODO OSCURO ================= */
-
+/* Modo oscuro: valores de inicio_sesion/estilos.css */
 :root.oscuro {
     --titulos: #F8FAFC;
     --negritas: #E2E8F0;
@@ -23,9 +28,11 @@
     --fondo: #0F172A;
     --borde: #334155;
     --superficie: #1E293B;
-}
 
-/* ================= CONFIGURACIÓN GENERAL ================= */
+    --superficie-elevada: var(--superficie);
+    --fondo-control: var(--fondo);
+    --fondo-control-secundario: var(--borde);
+}
 
 * {
     padding: 0;
@@ -38,10 +45,10 @@ body {
     background-color: var(--fondo);
     color: var(--titulos);
     line-height: 1.5;
+    padding-left: 260px;
 }
 
 /* ================= ENCABEZADO ================= */
-
 header {
     display: flex;
     flex-direction: row;
@@ -52,27 +59,9 @@ header {
     border-bottom: 1px solid var(--borde);
 }
 
-/* Logo y nombre IMPULSO */
-
-header .brand {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-
+header p {
     font-weight: bold;
     font-size: 1.2rem;
-    color: var(--cta);
-
-    text-decoration: none;
-}
-
-header .brand img {
-    width: 40px;
-    height: 40px;
-    object-fit: contain;
-}
-
-header .brand:hover {
     color: var(--cta);
 }
 
@@ -93,7 +82,7 @@ nav a:hover {
 }
 
 /* ================= CONTENEDORES GENERALES ================= */
-
+/* Se elimina el 100vh para permitir un flujo natural y se agrupan tipo tarjetas */
 main, section {
     display: flex;
     flex-direction: column;
@@ -103,7 +92,7 @@ main, section {
     max-width: 800px;
     background-color: var(--superficie);
     border-radius: 16px;
-    box-shadow: 0 8px 32px rgba(15, 23, 42, 0.08);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
     border: 1px solid var(--borde);
 }
 
@@ -118,7 +107,6 @@ main p, section > p {
 }
 
 /* ================= RENDIMIENTO MENSUAL ================= */
-
 #rendMensual {
     flex-direction: row;
     flex-wrap: wrap;
@@ -131,27 +119,45 @@ main p, section > p {
 }
 
 .mensual {
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* Centrado vertical */ 
-    align-items: center;     /* Centrado horizontal */
-    text-align: center;
-
     flex: 1;
     min-width: 200px;
     height: 120px;
-
-    background: linear-gradient(145deg, var(--superficie), var(--fondo));
+    background: var(--superficie);
     border: 1px solid var(--borde);
     border-radius: 12px;
-
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
 }
 
 /* ================= ACCIONES RÁPIDAS ================= */
-
 #aRapidas {
     gap: 1rem;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 260px;
+    margin: 0;
+    border-radius: 0;
+    overflow-y: hidden;
+    z-index: 10;
+    padding: 25px;
+}
+
+@media (max-width: 720px) {
+    body {
+        padding-left: 0;
+    }
+
+    #aRapidas {
+        position: static;
+        width: 90%;
+        margin: 2rem auto;
+        border-radius: 16px;
+    }
 }
 
 .opcion {
@@ -167,14 +173,14 @@ main p, section > p {
 }
 
 .opcion:hover {
-    background-color: var(--superficie);
+    background-color: var(--cta-hover);
     border-color: var(--cta);
     transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(244, 63, 94, 0.15);
+    box-shadow: 0 10px 20px rgba(15, 23, 42, 0.12);
 }
 
 .opcion section {
-    /* Se conservan los estilos originales */
+    /* Resetea los estilos de <section> global para que no apliquen dentro del botón */
     margin: 0;
     padding: 0;
     width: 100%;
@@ -190,9 +196,8 @@ main p, section > p {
     margin-bottom: 0.2rem;
 }
 
-.opcion:hover h3,
-.opcion:hover p {
-    color: var(--titulos);
+.opcion:hover h3, .opcion:hover p {
+    color: #FFFFFF;
 }
 
 .opcion p {
@@ -202,7 +207,6 @@ main p, section > p {
 }
 
 /* ================= ACTIVIDADES RECIENTES ================= */
-
 .movimiento {
     display: flex;
     justify-content: space-between;
@@ -216,7 +220,7 @@ main p, section > p {
 }
 
 .movimiento h4 {
-    color: var(--negritas);
+    color: var(--titulos);
     font-weight: 500;
 }
 
@@ -226,112 +230,290 @@ main p, section > p {
     margin: 0;
 }
 
-
-/* ==========================================
-   CAJA - FORMULARIOS
-========================================== */
-
-#seccionVenta,
-#seccionGasto {
-    width: 100%;
+.sin-actividad {
+    color: var(--texto);
 }
 
-#formVenta,
-#formGasto {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    width: 100%;
-    max-width: 600px;
-}
-
-#formVenta input,
-#formVenta select,
-#formGasto input,
-#formGasto select {
-    width: 100%;
-    box-sizing: border-box;
-}
-
-#formVenta button,
-#formGasto button {
+.boton-eliminar {
+    padding: 0.45rem 0.65rem;
+    color: #b42332;
+    background: transparent;
+    border: 1px solid currentColor;
+    border-radius: 6px;
+    font: inherit;
+    font-size: 0.82rem;
+    font-weight: 600;
     cursor: pointer;
 }
 
-#resumenCaja {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
+.boton-eliminar:hover {
+    color: white;
+    background: #b42332;
 }
 
-#resumenCaja .mensual {
+.boton-eliminar:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+}
+
+.modal {
+    width: min(92vw, 480px);
+    max-height: 90vh;
+    margin: auto;
+    padding: 0;
+    color: var(--titulos);
+    background: var(--superficie-elevada);
+    border: 1px solid var(--borde);
+    border-radius: 12px;
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.55);
+}
+
+.modal::backdrop {
+    background: rgba(3, 5, 12, 0.76);
+    backdrop-filter: blur(4px);
+}
+
+.formulario-modal {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    flex: 1;
-    min-width: 200px;
-    height: 120px;
+    gap: 0.8rem;
+    padding: 1.5rem;
 }
 
-/* Movimientos */
+.encabezado-modal {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.6rem;
+}
 
-#contenedorMovimientos {
+.encabezado-modal h2 {
+    margin: 0;
+    font-size: 1.45rem;
+}
+
+.sobrelinea {
+    color: var(--cta);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+}
+
+.cerrar-modal {
+    width: 2rem;
+    height: 2rem;
+    color: var(--texto);
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    font-size: 1.5rem;
+}
+
+.formulario-modal label {
+    color: var(--texto);
+    font-size: 0.88rem;
+}
+
+.formulario-modal input,
+.formulario-modal select {
+    width: 100%;
+    min-height: 2.75rem;
+    padding: 0.65rem 0.75rem;
+    color: var(--titulos);
+    background: var(--fondo-control);
+    border: 1px solid var(--borde);
+    border-radius: 6px;
+    font: inherit;
+}
+
+.formulario-modal input:focus,
+.formulario-modal select:focus {
+    border-color: var(--cta);
+    outline: 2px solid rgba(244, 63, 94, 0.2);
+    outline-offset: 1px;
+}
+
+.campos-en-fila {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.85rem;
+}
+
+.campos-en-fila > div {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 0.8rem;
 }
 
-#contenedorMovimientos .movimiento {
+.total-venta {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 16px;
+    margin-top: 0.3rem;
+    padding: 0.9rem 0;
+    border-top: 1px solid var(--borde);
+    color: var(--texto);
 }
 
-
-/* ========================================
-   INVENTARIO - FORMULARIOS
-======================================== */
-
-#seccionProducto {
-    width: 100%;
-    padding: 25px;
+.total-venta output {
+    color: var(--titulos);
+    font-size: 1.25rem;
+    font-weight: 700;
 }
 
-/* Distribución del formulario */
-#formProducto {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    column-gap: 20px;
-    row-gap: 12px;
-    width: 100%;
+.mensaje-formulario {
+    min-height: 1.25rem;
+    color: #ff9a9a;
+    font-size: 0.85rem;
 }
 
-/* Campos del formulario */
-#formProducto label {
-    margin-bottom: 0;
+.acciones-modal {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.65rem;
+    margin-top: 0.25rem;
 }
 
-#formProducto input,
-#formProducto select {
-    width: 100%;
-    margin-bottom: 5px;
+.acciones-modal button {
+    min-height: 2.6rem;
+    padding: 0.55rem 0.9rem;
+    border-radius: 6px;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
 }
 
-/* Botón de guardar */
-#formProducto button {
-    grid-column: 1 / -1;
-    justify-self: start;
-    margin-top: 8px;
+.boton-secundario {
+    color: var(--titulos);
+    background: transparent;
+    border: 1px solid var(--borde);
 }
 
-/* Adaptación a pantallas pequeñas */
-@media (max-width: 768px) {
-    #formProducto {
+.boton-principal {
+    color: white;
+    background: var(--cta);
+    border: 1px solid var(--cta);
+}
+
+.boton-principal:hover {
+    background: var(--cta-hover);
+    border-color: var(--cta-hover);
+}
+
+.inventario-stock {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    margin: 0 1.5rem 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--borde);
+}
+
+.inventario-stock h3 {
+    margin: 0;
+    font-size: 1rem;
+}
+
+.lista-stock {
+    display: flex;
+    flex-direction: column;
+    max-height: 230px;
+    overflow-y: auto;
+}
+
+.stock-producto {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.7rem 0;
+    border-bottom: 1px solid var(--borde);
+}
+
+.stock-datos {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    min-width: 0;
+}
+
+.stock-datos strong {
+    overflow-wrap: anywhere;
+    font-size: 0.9rem;
+}
+
+.stock-datos span {
+    color: var(--texto);
+    font-size: 0.8rem;
+}
+
+.stock-controles {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.stock-controles input {
+    width: 3.5rem;
+    min-height: 2.2rem;
+    padding: 0.35rem;
+    color: var(--titulos);
+    background: var(--fondo-control);
+    border: 1px solid var(--borde);
+    border-radius: 5px;
+}
+
+.stock-controles button {
+    width: 2.2rem;
+    height: 2.2rem;
+    color: var(--titulos);
+    background: var(--fondo-control-secundario);
+    border: 1px solid var(--borde);
+    border-radius: 5px;
+    font-size: 1.15rem;
+    cursor: pointer;
+}
+
+.stock-controles button:hover:not(:disabled) {
+    border-color: var(--cta);
+}
+
+.stock-controles button:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+@media (max-width: 440px) {
+    .formulario-modal {
+        padding: 1.15rem;
+    }
+
+    .inventario-stock {
+        margin-right: 1.15rem;
+        margin-left: 1.15rem;
+    }
+
+    .campos-en-fila {
         grid-template-columns: 1fr;
     }
 }
+.marca {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    margin: 0 0 1rem;
+    color: var(--titulos);
+    font-size: 1.1rem;
+    font-weight: 700;
+}
 
-   
+.marca-icono {
+    display: grid;
+    width: 2rem;
+    height: 2rem;
+    place-items: center;
+    color: white;
+    background: var(--cta);
+    border-radius: 7px;
+}

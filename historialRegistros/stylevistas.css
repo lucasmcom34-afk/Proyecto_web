@@ -1,0 +1,108 @@
+.marca {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    margin: 0 0 1rem;
+    color: var(--titulos);
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.marca-icono {
+    display: grid;
+    width: 2rem;
+    height: 2rem;
+    place-items: center;
+    color: white;
+    background: var(--cta);
+    border-radius: 7px;
+}
+
+#aRapidas {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--superficie);
+    border: 1px solid var(--borde);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8);
+}
+
+.encabezado-registros {
+    gap: 0.35rem;
+}
+
+.encabezado-registros .sobrelinea {
+    margin: 0;
+}
+
+.encabezado-registros h1 {
+    margin: 0;
+}
+
+.encabezado-registros > p:last-child {
+    margin: 0;
+}
+
+.lista-ventas {
+    width: 100%;
+}
+
+.registro-venta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--borde);
+}
+
+.registro-venta h3 {
+    margin-bottom: 0.25rem;
+}
+
+.registro-venta p {
+    margin: 0;
+    color: var(--texto);
+    font-size: 0.9rem;
+}
+
+.acciones-registro {
+    display: flex;
+    flex-shrink: 0;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.55rem;
+}
+
+.total-registro-venta {
+    flex-shrink: 0;
+    color: var(--cta);
+}
+
+@media (max-width: 520px) {
+    .registro-venta {
+        align-items: flex-start;
+    }
+
+    .acciones-registro {
+        align-items: flex-end;
+    }
+}
+
+
+
+.botonventas {
+    flex-shrink: 0;
+    padding: 0.65rem 0.85rem;
+    color: white;
+    background: var(--cta);
+    border: 1px solid var(--cta);
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.botonventas:hover {
+    background: var(--cta-hover);
+    border-color: var(--cta-hover);
+}

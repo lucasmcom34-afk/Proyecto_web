@@ -1,0 +1,170 @@
+.marca {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    margin: 0 0 1rem;
+    color: var(--titulos);
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.marca-icono {
+    display: grid;
+    width: 2rem;
+    height: 2rem;
+    place-items: center;
+    color: white;
+    background: var(--cta);
+    border-radius: 7px;
+}
+
+#aRapidas {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--superficie);
+    border: 1px solid var(--borde);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8);
+}
+
+.encabezado-registros {
+    gap: 0.35rem;
+}
+
+.encabezado-registros .sobrelinea {
+    margin: 0;
+}
+
+.encabezado-registros h1 {
+    margin: 0;
+}
+
+.encabezado-registros > p:last-child {
+    margin: 0;
+}
+
+.seccion-inventario {
+    gap: 1rem;
+}
+
+.seccion-inventario > div:first-child > p {
+    margin: 0.4rem 0;
+    color: var(--texto);
+}
+
+.grafico-mensual {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 0.75rem;
+    min-height: 13rem;
+    padding: 1rem 0 0;
+}
+
+.leyenda-grafico {
+    display: flex;
+    gap: 1rem;
+    color: var(--texto);
+    font-size: 0.85rem;
+}
+
+.leyenda-grafico span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.leyenda-grafico i {
+    width: 0.7rem;
+    height: 0.7rem;
+    border-radius: 2px;
+}
+
+.indicador-ventas {
+    background: var(--cta);
+}
+
+.indicador-gastos {
+    background: var(--negritas);
+}
+
+.columna-mes {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    text-align: center;
+}
+
+.barras-mes {
+    display: flex;
+    width: 100%;
+    height: 9rem;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 0.35rem;
+    border-bottom: 1px solid var(--borde);
+}
+
+.barra {
+    width: min(35%, 2rem);
+    min-height: 0.15rem;
+    border-radius: 5px 5px 0 0;
+}
+
+.barra-ventas {
+    background: var(--cta);
+}
+
+.barra-gastos {
+    background: var(--negritas);
+}
+
+.etiqueta-mes {
+    color: var(--titulos);
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.detalle-mes {
+    color: var(--texto);
+    font-size: 0.7rem;
+    overflow-wrap: anywhere;
+}
+
+.boton-historial {
+    align-self: flex-start;
+    padding: 0.65rem 0.9rem;
+    color: var(--cta);
+    background: var(--cta);
+    border: 0;
+    border-radius: 6px;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.historial-mensual {
+    border-top: 1px solid var(--borde);
+    padding-top: 0.75rem;
+}
+
+.historial-mensual p {
+    margin: 0.5rem 0;
+    color: var(--texto-secundario);
+}
+
+#productosMasVendidos p {
+    margin: 0.5rem 0;
+    color: var(--texto);
+}
+
+@media (max-width: 520px) {
+    .grafico-mensual {
+        gap: 0.25rem;
+    }
+
+    .detalle-mes {
+        font-size: 0.6rem;
+    }
+}
