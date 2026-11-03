@@ -21,6 +21,10 @@ app.use("/img", express.static(path.join(raiz, "img")));
 app.use("/landing_page", express.static(path.join(raiz, "landing_page")));
 app.use("/inicio_sesion", express.static(path.join(raiz, "inicio_sesion")));
 app.use("/registro", express.static(path.join(raiz, "registro")));
+app.use("/inventario", express.static(path.join(raiz, "inventario")));
+app.use("/historialRegistros", express.static(path.join(raiz, "historialRegistros")));
+app.use("/rendimiento", express.static(path.join(raiz, "rendimiento")));
+
 
 // Dashboard protegido: sin cookie válida redirige al login
 app.use("/dashboard", requirePage, express.static(path.join(raiz, "dashboard")));
