@@ -517,3 +517,23 @@ main p, section > p {
     background: var(--cta);
     border-radius: 7px;
 }
+
+/* Botón de modo claro / oscuro */
+.theme-toggle {
+  position: absolute;
+  top: 18px;
+  right: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--borde);
+  border-radius: 12px;
+  background: var(--fondo);
+  color: var(--titulos);
+  font-size: 19px;
+  cursor: pointer;
+  transition: transform .2s, border-color .2s;
+}
+.theme-toggle:hover { transform: translateY(-2px); border-color: var(--cta); }
