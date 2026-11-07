@@ -78,7 +78,13 @@ body {
   color: var(--titulos);
   text-decoration: none;
 }
-.brand-logo { height: 34px; width: auto; }   /* toma el color del texto: negro en claro, blanco en oscuro */
+.brand-logo {
+  width: 4rem;
+  height: 4rem;
+  object-fit: contain;
+  filter: brightness(0);
+}
+:root.oscuro .brand-logo { filter: brightness(0) invert(1); }
 
 .theme-toggle {
   position: absolute;
