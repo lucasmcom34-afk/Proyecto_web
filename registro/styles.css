@@ -78,7 +78,6 @@ body {
   color: var(--titulos);
   text-decoration: none;
 }
-<<<<<<< HEAD
 .brand-logo {
   width: 4rem;
   height: 4rem;
@@ -86,9 +85,6 @@ body {
   filter: brightness(0);
 }
 :root.oscuro .brand-logo { filter: brightness(0) invert(1); }
-=======
-.brand-logo { height: 34px; width: auto; }   /* toma el color del texto: negro en claro, blanco en oscuro */
->>>>>>> 6603583a51910777590603452c8306ebcdbafa68
 
 .theme-toggle {
   position: absolute;

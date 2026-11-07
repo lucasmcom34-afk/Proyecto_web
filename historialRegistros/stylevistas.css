@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 .marca {
     display: flex;
     align-items: center;
@@ -9,24 +7,13 @@
     font-size: 1.1rem;
     font-weight: 700;
 }
->>>>>>> 6603583a51910777590603452c8306ebcdbafa68
-
-.marca-icono {
-    display: grid;
-    width: 2rem;
-    height: 2rem;
-    place-items: center;
-    color: white;
-    background: var(--cta);
-    border-radius: 7px;
-}
 
 #aRapidas {
     display: flex;
     flex-direction: column;
     background-color: var(--superficie);
     border: 1px solid var(--borde);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
 }
 
 .encabezado-registros {

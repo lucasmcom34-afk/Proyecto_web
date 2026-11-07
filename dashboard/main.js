@@ -50,10 +50,15 @@ const claves = {
 	gastos: "gastos"
 };
 
-const obtenerRegistros = (clave) => JSON.parse(localStorage.getItem(clave) || "[]");
+const obtenerRegistros = (clave) => {
+	const registros = JSON.parse(localStorage.getItem(clave) || "[]");
+	if (!Array.isArray(registros)) {
+		throw new TypeError(`Los datos de ${clave} deben ser una lista.`);
+	}
+	return registros;
+};
 const guardarRegistros = (clave, registros) => localStorage.setItem(clave, JSON.stringify(registros));
 const formatoMoneda = new Intl.NumberFormat("es-AR", { style: "currency", currency: "ARS" });
-<<<<<<< HEAD
 const formatoFecha = new Intl.DateTimeFormat("es-AR", { day: "2-digit", month: "2-digit", year: "numeric" });
 const obtenerFechaLocal = () => {
 	const hoy = new Date();
@@ -69,15 +74,12 @@ const transaccionesPrueba = [
 	{ fecha: "2026-11-03", tipo: "Gasto", detalle: "Servicio de internet", monto: 1800 },
 	{ fecha: "2026-11-02", tipo: "Venta", detalle: "Té en hebras · 3 un.", monto: 5700 }
 ];
-=======
->>>>>>> 6603583a51910777590603452c8306ebcdbafa68
 const dialogos = {
 	venta: document.getElementById("modalVenta"),
 	producto: document.getElementById("modalProducto"),
 	gasto: document.getElementById("modalGasto")
 };
 
-<<<<<<< HEAD
 function inicializarGraficoRendimiento() {
 	const canvas = document.getElementById("graficoRendimiento");
 	if (!canvas) return;
@@ -138,6 +140,8 @@ function inicializarGraficoRendimiento() {
 }
 
 function actualizarResumen() {
+	if (!document.getElementById("periodoActual")) return;
+
 	const ahora = new Date();
 	const periodoActual = `${ahora.getFullYear()}-${String(ahora.getMonth() + 1).padStart(2, "0")}`;
 	const fechaMesAnterior = new Date(ahora.getFullYear(), ahora.getMonth() - 1, 1);
@@ -223,18 +227,18 @@ function actualizarActividadReciente(ventas, gastos) {
 	});
 }
 
-=======
->>>>>>> 6603583a51910777590603452c8306ebcdbafa68
 document.querySelectorAll(".opcion[data-action]").forEach((opcion) => {
 	opcion.addEventListener("click", (evento) => {
 		evento.preventDefault();
 		if (opcion.dataset.action === "venta") actualizarProductosVenta();
 		if (opcion.dataset.action === "producto") actualizarListaStock();
-<<<<<<< HEAD
-		if (opcion.dataset.action === "venta") document.getElementById("fecha-operacion").value = obtenerFechaLocal();
-		if (opcion.dataset.action === "gasto") document.getElementById("fecha-operacion-gasto").value = obtenerFechaLocal();
-=======
->>>>>>> 6603583a51910777590603452c8306ebcdbafa68
+		if (opcion.dataset.action === "venta" || opcion.dataset.action === "gasto") {
+			dialogos[opcion.dataset.action]
+				.querySelectorAll('input[type="date"][name="fecha"]')
+				.forEach((fecha) => {
+					fecha.value = obtenerFechaLocal();
+				});
+		}
 		dialogos[opcion.dataset.action].showModal();
 	});
 });
@@ -393,16 +397,10 @@ document.getElementById("formVenta").addEventListener("submit", (evento) => {
 		cantidad,
 		metodoPago: datos.get("pago"),
 		total: producto.precio * cantidad,
-<<<<<<< HEAD
-		fecha: datos.get("fecha")
+		fecha: datos.get("fecha") || obtenerFechaLocal()
 	});
 	guardarRegistros(claves.ventas, ventas);
 	actualizarResumen();
-=======
-		fecha: new Date().toISOString()
-	});
-	guardarRegistros(claves.ventas, ventas);
->>>>>>> 6603583a51910777590603452c8306ebcdbafa68
 	formulario.reset();
 	cantidadVenta.value = "1";
 	totalVenta.value = formatoMoneda.format(0);
@@ -421,24 +419,20 @@ document.getElementById("formGasto").addEventListener("submit", (evento) => {
 		descripcion: datos.get("descripcion").trim(),
 		categoria: datos.get("categoria"),
 		monto: Number(datos.get("monto")),
-		fecha: datos.get("fecha")
+		fecha: datos.get("fecha") || obtenerFechaLocal()
 	});
 	guardarRegistros(claves.gastos, gastos);
-<<<<<<< HEAD
 	actualizarResumen();
-=======
->>>>>>> 6603583a51910777590603452c8306ebcdbafa68
 	formulario.reset();
 	dialogos.gasto.close();
 	if (!spanUsername) window.location.reload();
 });
 
-<<<<<<< HEAD
-document.getElementById("fecha-operacion").value = obtenerFechaLocal();
-document.getElementById("fecha-operacion-gasto").value = obtenerFechaLocal();
-inicializarGraficoRendimiento();
-actualizarResumen();
-=======
-document.getElementById("fechaGasto").value = new Date().toISOString().slice(0, 10);
->>>>>>> 6603583a51910777590603452c8306ebcdbafa68
+document.querySelectorAll('input[type="date"][name="fecha"]').forEach((fecha) => {
+	fecha.value = obtenerFechaLocal();
+});
+if (document.getElementById("periodoActual")) {
+	inicializarGraficoRendimiento();
+	actualizarResumen();
+}
 })();
