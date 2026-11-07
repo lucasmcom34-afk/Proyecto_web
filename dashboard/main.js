@@ -53,6 +53,7 @@ const claves = {
 const obtenerRegistros = (clave) => JSON.parse(localStorage.getItem(clave) || "[]");
 const guardarRegistros = (clave, registros) => localStorage.setItem(clave, JSON.stringify(registros));
 const formatoMoneda = new Intl.NumberFormat("es-AR", { style: "currency", currency: "ARS" });
+<<<<<<< HEAD
 const formatoFecha = new Intl.DateTimeFormat("es-AR", { day: "2-digit", month: "2-digit", year: "numeric" });
 const obtenerFechaLocal = () => {
 	const hoy = new Date();
@@ -68,12 +69,15 @@ const transaccionesPrueba = [
 	{ fecha: "2026-11-03", tipo: "Gasto", detalle: "Servicio de internet", monto: 1800 },
 	{ fecha: "2026-11-02", tipo: "Venta", detalle: "Té en hebras · 3 un.", monto: 5700 }
 ];
+=======
+>>>>>>> 6603583a51910777590603452c8306ebcdbafa68
 const dialogos = {
 	venta: document.getElementById("modalVenta"),
 	producto: document.getElementById("modalProducto"),
 	gasto: document.getElementById("modalGasto")
 };
 
+<<<<<<< HEAD
 function inicializarGraficoRendimiento() {
 	const canvas = document.getElementById("graficoRendimiento");
 	if (!canvas) return;
@@ -219,13 +223,18 @@ function actualizarActividadReciente(ventas, gastos) {
 	});
 }
 
+=======
+>>>>>>> 6603583a51910777590603452c8306ebcdbafa68
 document.querySelectorAll(".opcion[data-action]").forEach((opcion) => {
 	opcion.addEventListener("click", (evento) => {
 		evento.preventDefault();
 		if (opcion.dataset.action === "venta") actualizarProductosVenta();
 		if (opcion.dataset.action === "producto") actualizarListaStock();
+<<<<<<< HEAD
 		if (opcion.dataset.action === "venta") document.getElementById("fecha-operacion").value = obtenerFechaLocal();
 		if (opcion.dataset.action === "gasto") document.getElementById("fecha-operacion-gasto").value = obtenerFechaLocal();
+=======
+>>>>>>> 6603583a51910777590603452c8306ebcdbafa68
 		dialogos[opcion.dataset.action].showModal();
 	});
 });
@@ -384,10 +393,16 @@ document.getElementById("formVenta").addEventListener("submit", (evento) => {
 		cantidad,
 		metodoPago: datos.get("pago"),
 		total: producto.precio * cantidad,
+<<<<<<< HEAD
 		fecha: datos.get("fecha")
 	});
 	guardarRegistros(claves.ventas, ventas);
 	actualizarResumen();
+=======
+		fecha: new Date().toISOString()
+	});
+	guardarRegistros(claves.ventas, ventas);
+>>>>>>> 6603583a51910777590603452c8306ebcdbafa68
 	formulario.reset();
 	cantidadVenta.value = "1";
 	totalVenta.value = formatoMoneda.format(0);
@@ -409,14 +424,21 @@ document.getElementById("formGasto").addEventListener("submit", (evento) => {
 		fecha: datos.get("fecha")
 	});
 	guardarRegistros(claves.gastos, gastos);
+<<<<<<< HEAD
 	actualizarResumen();
+=======
+>>>>>>> 6603583a51910777590603452c8306ebcdbafa68
 	formulario.reset();
 	dialogos.gasto.close();
 	if (!spanUsername) window.location.reload();
 });
 
+<<<<<<< HEAD
 document.getElementById("fecha-operacion").value = obtenerFechaLocal();
 document.getElementById("fecha-operacion-gasto").value = obtenerFechaLocal();
 inicializarGraficoRendimiento();
 actualizarResumen();
+=======
+document.getElementById("fechaGasto").value = new Date().toISOString().slice(0, 10);
+>>>>>>> 6603583a51910777590603452c8306ebcdbafa68
 })();

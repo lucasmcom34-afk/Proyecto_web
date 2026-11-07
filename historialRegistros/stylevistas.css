@@ -1,3 +1,15 @@
+<<<<<<< HEAD
+=======
+.marca {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    margin: 0 0 1rem;
+    color: var(--titulos);
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+>>>>>>> 6603583a51910777590603452c8306ebcdbafa68
 
 .marca-icono {
     display: grid;

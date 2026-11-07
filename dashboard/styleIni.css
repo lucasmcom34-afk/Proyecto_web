@@ -106,6 +106,7 @@ main p, section > p {
     margin-bottom: 1.5rem;
 }
 
+<<<<<<< HEAD
 main .encabezado-resumen p {
     margin: 0;
     color: var(--texto);
@@ -180,6 +181,32 @@ main .encabezado-resumen p {
 .detalle-anterior strong {
     color: var(--titulos);
     font-weight: 600;
+=======
+/* ================= RENDIMIENTO MENSUAL ================= */
+#rendMensual {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 1.5rem;
+}
+
+#rendMensual h2 {
+    width: 100%;
+}
+
+.mensual {
+    flex: 1;
+    min-width: 200px;
+    height: 120px;
+    background: var(--superficie);
+    border: 1px solid var(--borde);
+    border-radius: 12px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+>>>>>>> 6603583a51910777590603452c8306ebcdbafa68
 }
 
 /* ================= ACCIONES RÁPIDAS ================= */
@@ -257,6 +284,7 @@ main .encabezado-resumen p {
 }
 
 /* ================= ACTIVIDADES RECIENTES ================= */
+<<<<<<< HEAD
 #actReciente {
     gap: 1rem;
 }
@@ -315,6 +343,29 @@ main .encabezado-resumen p {
     padding: 1.5rem 0.75rem;
     color: var(--texto);
     text-align: center;
+=======
+.movimiento {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid var(--borde);
+}
+
+.movimiento:last-child {
+    border-bottom: none;
+}
+
+.movimiento h4 {
+    color: var(--titulos);
+    font-weight: 500;
+}
+
+.movimiento p {
+    color: var(--texto);
+    font-size: 0.85rem;
+    margin: 0;
+>>>>>>> 6603583a51910777590603452c8306ebcdbafa68
 }
 
 .sin-actividad {
@@ -584,6 +635,7 @@ main .encabezado-resumen p {
     .campos-en-fila {
         grid-template-columns: 1fr;
     }
+<<<<<<< HEAD
 
     .tabla-actividad th,
     .tabla-actividad td {
@@ -601,19 +653,26 @@ main .encabezado-resumen p {
     .kpi-grid {
         grid-template-columns: 1fr;
     }
+=======
+>>>>>>> 6603583a51910777590603452c8306ebcdbafa68
 }
 .marca {
     display: flex;
     align-items: center;
+<<<<<<< HEAD
     justify-content: center;
     gap: 0.4rem;
     width: 100%;
+=======
+    gap: 0.65rem;
+>>>>>>> 6603583a51910777590603452c8306ebcdbafa68
     margin: 0 0 1rem;
     color: var(--titulos);
     font-size: 1.1rem;
     font-weight: 700;
 }
 
+<<<<<<< HEAD
 .marca-logo {
     display: block;
     flex: 0 0 2rem;
@@ -625,6 +684,16 @@ main .encabezado-resumen p {
 
 :root.oscuro .marca-logo {
     filter: brightness(0) invert(1);
+=======
+.marca-icono {
+    display: grid;
+    width: 2rem;
+    height: 2rem;
+    place-items: center;
+    color: white;
+    background: var(--cta);
+    border-radius: 7px;
+>>>>>>> 6603583a51910777590603452c8306ebcdbafa68
 }
 
 /* Botón de modo claro / oscuro */

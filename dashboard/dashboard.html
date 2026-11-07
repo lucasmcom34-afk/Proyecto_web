@@ -25,7 +25,10 @@
         })();
     </script>
     <link rel="stylesheet" href="styleIni.css">
+<<<<<<< HEAD
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js" defer></script>
+=======
+>>>>>>> 6603583a51910777590603452c8306ebcdbafa68
     <script src="main.js" defer></script>
 </head>
 <body>
@@ -42,6 +45,7 @@
     </header>
     <main>
         <h1>Bienvenido/a , <span id="username" class="username"></span></h1>
+<<<<<<< HEAD
         <div class="encabezado-resumen">
             <p id="periodoActual" aria-live="polite"></p>
         </div>
@@ -77,6 +81,21 @@
             <img class="marca-logo" src="../img/logo-removebg-preview.png" alt="">
             <span>Impulso</span>
         </p>
+=======
+        <p>Resumen de [MES] [AÑO]</p>
+        <div id="aviso"></div>
+    </main>
+    <section id="rendMensual">
+        <h2>Rendimiento Mensual</h2>
+        <div class="mensual">
+            <p>Ventas del mes: [bd]</p>
+            <p>Gastos del mes: [bd]</p>
+            <p>Rendimiento aproximado: [bd]</p>
+        </div>
+    </section>
+    <section id="aRapidas">
+        <p class="marca"><span class="marca-icono">I</span> Impulso</p>
+>>>>>>> 6603583a51910777590603452c8306ebcdbafa68
 
 
         <a href="#" class="opcion" data-action="venta">
@@ -102,6 +121,7 @@
         </a>
     </section>
     <section id="actReciente">
+<<<<<<< HEAD
         <h2>Actividad Reciente</h2>
         <div id="contenedorRecientes">
             <div class="tabla-desbordable">
@@ -121,6 +141,11 @@
                     </tbody>
                 </table>
             </div>
+=======
+        <h3>Actividades Recientes</h3>
+        <div id="contenedorRecientes">
+            <p class="sin-actividad">Todavía no hay movimientos registrados.</p>
+>>>>>>> 6603583a51910777590603452c8306ebcdbafa68
         </div>
     </section>
 
@@ -133,8 +158,11 @@
                 </div>
                 <button class="cerrar-modal" type="button" data-close aria-label="Cerrar">&times;</button>
             </div>
+<<<<<<< HEAD
             <label for="fecha-operacion">Fecha de la operación</label>
             <input id="fecha-operacion" name="fecha" type="date" required>
+=======
+>>>>>>> 6603583a51910777590603452c8306ebcdbafa68
             <label for="productoVenta">Producto</label>
             <select id="productoVenta" name="producto" required>
                 <option value="">Seleccionar producto</option>
@@ -226,8 +254,13 @@
                     <input id="montoGasto" name="monto" type="number" min="1" step="1" required>
                 </div>
                 <div>
+<<<<<<< HEAD
                     <label for="fecha-operacion-gasto">Fecha de la operación</label>
                     <input id="fecha-operacion-gasto" name="fecha" type="date" required>
+=======
+                    <label for="fechaGasto">Fecha</label>
+                    <input id="fechaGasto" name="fecha" type="date" required>
+>>>>>>> 6603583a51910777590603452c8306ebcdbafa68
                 </div>
             </div>
             <p class="mensaje-formulario" id="mensajeGasto" role="status"></p>
