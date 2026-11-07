@@ -1,0 +1,163 @@
+.marca {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    margin: 0 0 1rem;
+    color: var(--titulos);
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.marca-icono {
+    display: grid;
+    width: 2rem;
+    height: 2rem;
+    place-items: center;
+    color: white;
+    background: var(--cta);
+    border-radius: 7px;
+}
+
+#aRapidas {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--superficie);
+    border: 1px solid var(--borde);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8);
+}
+
+.encabezado-inventario {
+    gap: 0.35rem;
+}
+
+.encabezado-inventario .sobrelinea {
+    margin: 0;
+}
+
+.encabezado-inventario h1 {
+    margin: 0;
+}
+
+.encabezado-inventario > p:last-child {
+    margin: 0;
+}
+
+.seccion-inventario {
+    display: block;
+}
+
+.encabezado-stock {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+.encabezado-stock h2 {
+    margin-bottom: 0.2rem;
+}
+
+.encabezado-stock p {
+    margin: 0;
+    color: var(--texto);
+}
+
+.boton-inventario {
+    flex-shrink: 0;
+    padding: 0.65rem 0.85rem;
+    color: white;
+    background: var(--cta);
+    border: 1px solid var(--cta);
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.boton-inventario:hover {
+    background: var(--cta-hover);
+    border-color: var(--cta-hover);
+}
+
+#contenedor {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.producto-card {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    padding: 1.1rem;
+    background: var(--superficie);
+    border: 1px solid var(--borde);
+    border-radius: 8px;
+}
+
+.producto-card .boton-eliminar {
+    align-self: flex-end;
+    margin-top: 1rem;
+}
+
+.producto-etiqueta {
+    margin: 0 0 0.35rem;
+    color: var(--cta);
+    font-size: 0.7rem;
+    font-weight: 700;
+}
+
+.producto-card h3 {
+    overflow-wrap: anywhere;
+    margin: 0 0 1rem;
+    font-size: 1.05rem;
+}
+
+.producto-detalles {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.7rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--borde);
+}
+
+.producto-dato {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
+.producto-dato span:first-child {
+    color: var(--texto);
+    font-size: 0.78rem;
+}
+
+.producto-dato strong {
+    font-size: 0.95rem;
+}
+
+.stock-agotado {
+    color: #ff9a9a;
+}
+
+.estado-vacio {
+    grid-column: 1 / -1;
+    padding: 2rem 1rem;
+    color: var(--texto-secundario);
+    text-align: center;
+    border: 1px dashed var(--borde);
+    border-radius: 8px;
+}
+
+@media (max-width: 520px) {
+    .encabezado-stock {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .boton-inventario {
+        width: 100%;
+        text-align: center;
+    }
+}

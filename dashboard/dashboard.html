@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de control</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        (() => {
+            const temaGuardado = localStorage.getItem("tema");
+
+            if (temaGuardado === "oscuro") {
+                document.documentElement.classList.add("oscuro");
+            } else if (temaGuardado === "claro") {
+                document.documentElement.classList.remove("oscuro");
+            } else {
+                const prefiereOscuro = window.matchMedia(
+                    "(prefers-color-scheme: dark)"
+                ).matches;
+
+                document.documentElement.classList.toggle("oscuro", prefiereOscuro);
+            }
+        })();
+    </script>
+    <link rel="stylesheet" href="styleIni.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js" defer></script>
+    <script src="main.js" defer></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="dashboard.html">Inicio</a>
+            <a href="../inventario/inventario.html">Inventario</a>
+            <a href="../historialRegistros/registros.html">Registros</a>
+            <a href="../rendimiento/rendimiento.html">Rendimiento</a>
+        </nav>
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Cambiar a modo claro">
+            <span id="themeIcon" aria-hidden="true">☀</span>
+        </button>
+    </header>
+    <main>
+        <h1>Bienvenido/a , <span id="username" class="username"></span></h1>
+        <div class="encabezado-resumen">
+            <p id="periodoActual" aria-live="polite"></p>
+        </div>
+        <div id="aviso"></div>
+        <div class="grafico-contenedor">
+            <h2>Rendimiento de los últimos 3 meses</h2>
+            <canvas id="graficoRendimiento" aria-label="Comparación de ingresos y gastos de los últimos tres meses" role="img"></canvas>
+        </div>
+    </main>
+    <section id="rendMensual">
+        <h2>Resumen mensual</h2>
+        <div class="kpi-grid">
+            <article class="tarjeta-kpi">
+                <h3>Ingresos del mes</h3>
+                <p class="valor-kpi" id="ingresosMes">$ 0,00</p>
+            </article>
+            <article class="tarjeta-kpi">
+                <h3>Gastos del mes</h3>
+                <p class="valor-kpi" id="gastosMes">$ 0,00</p>
+            </article>
+            <article class="tarjeta-kpi">
+                <h3>Rendimiento neto</h3>
+                <p class="valor-kpi" id="rendimientoNeto">$ 0,00</p>
+            </article>
+            <article class="tarjeta-kpi tarjeta-anterior" aria-labelledby="tituloMesAnterior">
+                <h3 id="tituloMesAnterior">Resumen del mes anterior</h3>
+                <p class="detalle-anterior" id="resumenMesAnterior"></p>
+            </article>
+        </div>
+    </section>
+    <section id="aRapidas">
+        <p class="marca">
+            <img class="marca-logo" src="../img/logo-removebg-preview.png" alt="">
+            <span>Impulso</span>
+        </p>
+
+
+        <a href="#" class="opcion" data-action="venta">
+            <section>
+                <img src="" alt="">
+                <h3>+ Registrar Venta</h3>
+                <p>Cobro rápido o escaneo de ticket</p>
+            </section>
+        </a>
+        <a href="#" class="opcion" data-action="gasto">
+            <section>
+                <img src="" alt="">
+                <h3>+ Registrar Gasto</h3>
+                <p>Facturas, suministros y compras</p>
+            </section>
+        </a>
+        <a href="#" class="opcion" data-action="producto">
+            <section>
+                <img src="" alt="">
+                <h3>+ Añadir Producto</h3>
+                <p>Catalogo, precios e Inventario</p>
+            </section>
+        </a>
+    </section>
+    <section id="actReciente">
+        <h2>Actividad Reciente</h2>
+        <div id="contenedorRecientes">
+            <div class="tabla-desbordable">
+                <table class="tabla-actividad">
+                    <thead>
+                        <tr>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Tipo</th>
+                            <th scope="col">Detalle</th>
+                            <th scope="col">Monto</th>
+                        </tr>
+                    </thead>
+                    <tbody id="filasRecientes">
+                        <tr>
+                            <td class="sin-actividad" colspan="4">Todavía no hay movimientos registrados.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <dialog class="modal" id="modalVenta" aria-labelledby="tituloVenta">
+        <form id="formVenta" class="formulario-modal">
+            <div class="encabezado-modal">
+                <div>
+                    <p class="sobrelinea">CAJA</p>
+                    <h2 id="tituloVenta">Registrar venta</h2>
+                </div>
+                <button class="cerrar-modal" type="button" data-close aria-label="Cerrar">&times;</button>
+            </div>
+            <label for="fecha-operacion">Fecha de la operación</label>
+            <input id="fecha-operacion" name="fecha" type="date" required>
+            <label for="productoVenta">Producto</label>
+            <select id="productoVenta" name="producto" required>
+                <option value="">Seleccionar producto</option>
+            </select>
+            <div class="campos-en-fila">
+                <div>
+                    <label for="cantidadVenta">Cantidad</label>
+                    <input id="cantidadVenta" name="cantidad" type="number" min="1" step="1" value="1" required>
+                </div>
+                <div>
+                    <label for="pagoVenta">Método de pago</label>
+                    <select id="pagoVenta" name="pago" required>
+                        <option value="Efectivo">Efectivo</option>
+                        <option value="Débito">Débito</option>
+                        <option value="Crédito">Crédito</option>
+                    </select>
+                </div>
+            </div>
+            <div class="total-venta">
+                <span>Monto total</span>
+                <output id="totalVenta">$ 0,00</output>
+            </div>
+            <p class="mensaje-formulario" id="mensajeVenta" role="status"></p>
+            <div class="acciones-modal">
+                <button class="boton-secundario" type="button" data-close>Cancelar</button>
+                <button class="boton-principal" type="submit">Agregar venta</button>
+            </div>
+        </form>
+    </dialog>
+
+    <dialog class="modal" id="modalProducto" aria-labelledby="tituloProducto">
+        <form id="formProducto" class="formulario-modal">
+            <div class="encabezado-modal">
+                <div>
+                    <p class="sobrelinea">INVENTARIO</p>
+                    <h2 id="tituloProducto">Añadir producto</h2>
+                </div>
+                <button class="cerrar-modal" type="button" data-close aria-label="Cerrar">&times;</button>
+            </div>
+            <label for="nombreProducto">Nombre del producto</label>
+            <input id="nombreProducto" name="nombre" type="text" maxlength="100" required>
+            <div class="campos-en-fila">
+                <div>
+                    <label for="precioProducto">Precio</label>
+                    <input id="precioProducto" name="precio" type="number" min="0.01" step="0.01" required>
+                </div>
+                <div>
+                    <label for="stockProducto">Stock inicial</label>
+                    <input id="stockProducto" name="stock" type="number" min="0" step="1" value="0" required>
+                </div>
+            </div>
+            <p class="mensaje-formulario" id="mensajeProducto" role="status"></p>
+            <div class="acciones-modal">
+                <button class="boton-secundario" type="button" data-close>Cancelar</button>
+                <button class="boton-principal" type="submit">Agregar producto</button>
+            </div>
+        </form>
+        <section class="inventario-stock" aria-labelledby="tituloStock">
+            <h3 id="tituloStock">Ajustar stock</h3>
+            <div id="listaStock" class="lista-stock"></div>
+            <p class="mensaje-formulario" id="mensajeStock" role="status"></p>
+        </section>
+    </dialog>
+
+    <dialog class="modal" id="modalGasto" aria-labelledby="tituloGasto">
+        <form id="formGasto" class="formulario-modal">
+            <div class="encabezado-modal">
+                <div>
+                    <p class="sobrelinea">MOVIMIENTOS</p>
+                    <h2 id="tituloGasto">Registrar gasto</h2>
+                </div>
+                <button class="cerrar-modal" type="button" data-close aria-label="Cerrar">&times;</button>
+            </div>
+            <label for="descripcionGasto">Descripción</label>
+            <input id="descripcionGasto" name="descripcion" type="text" maxlength="120" required>
+            <label for="cantidad">Cantidad</label>
+            <input id="cantidad" name="cant" type="number" min="1" step="1" required>
+            <label for="categoriaGasto">Categoría</label>
+            <select id="categoriaGasto" name="categoria" required>
+                <option value="Insumos">Insumos</option>
+                <option value="Transporte">Transporte</option>
+                <option value="Marketing">Marketing</option>
+                <option value="Servicios">Servicios</option>
+                <option value="Otros">Otros</option>
+            </select>
+            <div class="campos-en-fila">
+                <div>
+                    <label for="montoGasto">Monto</label>
+                    <input id="montoGasto" name="monto" type="number" min="1" step="1" required>
+                </div>
+                <div>
+                    <label for="fecha-operacion-gasto">Fecha de la operación</label>
+                    <input id="fecha-operacion-gasto" name="fecha" type="date" required>
+                </div>
+            </div>
+            <p class="mensaje-formulario" id="mensajeGasto" role="status"></p>
+            <div class="acciones-modal">
+                <button class="boton-secundario" type="button" data-close>Cancelar</button>
+                <button class="boton-principal" type="submit">Agregar gasto</button>
+            </div>
+        </form>
+    </dialog>
+</body>
+</html>

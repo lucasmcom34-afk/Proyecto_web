@@ -1,0 +1,648 @@
+/* ================= PALETA IMPULSO ================= */
+
+/* Modo claro: valores de inicio_sesion/estilos.css */
+:root {
+    --titulos: #0F172A;
+    --negritas: #334155;
+    --texto: #64748B;
+    --fondo: #F8FAFC;
+    --cta: #F43F5E;
+    --borde: #E2E8F0;
+    --blanco: #FFFFFF;
+    --superficie: var(--blanco);
+
+    --fuente: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+    /* Variables complementarias para los componentes */
+    --superficie-elevada: var(--superficie);
+    --fondo-control: var(--fondo);
+    --fondo-control-secundario: var(--borde);
+    --cta-hover: #E11D48;
+}
+
+/* Modo oscuro: valores de inicio_sesion/estilos.css */
+:root.oscuro {
+    --titulos: #F8FAFC;
+    --negritas: #E2E8F0;
+    --texto: #94A3B8;
+    --fondo: #0F172A;
+    --borde: #334155;
+    --superficie: #1E293B;
+
+    --superficie-elevada: var(--superficie);
+    --fondo-control: var(--fondo);
+    --fondo-control-secundario: var(--borde);
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: var(--fuente);
+}
+
+body {
+    background-color: var(--fondo);
+    color: var(--titulos);
+    line-height: 1.5;
+    padding-left: 260px;
+}
+
+/* ================= ENCABEZADO ================= */
+header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 3rem;
+    background-color: var(--superficie);
+    border-bottom: 1px solid var(--borde);
+}
+
+header p {
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: var(--cta);
+}
+
+nav {
+    display: flex;
+    gap: 2rem;
+}
+
+nav a {
+    color: var(--texto);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+nav a:hover {
+    color: var(--titulos);
+}
+
+/* ================= CONTENEDORES GENERALES ================= */
+/* Se elimina el 100vh para permitir un flujo natural y se agrupan tipo tarjetas */
+main, section {
+    display: flex;
+    flex-direction: column;
+    margin: 2rem auto;
+    padding: 2rem;
+    width: 90%;
+    max-width: 800px;
+    background-color: var(--superficie);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+    border: 1px solid var(--borde);
+}
+
+h1, h2, h3 {
+    color: var(--titulos);
+    margin-bottom: 0.5rem;
+}
+
+main p, section > p {
+    color: var(--texto);
+    margin-bottom: 1.5rem;
+}
+
+main .encabezado-resumen p {
+    margin: 0;
+    color: var(--texto);
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.grafico-contenedor {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    margin-top: 1.5rem;
+}
+
+.grafico-contenedor h2 {
+    margin-bottom: 0.75rem;
+    font-size: 1.1rem;
+}
+
+/* ================= RENDIMIENTO MENSUAL ================= */
+#rendMensual {
+    gap: 1rem;
+}
+
+#rendMensual h2 {
+    margin: 0;
+}
+
+.kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.tarjeta-kpi {
+    min-width: 0;
+    padding: 1.15rem;
+    border: 1px solid var(--borde);
+    border-radius: 12px;
+    background: var(--fondo);
+}
+
+.tarjeta-kpi h3 {
+    margin-bottom: 0.7rem;
+    color: var(--texto);
+    font-size: 0.83rem;
+    font-weight: 600;
+}
+
+.tarjeta-kpi .valor-kpi {
+    margin: 0;
+    color: var(--titulos);
+    font-size: clamp(1.05rem, 2vw, 1.35rem);
+    font-weight: 700;
+    overflow-wrap: anywhere;
+}
+
+.tarjeta-anterior h3 {
+    font-size: 0.75rem;
+}
+
+.detalle-anterior {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    margin: 0;
+    color: var(--texto);
+    font-size: 0.75rem;
+}
+
+.detalle-anterior strong {
+    color: var(--titulos);
+    font-weight: 600;
+}
+
+/* ================= ACCIONES RÁPIDAS ================= */
+#aRapidas {
+    gap: 1rem;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 260px;
+    margin: 0;
+    border-radius: 0;
+    overflow-y: hidden;
+    z-index: 10;
+    padding: 25px;
+}
+
+@media (max-width: 720px) {
+    body {
+        padding-left: 0;
+    }
+
+    #aRapidas {
+        position: static;
+        width: 90%;
+        margin: 2rem auto;
+        border-radius: 16px;
+    }
+}
+
+.opcion {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 1.5rem;
+    background-color: var(--fondo);
+    border-radius: 12px;
+    text-decoration: none;
+    border: 1px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.opcion:hover {
+    background-color: var(--cta-hover);
+    border-color: var(--cta);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(15, 23, 42, 0.12);
+}
+
+.opcion section {
+    /* Resetea los estilos de <section> global para que no apliquen dentro del botón */
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    align-items: flex-start;
+}
+
+.opcion h3 {
+    color: var(--cta);
+    font-size: 1.1rem;
+    margin-bottom: 0.2rem;
+}
+
+.opcion:hover h3, .opcion:hover p {
+    color: #FFFFFF;
+}
+
+.opcion p {
+    color: var(--texto);
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+/* ================= ACTIVIDADES RECIENTES ================= */
+#actReciente {
+    gap: 1rem;
+}
+
+#actReciente h2 {
+    margin: 0;
+}
+
+.tabla-desbordable {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.tabla-actividad {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.tabla-actividad th,
+.tabla-actividad td {
+    padding: 0.85rem 0.75rem;
+    border-bottom: 1px solid var(--borde);
+}
+
+.tabla-actividad th {
+    color: var(--texto);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.tabla-actividad td {
+    color: var(--negritas);
+    font-size: 0.88rem;
+}
+
+.tabla-actividad tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.tabla-actividad .monto-venta {
+    color: #15803D;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.tabla-actividad .monto-gasto {
+    color: #B42332;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.tabla-actividad .sin-actividad {
+    padding: 1.5rem 0.75rem;
+    color: var(--texto);
+    text-align: center;
+}
+
+.sin-actividad {
+    color: var(--texto);
+}
+
+.boton-eliminar {
+    padding: 0.45rem 0.65rem;
+    color: #b42332;
+    background: transparent;
+    border: 1px solid currentColor;
+    border-radius: 6px;
+    font: inherit;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.boton-eliminar:hover {
+    color: white;
+    background: #b42332;
+}
+
+.boton-eliminar:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+}
+
+.modal {
+    width: min(92vw, 480px);
+    max-height: 90vh;
+    margin: auto;
+    padding: 0;
+    color: var(--titulos);
+    background: var(--superficie-elevada);
+    border: 1px solid var(--borde);
+    border-radius: 12px;
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.55);
+}
+
+.modal::backdrop {
+    background: rgba(3, 5, 12, 0.76);
+    backdrop-filter: blur(4px);
+}
+
+.formulario-modal {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    padding: 1.5rem;
+}
+
+.encabezado-modal {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.6rem;
+}
+
+.encabezado-modal h2 {
+    margin: 0;
+    font-size: 1.45rem;
+}
+
+.sobrelinea {
+    color: var(--cta);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+}
+
+.cerrar-modal {
+    width: 2rem;
+    height: 2rem;
+    color: var(--texto);
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    font-size: 1.5rem;
+}
+
+.formulario-modal label {
+    color: var(--texto);
+    font-size: 0.88rem;
+}
+
+.formulario-modal input,
+.formulario-modal select {
+    width: 100%;
+    min-height: 2.75rem;
+    padding: 0.65rem 0.75rem;
+    color: var(--titulos);
+    background: var(--fondo-control);
+    border: 1px solid var(--borde);
+    border-radius: 6px;
+    font: inherit;
+}
+
+.formulario-modal input:focus,
+.formulario-modal select:focus {
+    border-color: var(--cta);
+    outline: 2px solid rgba(244, 63, 94, 0.2);
+    outline-offset: 1px;
+}
+
+.campos-en-fila {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.85rem;
+}
+
+.campos-en-fila > div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.total-venta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.3rem;
+    padding: 0.9rem 0;
+    border-top: 1px solid var(--borde);
+    color: var(--texto);
+}
+
+.total-venta output {
+    color: var(--titulos);
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.mensaje-formulario {
+    min-height: 1.25rem;
+    color: #ff9a9a;
+    font-size: 0.85rem;
+}
+
+.acciones-modal {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.65rem;
+    margin-top: 0.25rem;
+}
+
+.acciones-modal button {
+    min-height: 2.6rem;
+    padding: 0.55rem 0.9rem;
+    border-radius: 6px;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.boton-secundario {
+    color: var(--titulos);
+    background: transparent;
+    border: 1px solid var(--borde);
+}
+
+.boton-principal {
+    color: white;
+    background: var(--cta);
+    border: 1px solid var(--cta);
+}
+
+.boton-principal:hover {
+    background: var(--cta-hover);
+    border-color: var(--cta-hover);
+}
+
+.inventario-stock {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    margin: 0 1.5rem 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--borde);
+}
+
+.inventario-stock h3 {
+    margin: 0;
+    font-size: 1rem;
+}
+
+.lista-stock {
+    display: flex;
+    flex-direction: column;
+    max-height: 230px;
+    overflow-y: auto;
+}
+
+.stock-producto {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.7rem 0;
+    border-bottom: 1px solid var(--borde);
+}
+
+.stock-datos {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    min-width: 0;
+}
+
+.stock-datos strong {
+    overflow-wrap: anywhere;
+    font-size: 0.9rem;
+}
+
+.stock-datos span {
+    color: var(--texto);
+    font-size: 0.8rem;
+}
+
+.stock-controles {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.stock-controles input {
+    width: 3.5rem;
+    min-height: 2.2rem;
+    padding: 0.35rem;
+    color: var(--titulos);
+    background: var(--fondo-control);
+    border: 1px solid var(--borde);
+    border-radius: 5px;
+}
+
+.stock-controles button {
+    width: 2.2rem;
+    height: 2.2rem;
+    color: var(--titulos);
+    background: var(--fondo-control-secundario);
+    border: 1px solid var(--borde);
+    border-radius: 5px;
+    font-size: 1.15rem;
+    cursor: pointer;
+}
+
+.stock-controles button:hover:not(:disabled) {
+    border-color: var(--cta);
+}
+
+.stock-controles button:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+@media (max-width: 440px) {
+    .formulario-modal {
+        padding: 1.15rem;
+    }
+
+    .inventario-stock {
+        margin-right: 1.15rem;
+        margin-left: 1.15rem;
+    }
+
+    .campos-en-fila {
+        grid-template-columns: 1fr;
+    }
+
+    .tabla-actividad th,
+    .tabla-actividad td {
+        padding: 0.7rem 0.55rem;
+    }
+}
+
+@media (max-width: 900px) {
+    .kpi-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 440px) {
+    .kpi-grid {
+        grid-template-columns: 1fr;
+    }
+}
+.marca {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    width: 100%;
+    margin: 0 0 1rem;
+    color: var(--titulos);
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.marca-logo {
+    display: block;
+    flex: 0 0 2rem;
+    width: 4rem;
+    height: 4rem;
+    object-fit: contain;
+    filter: brightness(0);
+}
+
+:root.oscuro .marca-logo {
+    filter: brightness(0) invert(1);
+}
+
+/* Botón de modo claro / oscuro */
+.theme-toggle {
+  position: absolute;
+  top: 18px;
+  right: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--borde);
+  border-radius: 12px;
+  background: var(--fondo);
+  color: var(--titulos);
+  font-size: 19px;
+  cursor: pointer;
+  transition: transform .2s, border-color .2s;
+}
+.theme-toggle:hover { transform: translateY(-2px); border-color: var(--cta); }
