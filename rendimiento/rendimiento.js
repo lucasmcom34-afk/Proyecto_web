@@ -46,8 +46,48 @@ function crearResumen(fecha) {
 	return { fecha, ingresos, egresos, ganancia: ingresos - egresos, ventasDelMes };
 }
 
+function obtenerMesesDisponibles() {
+	const claves = new Set();
+	[...ventas, ...gastos].forEach((registro) => {
+		const fecha = obtenerFecha(registro);
+		if (!fecha) return;
+		claves.add(claveMes(new Date(fecha.getFullYear(), fecha.getMonth(), 1)));
+	});
+
+	claves.add(claveMes(hoy));
+	return [...claves].sort((primero, segundo) => primero.localeCompare(segundo));
+}
+
+function convertirClaveAFecha(clave) {
+	const [anio, mes] = clave.split("-").map(Number);
+	return new Date(anio, mes - 1, 1);
+}
+
+function poblarSelectorMeses() {
+	const selector = document.getElementById("selectorMes");
+	const meses = obtenerMesesDisponibles();
+	selector.innerHTML = "";
+	meses.forEach((clave) => {
+		const opcion = document.createElement("option");
+		opcion.value = clave;
+		opcion.textContent = formatoMes.format(convertirClaveAFecha(clave));
+		selector.append(opcion);
+	});
+	selector.value = meses[meses.length - 1];
+}
+
+function cambiarMesSeleccionado(clave) {
+	const fecha = convertirClaveAFecha(clave);
+	const resumen = crearResumen(fecha);
+	const resumenAnterior = crearResumen(new Date(fecha.getFullYear(), fecha.getMonth() - 1, 1));
+	mostrarResumen(resumen, resumenAnterior);
+	mostrarProductosMasVendidos(resumen);
+	document.getElementById("selectorMes").value = clave;
+}
+
 function mostrarEvolucion(resumenes) {
 	const grafico = document.getElementById("evolucionMensual");
+	grafico.innerHTML = "";
 	const valorMaximo = Math.max(0, ...resumenes.flatMap(({ ingresos, egresos }) => [ingresos, egresos]));
 
 	resumenes.forEach(({ fecha, ingresos, egresos }) => {
@@ -101,34 +141,36 @@ function mostrarResumen(resumen, resumenAnterior) {
 		`Variación de la ganancia respecto al mes anterior: ${variacion}`;
 }
 
-function mostrarHistorial(resumenes) {
+function mostrarHistorial() {
 	const historial = document.getElementById("historialMensual");
-	const primerMesVisible = resumenes[0].fecha;
-	const mesesAnteriores = new Map();
-	[...ventas, ...gastos].forEach((registro) => {
-		const fecha = obtenerFecha(registro);
-		if (!fecha || fecha >= primerMesVisible) return;
-		const mes = new Date(fecha.getFullYear(), fecha.getMonth(), 1);
-		mesesAnteriores.set(claveMes(mes), mes);
-	});
-
-	const resumenesAnteriores = [...mesesAnteriores.values()]
-		.sort((primero, segundo) => primero - segundo)
-		.map(crearResumen);
-	if (resumenesAnteriores.length === 0) {
+	historial.innerHTML = "";
+	const meses = obtenerMesesDisponibles();
+	if (meses.length === 0) {
 		document.getElementById("botonHistorial").hidden = true;
 		return;
 	}
 
-	resumenesAnteriores.reverse().forEach((resumen) => {
-		const detalle = document.createElement("p");
+	meses.forEach((clave) => {
+		const resumen = crearResumen(convertirClaveAFecha(clave));
+		const detalle = document.createElement("button");
+		detalle.type = "button";
+		detalle.className = "boton-mes-historial";
 		detalle.textContent = `${formatoMes.format(resumen.fecha)}: ventas ${formatoMoneda.format(resumen.ingresos)} · gastos ${formatoMoneda.format(resumen.egresos)} · ganancia ${formatoMoneda.format(resumen.ganancia)}`;
+		detalle.addEventListener("click", () => {
+			cambiarMesSeleccionado(clave);
+			const boton = document.getElementById("botonHistorial");
+			const historialAbierto = document.getElementById("historialMensual");
+			historialAbierto.hidden = true;
+			boton.setAttribute("aria-expanded", "false");
+			boton.textContent = "Ver más meses";
+		});
 		historial.append(detalle);
 	});
 }
 
 function mostrarProductosMasVendidos(resumen) {
 	const contenedor = document.getElementById("productosMasVendidos");
+	contenedor.innerHTML = "";
 	const cantidades = new Map();
 	resumen.ventasDelMes.forEach((venta) => {
 		const producto = String(venta.producto || "Producto sin nombre");
@@ -154,17 +196,22 @@ function mostrarProductosMasVendidos(resumen) {
 	});
 }
 
+const mesesDisponibles = obtenerMesesDisponibles();
+const ultimoMes = convertirClaveAFecha(mesesDisponibles[mesesDisponibles.length - 1]);
 const resumenes = Array.from({ length: 6 }, (_, indice) => {
-	const fecha = new Date(hoy.getFullYear(), hoy.getMonth() - 5 + indice, 1);
+	const fecha = new Date(ultimoMes.getFullYear(), ultimoMes.getMonth() - 5 + indice, 1);
 	return crearResumen(fecha);
 });
-const resumenActual = resumenes[resumenes.length - 1];
-const resumenAnterior = crearResumen(new Date(hoy.getFullYear(), hoy.getMonth() - 1, 1));
 
+poblarSelectorMeses();
 mostrarEvolucion(resumenes);
-mostrarResumen(resumenActual, resumenAnterior);
-mostrarHistorial(resumenes);
-mostrarProductosMasVendidos(resumenActual);
+mostrarHistorial();
+const mesInicial = document.getElementById("selectorMes").value;
+cambiarMesSeleccionado(mesInicial);
+
+document.getElementById("selectorMes").addEventListener("change", (evento) => {
+	cambiarMesSeleccionado(evento.target.value);
+});
 
 document.getElementById("botonHistorial").addEventListener("click", (evento) => {
 	const boton = evento.currentTarget;

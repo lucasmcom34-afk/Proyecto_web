@@ -122,6 +122,26 @@
     overflow-wrap: anywhere;
 }
 
+.selector-mes {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+    color: var(--titulos);
+    font-weight: 600;
+}
+
+.selector-mes select {
+    min-width: 12rem;
+    padding: 0.6rem 0.8rem;
+    border: 1px solid var(--borde);
+    border-radius: 8px;
+    background: var(--superficie);
+    color: var(--texto);
+    font: inherit;
+}
+
 .boton-historial {
     align-self: flex-start;
     padding: 0.65rem 0.9rem;
@@ -137,6 +157,20 @@
 .historial-mensual {
     border-top: 1px solid var(--borde);
     padding-top: 0.75rem;
+}
+
+.historial-mensual .boton-mes-historial {
+    display: block;
+    width: 100%;
+    margin: 0.5rem 0;
+    padding: 0.7rem 0.85rem;
+    border: 1px solid var(--borde);
+    border-radius: 8px;
+    background: var(--superficie);
+    color: var(--texto);
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
 }
 
 .historial-mensual p {
