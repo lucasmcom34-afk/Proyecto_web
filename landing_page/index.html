@@ -2,133 +2,267 @@
 <html lang="es">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Impulso</title>
+  <meta name="description" content="Impulso reúne ventas, clientes y pedidos en un solo lugar para que emprender sea más simple.">
+  <meta name="theme-color" content="#F43F5E">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>document.documentElement.classList.add('js')</script>
   <link rel="stylesheet" href="styles.css">
-  <script src="main.js" defer></script>
 </head>
 <body>
-  <div class="page">
+  <div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="grid" aria-hidden="true"></div>
+  <div class="spot" aria-hidden="true"></div>
 
-    <header class="header">
-      <div class="brand" >
-        <img class="brand__logo" src="../img/logo-removebg-preview.png" alt="" width="40" height="40">
+  <header class="header" id="hd">
+    <div class="wrap">
+      <a class="brand" href="#" aria-label="Impulso, inicio">
+        <img class="brand__logo" id="logo" src="../img/logo-removebg-preview.png" alt="">
         <span class="brand__name">impulso</span>
-      </div>
+      </a>
       <nav class="nav" aria-label="Principal">
-        <a class="nav__link" href="../inicio_sesion/login.html">Iniciar sesión</a>
-        <span class="nav__divider" aria-hidden="true"></span>
-        <a class="nav__link" href="#ayuda">Ayuda</a>
+        <a href="#ayuda">Ayuda</a>
+        <a href="../inicio_sesion/login.html">Iniciar sesión</a>
+        <a class="pill" href="../registro/index.html">Empezar</a>
       </nav>
-    </header>
+    </div>
+    <div class="bar" id="bar"></div>
+  </header>
 
-    <main>
-      <section class="hero">
-        <h1 class="hero__title">Que emprender no sea <span class="wave">taaaaaan</span> difícil</h1>
-        <a class="btn" href="../registro/index.html">Empezar ahora</a>
-      </section>
-
-      <section class="features">
-
-        <article class="card">
-          <div class="card__icon">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <rect x="3" y="3" width="7" height="7" rx="1.5"/>
-              <rect x="14" y="3" width="7" height="7" rx="1.5"/>
-              <rect x="3" y="14" width="7" height="7" rx="1.5"/>
-              <rect x="14" y="14" width="7" height="7" rx="1.5"/>
-            </svg>
+  <main>
+    <div class="hero" id="hero">
+      <div class="blob blob--a" data-sp="-.18"><i></i></div>
+      <div class="blob blob--b" data-sp="-.1"><i></i></div>
+      <a class="hint" id="hint" href="#producto" aria-label="Bajar"><span></span></a>
+      <div class="wrap">
+        <div id="heroL">
+          <h1 class="ld">Que emprender no sea <span class="wave">taaaaaan</span> difícil</h1>
+          <p class="lead ld" style="--d:.2s">Ventas, clientes y pedidos en un solo lugar. Crea tu cuenta, carga tu información y empieza a ordenar tu negocio en unos 5 minutos.</p>
+          <div class="cta-row ld" style="--d:.35s">
+            <a class="btn mag" href="">Empezar ahora
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+            <a class="btn btn--ghost" href="#producto">Ver cómo funciona</a>
           </div>
-          <h2 class="card__title">Todo en un solo lugar</h2>
-          <p class="card__text">Reúne las herramientas de tu negocio en una única plataforma y gestiona toda tu operación de forma simple y ordenada.</p>
-        </article>
+          <div class="note ld" style="--d:.5s"><i></i>7 días gratis, luego US$5 por mes. No instalas nada</div>
+        </div>
 
-        <article class="card">
-          <div class="card__icon">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M3 17l6-6 4 4 8-8"/>
-              <path d="M15 7h6v6"/>
-            </svg>
+        <div class="mock" data-sp="-.07" aria-label="Vista previa del panel de Impulso">
+          <div class="panel">
+            <div class="panel__top">
+              <div class="dots" aria-hidden="true"><i></i><i></i><i></i></div>
+              <div class="seg" role="group" aria-label="Período">
+                <button type="button" data-p="sem" aria-pressed="true">Semana</button>
+                <button type="button" data-p="mes" aria-pressed="false">Mes</button>
+              </div>
+            </div>
+            <div class="kpis">
+              <div class="kpi"><small>Ventas</small><b id="k0">$0</b><span class="up" id="k0d">+0%</span></div>
+              <div class="kpi"><small>Pedidos</small><b id="k1">0</b></div>
+              <div class="kpi"><small>Clientes</small><b id="k2">0</b></div>
+            </div>
+            <div class="chart">
+              <svg viewBox="0 0 320 130" role="img" aria-label="Gráfico de ventas en alza">
+                <defs>
+                  <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="#F43F5E" stop-opacity=".35"/>
+                    <stop offset="1" stop-color="#F43F5E" stop-opacity="0"/>
+                  </linearGradient>
+                </defs>
+                <path id="area" class="area" fill="url(#g)"/>
+                <path id="line" class="line" pathLength="1"/>
+                <circle id="dot" r="6" fill="#fff" stroke="#F43F5E" stroke-width="3"/>
+              </svg>
+            </div>
           </div>
-          <h2 class="card__title">Potencia tu negocio</h2>
-          <p class="card__text">Soluciones diseñadas para escalar tus ventas y acelerar el crecimiento de tu proyecto, eliminando fricciones en cada etapa.</p>
-        </article>
-
-        <article class="card">
-          <div class="card__icon">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M4 7h10"/>
-              <path d="M18 7h2"/>
-              <circle cx="16" cy="7" r="2"/>
-              <path d="M4 17h2"/>
-              <path d="M10 17h10"/>
-              <circle cx="8" cy="17" r="2"/>
-            </svg>
+          <div class="chip chip--a" data-sp="-.14">
+            <em><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg></em>
+            <div>Pedido nuevo<small>+$12.400 · hace un momento</small></div>
           </div>
-          <h2 class="card__title">Hecho a tu medida</h2>
-          <p class="card__text">Una plataforma flexible que se adapta a las necesidades de tu negocio y evoluciona al ritmo de tu crecimiento.</p>
-        </article>
+          <div class="chip chip--b" data-sp="-.04">
+            <em><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9L2.4 18a2 2 0 001.7 3h15.8a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z"/></svg></em>
+            <div>Stock bajo<small>3 productos para reponer</small></div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-      </section>
-    </main>
+    <div class="mq" aria-hidden="true">
+      <div class="mq__row"><span>Ventas</span><b>✦</b><span>Inventario</span><b>✦</b><span>Clientes</span><b>✦</b><span>Pedidos</span><b>✦</b></div>
+      <div class="mq__row"><span>Finanzas</span><b>✦</b><span>Reportes</span><b>✦</b><span>Cobros</span><b>✦</b><span>Stock</span><b>✦</b></div>
+    </div>
 
-  </div>
+    <section class="sec">
+      <div class="wrap">
+        <p class="scrub" id="scrub">Olvídate de las planillas sueltas, las libretas y los mensajes perdidos. Con Impulso, tu negocio entra en un solo lugar.</p>
+        <div class="stats">
+          <div data-r="up"><b><span data-to="5">0</span></b><span>minutos para empezar</span></div>
+          <div data-r="up" style="--d:.12s"><b><span data-to="100">0</span>%</b><span>desde el navegador</span></div>
+          <div data-r="up" style="--d:.24s"><b><span data-to="1">0</span></b><span>plataforma para todo</span></div>
+        </div>
+      </div>
+    </section>
 
-  <!-- AYUDA / PREGUNTAS FRECUENTES -->
-   <!-- aqui -->
-<section id="ayuda" class="contenedor seccion faq">
+    <section id="producto" class="sec" style="padding-top:0">
+      <div class="wrap">
+        <h2 class="title" data-r="up">Todo lo que tu emprendimiento necesita, junto</h2>
+        <p class="sub" data-r="up" style="--d:.1s">Menos pestañas y más tiempo para lo que importa: tu negocio.</p>
+        <div class="bento">
+          <article class="tile t1" data-r="left">
+            <h3>Todo en un solo lugar</h3>
+            <p>Reúne las herramientas de tu negocio en una única plataforma y gestiona toda tu operación de forma simple y ordenada.</p>
+            <div class="tools" role="group" aria-label="Herramientas">
+              <button type="button" aria-pressed="true" data-n="Registra cada venta en segundos y mira cómo evoluciona tu mes.">Ventas</button>
+              <button type="button" aria-pressed="false" data-n="Sabe qué tienes en stock y recibe aviso antes de quedarte sin nada.">Inventario</button>
+              <button type="button" aria-pressed="false" data-n="Guarda los datos de tus clientes y recuerda qué te compró cada uno.">Clientes</button>
+              <button type="button" aria-pressed="false" data-n="Sigue cada pedido, desde que entra hasta que lo entregas.">Pedidos</button>
+              <button type="button" aria-pressed="false" data-n="Controla lo que entra y lo que sale sin armar cuentas a mano.">Finanzas</button>
+            </div>
+            <div class="tool-note" id="toolNote" aria-live="polite">Registra cada venta en segundos y mira cómo evoluciona tu mes.</div>
+          </article>
+          <article class="tile t2" data-r="right" style="--d:.12s">
+            <h3>Potencia tu negocio</h3>
+            <p>Soluciones diseñadas para escalar tus ventas y acelerar el crecimiento de tu proyecto, eliminando fricciones en cada etapa.</p>
+            <div class="bars" aria-hidden="true"><i style="--h:30%"></i><i style="--h:44%"></i><i style="--h:38%"></i><i style="--h:60%"></i><i style="--h:54%"></i><i style="--h:82%"></i><i style="--h:100%"></i></div>
+          </article>
+          <article class="tile t3" data-r="zoom">
+            <div>
+              <h3>Hecho a tu medida</h3>
+              <p>Una plataforma flexible que se adapta a las necesidades de tu negocio y evoluciona al ritmo de tu crecimiento. Activa solo lo que usas.</p>
+            </div>
+            <div class="mods">
+              <label class="mod">Control de stock<input type="checkbox" checked><span class="sw"></span></label>
+              <label class="mod">Agenda de clientes<input type="checkbox" checked><span class="sw"></span></label>
+              <label class="mod">Reportes de ventas<input type="checkbox"><span class="sw"></span></label>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
 
-  <h3 class="faq__grupo">Sobre el servicio</h3>
+    <section class="sec" style="padding-top:0">
+      <div class="wrap">
+        <h2 class="title" data-r="up">Se adapta a tu forma de vender</h2>
+        <p class="sub" data-r="up" style="--d:.1s">Sea cual sea tu rubro, Impulso se acomoda a cómo trabajas.</p>
+        <div class="who" data-r="zoom">
+          <div class="who__tabs" role="tablist" aria-label="Rubros"></div>
+          <div class="who__c" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
 
-  <details class="faq__item">
-    <summary>¿Qué es Impulso y para quién es?</summary>
-    <p class="faq__respuesta">Impulso es una plataforma creada para darles una mano a los pequeños emprendedores, ayudándolos a gestionar su emprendimiento de manera más eficiente a través de la centralización de distintas herramientas.</p>
-  </details>
+    <section id="ayuda" class="sec faq">
+      <div class="wrap">
+        <aside data-r="left">
+          <h2 class="title">Preguntas frecuentes</h2>
+          <p class="sub" style="margin:0">Todo lo que quieres saber antes de empezar, en un solo lugar.</p>
+          <div class="price">
+            <small>7 días de prueba gratis</small>
+            <b>US$5<span> / mes</span></b>
+            <ul>
+              <li>Ventas, clientes y pedidos en un solo lugar</li>
+              <li>Inventario, finanzas y reportes</li>
+              <li>Sin instalar nada, desde el navegador</li>
+            </ul>
+          </div>
+        </aside>
+        <div>
+          <div class="faq__tools" data-r="up">
+            <label class="faq__search">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+              <input id="fq" type="search" placeholder="Busca tu duda: precio, cuenta, datos…" aria-label="Buscar en las preguntas frecuentes" autocomplete="off">
+            </label>
+            <div class="faq__chips" role="group" aria-label="Categorías">
+              <button type="button" aria-pressed="true" data-c="all">Todas</button>
+              <button type="button" aria-pressed="false" data-c="serv">Servicio</button>
+              <button type="button" aria-pressed="false" data-c="precio">Precio y pagos</button>
+              <button type="button" aria-pressed="false" data-c="inicio">Empezar</button>
+              <button type="button" aria-pressed="false" data-c="datos">Datos</button>
+            </div>
+          </div>
+          <div class="fg" data-g="serv">
+            <h3 class="faq__grupo" data-r="up">Sobre el servicio</h3>
+            <details data-r="up"><summary>¿Qué es Impulso y para quién es?</summary><p>Impulso es una plataforma creada para darles una mano a los pequeños emprendedores, ayudándolos a gestionar su emprendimiento de manera más eficiente a través de la centralización de distintas herramientas.</p></details>
+            <details data-r="up"><summary>¿Qué puedo hacer con Impulso?</summary><p>Reúnes en un solo lugar tus ventas, clientes, pedidos, inventario y finanzas, y puedes ver reportes de ventas. Así dejas atrás las planillas sueltas, las libretas y los mensajes perdidos.</p></details>
+            <details data-r="up"><summary>¿Sirve para mi tipo de negocio?</summary><p>Sí. Impulso se adapta a tiendas, comida, servicios, artesanías y más. Además es flexible: activas solo los módulos que usas, como control de stock, agenda de clientes o reportes de ventas.</p></details>
+            <details data-r="up"><summary>¿Necesito conocimientos técnicos para usarlo?</summary><p>No. Impulso es súper intuitiva: si sabes usar el celular o el correo, sabes usar Impulso. Todo está pensado para que cargues tus datos en pocos pasos.</p></details>
+          </div>
+          <div class="fg" data-g="precio">
+            <h3 class="faq__grupo" data-r="up">Precio y pagos</h3>
+            <details data-r="up" open><summary>¿Cuánto cuesta Impulso?</summary><p>Impulso cuesta <strong>US$5 por mes</strong> y puedes probarlo gratis durante 7 días. Es una tarifa mensual simple para usar la plataforma.</p></details>
+            <details data-r="up"><summary>¿Qué recibo por ese precio?</summary><p>Acceso a Impulso desde tu cuenta, en el navegador: ventas, clientes, pedidos, inventario, finanzas y reportes. Nosotros nos encargamos de los servidores, el mantenimiento y las actualizaciones, y tú solo te ocupas de tu negocio.</p></details>
+            <details data-r="up"><summary>¿Tiene prueba gratuita?</summary><p>Sí. Tienes <strong>7 días de prueba gratuita</strong> para conocer Impulso y cargar tu negocio. Pasado ese tiempo, el plan cuesta US$5 por mes.</p></details>
+            <details data-r="up"><summary>¿Cómo puedo pagar?</summary><p>Puedes pagar con <strong>Mercado Pago</strong>, o con tarjeta de crédito o de débito.</p></details>
+            <details data-r="up"><summary>¿Qué significa que es una app SaaS?</summary><p>SaaS significa <em>Software as a Service</em>, o “software como servicio”. No instalas nada: entras desde el navegador con tu cuenta y usas el programa por internet, y por eso se paga una tarifa mensual en lugar de comprar un programa.</p></details>
+          </div>
+          <div class="fg" data-g="inicio">
+            <h3 class="faq__grupo" data-r="up">Empezar a usarlo</h3>
+            <details data-r="up"><summary>¿Cómo creo mi cuenta?</summary><p>Con tu correo electrónico y una contraseña. Más adelante también podrás ingresar con tu cuenta de Google.</p></details>
+            <details data-r="up"><summary>¿Tengo que instalar algo?</summary><p>No. Impulso funciona desde el navegador, así que lo abres desde la computadora o el celular y listo.</p></details>
+            <details data-r="up"><summary>¿Puedo usarlo desde el celular?</summary><p>Sí. Entras desde el navegador de tu celular o de tu computadora, con la misma cuenta, y encuentras todo igual en cualquier dispositivo.</p></details>
+            <details data-r="up"><summary>¿Cuánto tarda en estar listo para usar?</summary><p>Unos 5 minutos: creas tu cuenta y ya puedes empezar a cargar tu información.</p></details>
+          </div>
+          <div class="fg" data-g="datos">
+            <h3 class="faq__grupo" data-r="up">Datos y seguridad</h3>
+            <details data-r="up"><summary>¿Mi información está segura?</summary><p>Tus datos se guardan en una base de datos y solo se accede a ellos con tu correo y tu contraseña. Cuida tu contraseña y no la compartas.</p></details>
+            <details data-r="up"><summary>¿Quién puede ver mis datos?</summary><p>Solo tú, desde tu cuenta. Cada usuario ve únicamente su propia información.</p></details>
+            <details data-r="up"><summary>¿Dónde se guardan mis datos?</summary><p>En una base de datos de Impulso, asociada a tu cuenta, para que puedas entrar desde cualquier dispositivo y encontrar todo igual.</p></details>
+          </div>
+          <div class="faq__empty" id="fe">No encontramos esa pregunta. Prueba con otra palabra, como “precio”, “cuenta” o “datos”.</div>
+        </div>
+      </div>
+    </section>
 
-  <details class="faq__item">
-    <summary>¿Tiene algún costo?</summary>
-    <p class="faq__respuesta">No, actualmente Impulso no tiene costo. Es una app web SaaS (<em>Software as a Service</em>, o "software como servicio"). Eso significa que no instalas nada: entras desde el navegador con tu cuenta y usas el programa por internet. Nosotros nos encargamos de los servidores, el mantenimiento y las actualizaciones, y tú solo te ocupas de tu negocio.</p>
-  </details>
+    <section class="sec pm" aria-label="Medios de pago">
+      <div class="wrap">
+        <h2 class="title" data-r="up">Paga como prefieras</h2>
+        <p class="sub" data-r="up" style="--d:.1s">Prueba 7 días gratis y después paga con los medios de siempre.</p>
+      </div>
+      <div class="pm__v" data-r="up">
+        <div class="pm__t">
+          <div class="pm__i"><svg viewBox="0 3.5 24 17" role="img" aria-label="Mercado Pago"><path fill="#009EE3" d="M11.115 16.479a.93.927 0 0 1-.939-.886c-.002-.042-.006-.155-.103-.155c-.04 0-.074.023-.113.059c-.112.103-.254.206-.46.206a.816.814 0 0 1-.305-.066c-.535-.214-.542-.578-.521-.725c.006-.038.007-.08-.02-.11l-.032-.03h-.034c-.027 0-.055.012-.093.039a.788.786 0 0 1-.454.16a.7.699 0 0 1-.253-.05c-.708-.27-.65-.928-.617-1.126q.008-.062-.03-.092l-.05-.04l-.047.043a.728.726 0 0 1-.505.203a.73.728 0 0 1-.732-.725c0-.4.328-.722.732-.722c.364 0 .675.27.721.63l.026.195l.11-.165c.01-.018.307-.46.852-.46c.102 0 .21.016.316.05c.434.13.508.52.519.68c.008.094.075.1.09.1c.037 0 .064-.024.083-.045a.746.744 0 0 1 .54-.225q.193 0 .402.09c.69.293.379 1.158.374 1.167c-.058.144-.061.207-.005.244l.027.013h.02c.03 0 .07-.014.134-.035c.093-.032.235-.08.367-.08a.944.942 0 0 1 .94.93a.936.934 0 0 1-.94.928m7.302-4.171c-1.138-.98-3.768-3.24-4.481-3.77c-.406-.302-.685-.462-.928-.533a1.559 1.554 0 0 0-.456-.07q-.274 0-.58.095c-.46.145-.918.505-1.362.854l-.023.018c-.414.324-.84.66-1.164.73a1.986 1.986 0 0 1-.43.049c-.362 0-.687-.104-.81-.258q-.03-.037.04-.125l.008-.008l1-1.067c.783-.774 1.525-1.506 3.23-1.545h.085c1.062 0 2.12.469 2.24.524a7 7 0 0 0 3.056.724c1.076 0 2.188-.263 3.354-.795a9.135 9.11 0 0 0-.405-.317c-1.025.44-2.003.66-2.946.66c-.962 0-1.925-.229-2.858-.68c-.05-.022-1.22-.567-2.44-.57q-.049 0-.096.002c-1.434.033-2.24.536-2.782.976c-.528.013-.982.138-1.388.25c-.361.1-.673.186-.979.185c-.125 0-.35-.01-.37-.012c-.35-.01-2.115-.437-3.518-.962q-.213.15-.415.31c1.466.593 3.25 1.053 3.812 1.089c.157.01.323.027.491.027c.372 0 .744-.103 1.104-.203c.213-.059.446-.123.692-.17l-.196.194l-1.017 1.087c-.08.08-.254.294-.14.557a.705.703 0 0 0 .268.292c.243.162.677.27 1.08.271q.23 0 .43-.044c.427-.095.874-.448 1.349-.82c.377-.296.913-.672 1.323-.782a1.494 1.494 0 0 1 .37-.05a.611.611 0 0 1 .095.005c.27.034.533.125 1.003.472c.835.62 4.531 3.815 4.566 3.846c.002.002.238.203.22.537c-.007.186-.11.352-.294.466a.902.9 0 0 1-.484.15a.804.802 0 0 1-.428-.124c-.014-.01-1.28-1.157-1.746-1.543c-.074-.06-.146-.115-.22-.115a.12.12 0 0 0-.096.045c-.073.09.01.212.105.294l1.48 1.47c.002 0 .184.17.204.395q.017.367-.35.606a.957.955 0 0 1-.526.171a.766.764 0 0 1-.42-.127l-.214-.206a21.035 20.978 0 0 0-1.08-1.009c-.072-.058-.148-.112-.221-.112a.13.13 0 0 0-.094.038c-.033.037-.056.103.028.212a.698.696 0 0 0 .075.083l1.078 1.198c.01.01.222.26.024.511l-.038.048a1.18 1.178 0 0 1-.1.096c-.184.15-.43.164-.527.164a.8.798 0 0 1-.147-.012q-.16-.027-.212-.089l-.013-.013c-.06-.06-.602-.609-1.054-.98c-.059-.05-.133-.11-.21-.11a.13.13 0 0 0-.096.042c-.09.096.044.24.1.293l.92 1.003a.2.2 0 0 1-.033.062c-.033.044-.144.155-.479.196a.91.907 0 0 1-.122.007c-.345 0-.712-.164-.902-.264a1.343 1.343 0 0 0 .13-.576a1.368 1.365 0 0 0-1.42-1.357c.024-.342-.025-.99-.697-1.274a1.455 1.452 0 0 0-.575-.125q-.22 0-.42.075a1.153 1.153 0 0 0-.671-.564a1.52 1.515 0 0 0-.494-.085q-.421 0-.767.242a1.168 1.165 0 0 0-.903-.43a1.173 1.173 0 0 0-.82.335c-.287-.217-1.425-.93-4.467-1.613a17.39 17.344 0 0 1-.692-.189a4.822 4.822 0 0 0-.077.494l.67.157c3.108.682 4.136 1.391 4.309 1.525a1.145 1.142 0 0 0-.09.442a1.16 1.158 0 0 0 1.378 1.132c.096.467.406.821.879 1.003a1.165 1.162 0 0 0 .415.08q.135 0 .266-.034c.086.22.282.493.722.668a1.233 1.233 0 0 0 .457.094q.183 0 .355-.063a1.373 1.373 0 0 0 1.269.841c.37.002.726-.147.985-.41c.221.121.688.341 1.163.341q.09.001.175-.01c.47-.059.689-.24.789-.382a.571.571 0 0 0 .048-.078c.11.032.234.058.373.058c.255 0 .501-.086.75-.265c.244-.174.418-.424.444-.637v-.01q.125.026.251.026c.265 0 .527-.082.773-.242c.48-.31.562-.715.554-.98a1.28 1.279 0 0 0 .978-.194a1.04 1.04 0 0 0 .502-.808a1.088 1.085 0 0 0-.16-.653c.804-.342 2.636-1.003 4.795-1.483a4.734 4.721 0 0 0-.067-.492a27.742 27.667 0 0 0-5.049 1.62zm5.123-.763c0 4.027-5.166 7.293-11.537 7.293S.465 15.572.465 11.545S5.63 4.252 12.004 4.252c6.371 0 11.537 3.265 11.537 7.293zm.46.004c0-4.272-5.374-7.755-12-7.755S.002 7.277.002 11.55L0 12.004c0 4.533 4.695 8.203 11.999 8.203c7.347 0 12-3.67 12-8.204z"/></svg><span>Mercado<br>Pago</span></div>
+          <div class="pm__i"><svg viewBox="0 7.5 24 9" role="img" aria-label="Visa" style="height:36px"><path fill="#1A1F71" d="M9.112 8.262L5.97 15.758H3.92L2.374 9.775c-.094-.368-.175-.503-.461-.658C1.447 8.864.677 8.627 0 8.479l.046-.217h3.3a.904.904 0 0 1 .894.764l.817 4.338l2.018-5.102zm8.033 5.049c.008-1.979-2.736-2.088-2.717-2.972c.006-.269.262-.555.822-.628a3.66 3.66 0 0 1 1.913.336l.34-1.59a5.2 5.2 0 0 0-1.814-.333c-1.917 0-3.266 1.02-3.278 2.479c-.012 1.079.963 1.68 1.698 2.04c.756.367 1.01.603 1.006.931c-.005.504-.602.725-1.16.734c-.975.015-1.54-.263-1.992-.473l-.351 1.642c.453.208 1.289.39 2.156.398c2.037 0 3.37-1.006 3.377-2.564m5.061 2.447H24l-1.565-7.496h-1.656a.88.88 0 0 0-.826.55l-2.909 6.946h2.036l.405-1.12h2.488zm-2.163-2.656l1.02-2.815l.588 2.815zm-8.16-4.84l-1.603 7.496H8.34l1.605-7.496z"/></svg></div>
+          <div class="pm__i"><svg viewBox="0 4 24 16" role="img" aria-label="Mastercard" style="height:48px"><path fill="#EB001B" d="M11.343 18.031q.088.074.181.146a7.4 7.4 0 0 1-4.107 1.238a7.416 7.416 0 1 1 4.104-13.593c-.06.051-.12.098-.165.15A7.96 7.96 0 0 0 8.595 12a8 8 0 0 0 2.748 6.031m5.241-13.447c-1.52 0-2.931.456-4.105 1.238c.06.051.12.098.165.15A7.96 7.96 0 0 1 15.405 12a8 8 0 0 1-2.748 6.031q-.088.074-.181.146a7.4 7.4 0 0 0 4.107 1.238A7.414 7.414 0 0 0 24 12a7.417 7.417 0 0 0-7.416-7.416M12 6.174q-.144.111-.28.231A7.4 7.4 0 0 0 9.169 12A7.39 7.39 0 0 0 12 17.827q.144-.112.28-.232A7.4 7.4 0 0 0 14.831 12A7.39 7.39 0 0 0 12 6.174"/></svg><span>Mastercard</span></div>
+          <div class="pm__i"><svg viewBox="0 0 110 44" role="img" aria-label="MODO"><defs><linearGradient id="gm" x1="0" x2="1"><stop offset="0" stop-color="#00C2FF"/><stop offset="1" stop-color="#6D28D9"/></linearGradient></defs><text x="55" y="33" text-anchor="middle" font-family="Plus Jakarta Sans,Arial,sans-serif" font-weight="800" font-size="34" letter-spacing="-1.5" fill="url(#gm)">modo</text></svg></div>
+          <div class="pm__i"><svg viewBox="0 0 48 32" aria-hidden="true"><rect width="48" height="32" rx="5" fill="#0F1629"/><rect y="7" width="48" height="6" fill="#38BDF8"/><rect x="6" y="20" width="14" height="4" rx="2" fill="#94A3B8"/></svg><span>Tarjeta de<br>débito</span></div>
+          <div class="pm__i"><svg viewBox="0 0 48 32" aria-hidden="true"><rect width="48" height="32" rx="5" fill="#F43F5E"/><rect x="6" y="7" width="9" height="7" rx="2" fill="#FDE047"/><rect x="6" y="20" width="20" height="4" rx="2" fill="#fff" opacity=".8"/></svg><span>Tarjeta de<br>crédito</span></div>
+        </div>
+      </div>
+      <div class="pm__v pm__v--r" data-r="up" style="--d:.15s">
+        <div class="pm__t">
+          <div class="pm__c hot">7 días gratis</div>
+          <div class="pm__c">Mercado Pago</div>
+          <div class="pm__c">Tarjeta de crédito</div>
+          <div class="pm__c">Visa</div>
+          <div class="pm__c">MODO</div>
+          <div class="pm__c">Tarjeta de débito</div>
+          <div class="pm__c">Mastercard</div>
+          <div class="pm__c hot">Después, US$5 por mes</div>
+        </div>
+      </div>
+    </section>
 
-  <details class="faq__item">
-    <summary>¿Necesito conocimientos técnicos para usarlo?</summary>
-    <p class="faq__respuesta">No. Impulso es súper intuitiva: si sabes usar el celular o el correo, sabes usar Impulso. Todo está pensado para que cargues tus datos en pocos pasos.</p>
-  </details>
+    <div class="final">
+      <div class="wrap">
+        <div class="box" id="box">
+          <h2>Tu emprendimiento merece un <span class="imp">impulso</span></h2>
+          <p>Empieza con 7 días de prueba gratis y ordena tu negocio hoy. Después, solo US$5 al mes.</p>
+          <a class="btn mag" href="../registro/index.html">Empezar ahora</a>
+        </div>
+      </div>
+    </div>
+  </main>
 
-  <h3 class="faq__grupo">Empezar a usarlo</h3>
+  <a class="stk" id="stk" href="#">Empezar ahora</a>
 
-  <details class="faq__item">
-    <summary>¿Cómo creo mi cuenta?</summary>
-    <p class="faq__respuesta">Con tu correo electrónico y una contraseña. Más adelante también podrás ingresar con tu cuenta de Google.</p>
-  </details>
+  <footer>
+    <div class="wrap">
+      <span>© 2026 Impulso</span>
+      <span><a href="#">Iniciar sesión</a> · <a href="#ayuda">Ayuda</a></span>
+    </div>
+  </footer>
 
-  <details class="faq__item">
-    <summary>¿Tengo que instalar algo?</summary>
-    <p class="faq__respuesta">No. Impulso funciona desde el navegador, así que lo abres desde la computadora o el celular y listo.</p>
-  </details>
-
-  <details class="faq__item">
-    <summary>¿Cuánto tarda en estar listo para usar?</summary>
-    <p class="faq__respuesta">Unos 5 minutos: creas tu cuenta y ya puedes empezar a cargar tu información.</p>
-  </details>
-
-  <h3 class="faq__grupo">Datos y seguridad</h3>
-
-  <details class="faq__item">
-    <summary>¿Mi información está segura?</summary>
-    <p class="faq__respuesta">Tus datos se guardan en una base de datos y solo se accede a ellos con tu correo y tu contraseña. Cuida tu contraseña y no la compartas.</p>
-  </details>
-
-  <details class="faq__item">
-    <summary>¿Quién puede ver mis datos?</summary>
-    <p class="faq__respuesta">Solo tú, desde tu cuenta. Cada usuario ve únicamente su propia información.</p>
-  </details>
-
-  <details class="faq__item">
-    <summary>¿Dónde se guardan mis datos?</summary>
-    <p class="faq__respuesta">En una base de datos de Impulso, asociada a tu cuenta, para que puedas entrar desde cualquier dispositivo y encontrar todo igual.</p>
-  </details>
-</section>
+  <script src="main.js"></script>
 </body>
 </html>

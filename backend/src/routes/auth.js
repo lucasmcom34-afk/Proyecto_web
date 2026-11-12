@@ -267,7 +267,7 @@ const googleClient = () =>
   new OAuth2Client(
     process.env.GOOGLE_CLIENT_ID,
     process.env.GOOGLE_CLIENT_SECRET,
-    `${process.env.BASE_URL}/api/auth/google/callback`
+    `${process.env.BASE_URL_2}/api/auth/google/callback`
   );
 
 // GOOGLE: redirige a la pantalla de Google

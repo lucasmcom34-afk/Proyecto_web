@@ -436,3 +436,11 @@ if (document.getElementById("periodoActual")) {
 	actualizarResumen();
 }
 })();
+
+document.getElementById("logoutBtn").addEventListener("click", async () => {
+    try {
+        await fetch("/api/auth/logout", { method: "POST" });
+    } catch (e) {}
+    localStorage.removeItem("nombre");
+    window.location.replace("../inicio_sesion/login.html");
+});
