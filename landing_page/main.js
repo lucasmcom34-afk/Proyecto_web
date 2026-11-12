@@ -241,16 +241,14 @@ if(!R&&matchMedia('(hover:hover)').matches){
 
 const W=[
   {t:'Tiendas',h:'Tu stock siempre a la vista',p:'Controla talles, colores y precios sin planillas, y sabe qué reponer.',r:[['Remera básica · M','8 en stock'],['Jean recto · 40','3 en stock'],['Campera liviana','Reponer']]},
-  {t:'Comida',h:'Pedidos sin perderte ninguno',p:'Anota cada pedido, su estado y a quién se lo entregas.',r:[['Pedido #124','En preparación'],['Pedido #125','Listo para entregar'],['Pedido #126','Nuevo']]},
-  {t:'Servicios',h:'Clientes y turnos en orden',p:'Guarda los datos de cada cliente y recuerda lo que hiciste con cada uno.',r:[['Lucía · martes 10:00','Confirmado'],['Mateo · jueves 16:30','Pendiente'],['Sofía · viernes 9:00','Confirmado']]},
-  {t:'Artesanías',h:'Cuánto ganas con cada pieza',p:'Registra tus ventas y mira qué productos te dejan más.',r:[['Taza personalizada','$6.500'],['Pack de regalo','$18.900'],['Velas aromáticas','$4.200']]}
+  {t:'Artesanías',h:'Cuánto ganas con cada pieza',p:'Registra tus ventas y mira qué productos te dejan más.',r:[['Taza personalizada','$6.500'],['Pack de regalo','$18.900'],['Velas aromáticas','$4.200']]},
+  {t:'Finanzas',h:'Tus finanzas siempre claras',p:'Controla ingresos y gastos y mira cuánto gana tu emprendimiento desde un solo lugar.',r:[['Ventas de hoy','$48.500'],['Compra de insumos','-$12.800'],['Balance del mes','$186.200']]}
 ];
 const wtabs=document.querySelector('.who__tabs'),wc=document.querySelector('.who__c');
 const X=[
   {c:'#F43F5E',n:'Venta nueva · +$12.400'},
-  {c:'#FB923C',n:'Pedido #127 · nuevo'},
-  {c:'#38BDF8',n:'Turno confirmado · Lucía'},
-  {c:'#A78BFA',n:'Pedido personalizado · $6.500'}
+  {c:'#A78BFA',n:'Pedido personalizado · $6.500'},
+  {c:'#22C55E',n:'Balance del mes · +18%'}
 ];
 W.forEach((d,i)=>Object.assign(d,X[i]));
 wtabs.innerHTML=W.map(d=>`<button type="button" role="tab" style="--ac:${d.c}"><b>${d.t}</b><i></i></button>`).join('');
@@ -267,23 +265,15 @@ function who(i){
   const d=W[i];
   wc.style.setProperty('--ac',d.c);
   wc.innerHTML=`<div class="lv"><span class="lvd"></span>En vivo<span class="nt">${d.n}</span></div><h3>${d.h}</h3><p>${d.p}</p>`+d.r.map((r,k)=>`<div class="wr" style="--k:${k}">${r[0]}<span>${r[1]}</span></div>`).join('')+`<div class="wb">${Array.from({length:16},(_,j)=>`<i style="--h:${20+Math.round(Math.random()*80)}%;--k:${j}"></i>`).join('')}</div>`;
-  wc.classList.remove('sw');
+  wc.classList.remove('who__c--shine');
   void wc.offsetWidth;
-  wc.classList.add('sw');
+  wc.classList.add('who__c--shine');
 }
 wt.forEach((b,i)=>{
   b.addEventListener('click',()=>who(i));
   b.querySelector('i').addEventListener('animationend',()=>who((i+1)%W.length));
 });
 who(0);
-
-if(!R&&matchMedia('(hover:hover)').matches){
-  wc.addEventListener('pointermove',e=>{
-    const r=wc.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
-    wc.style.transform=`perspective(900px) rotateY(${x*7}deg) rotateX(${-y*7}deg)`;
-  });
-  wc.addEventListener('pointerleave',()=>{wc.style.transform='';});
-}
 
 $$('.imp').forEach(el=>{
   el.setAttribute('aria-label',el.textContent);
@@ -293,17 +283,16 @@ $$('.imp').forEach(el=>{
 $$('.pm__t').forEach(t=>t.innerHTML+=t.innerHTML);
 
 const stk=$('stk');
-const hd=$('hd'),bar=$('bar'),heroL=$('heroL'),box=$('box'),sp=$$('[data-sp]'),rows=$$('.mq__row');
+const hd=$('hd'),heroL=$('heroL'),box=$('box'),sp=$$('[data-sp]'),rows=$$('.mq__row');
 rows.forEach(r=>r.innerHTML+=r.innerHTML);
 let ly=scrollY,v=0,pos=0,mqOn=true;
 const hint=$('hint');
 new IntersectionObserver(e=>{mqOn=e[0].isIntersecting;}).observe(document.querySelector('.mq'));
 
 function tick(){
-  const y=scrollY,vh=innerHeight,H=document.documentElement.scrollHeight-vh;
+  const y=scrollY,vh=innerHeight;
   v+=((y-ly)-v)*.12;
   ly=y;
-  bar.style.transform=`scaleX(${H>0?y/H:0})`;
   hd.classList.toggle('sm',y>30);
   stk.classList.toggle('show',y>vh*.9&&box.getBoundingClientRect().top>vh*.8);
   if(!R){
