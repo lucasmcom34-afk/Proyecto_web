@@ -168,6 +168,8 @@ body {
 
 .terms { display: flex; align-items: center; gap: 9px; font-size: 12px; color: var(--texto); cursor: pointer; }
 .terms input { width: 16px; height: 16px; accent-color: var(--cta); cursor: pointer; }
+.terms a { color: var(--titulos); font-weight: 700; text-decoration: underline; text-underline-offset: 2px; }
+.terms a:hover { color: var(--cta); }
 
 /* Mensajes */
 .form-message {
