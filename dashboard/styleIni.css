@@ -199,6 +199,7 @@ main .encabezado-resumen p {
 @media (max-width: 720px) {
     body {
         padding-left: 0;
+        padding-bottom: 5rem;
     }
 
     #aRapidas {
@@ -626,22 +627,114 @@ main .encabezado-resumen p {
     filter: brightness(0) invert(1);
 }
 
-/* Botón de modo claro / oscuro */
-.theme-toggle {
-  position: absolute;
-  top: 18px;
-  right: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  border: 1px solid var(--borde);
-  border-radius: 12px;
-  background: var(--fondo);
-  color: var(--titulos);
-  font-size: 19px;
-  cursor: pointer;
-  transition: transform .2s, border-color .2s;
+.panel-usuario {
+    display: flex;
+    align-items: center;
+    gap: 0.3em;
+    width: 100%;
+    min-width: 0;
+    margin-top: auto;
+    padding: 0.45em;
+    font-size: 16px;
+    color: var(--titulos);
+    background: var(--superficie);
+    border: 1px solid var(--borde);
+    border-radius: 14px;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.18);
 }
-.theme-toggle:hover { transform: translateY(-2px); border-color: var(--cta); }
+
+.panel-usuario-flotante {
+    position: fixed;
+    bottom: 12px;
+    left: 12px;
+    z-index: 20;
+    width: min(250px, calc(100vw - 24px));
+    margin: 0;
+}
+
+.avatar-usuario {
+    display: grid;
+    flex: 0 0 2.2em;
+    width: 2.2em;
+    height: 2.2em;
+    place-items: center;
+    color: #FFFFFF;
+    background: var(--cta);
+    border-radius: 50%;
+    font-weight: 700;
+}
+
+.nombre-usuario {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    font-size: 0.78em;
+    font-weight: 600;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.accion-usuario {
+    display: grid;
+    flex: 0 0 1.9em;
+    width: 1.9em;
+    height: 2em;
+    place-items: center;
+    color: var(--texto);
+    background: transparent;
+    border: 0;
+    border-radius: 50%;
+    cursor: pointer;
+    text-decoration: none;
+    transition: color 0.2s, background-color 0.2s;
+}
+
+.accion-usuario:hover,
+.accion-usuario:focus-visible {
+    color: var(--cta);
+    background: var(--fondo);
+}
+
+.accion-usuario:focus-visible {
+    outline: 2px solid var(--cta);
+    outline-offset: 2px;
+}
+
+.icono-accion-usuario {
+    display: block;
+    width: 1.2em;
+    height: 1.2em;
+    object-fit: contain;
+    filter: brightness(0);
+}
+
+.icono-cerrar-sesion {
+    display: block;
+    width: 1.1475em;
+    height: 1.1475em;
+    color: #000000;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+:root.oscuro .icono-accion-usuario {
+    filter: brightness(0) invert(1);
+}
+
+:root.oscuro .icono-cerrar-sesion {
+    color: #FFFFFF;
+}
+
+@media (max-width: 720px) {
+    .panel-usuario {
+        position: fixed;
+        bottom: 12px;
+        left: 12px;
+        z-index: 20;
+        width: min(250px, calc(100vw - 24px));
+        margin: 0;
+    }
+}

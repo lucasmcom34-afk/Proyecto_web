@@ -1,48 +1,7 @@
 (function () {
-// ================= MODO CLARO / OSCURO =================
-
-const themeToggle = document.getElementById("themeToggle");
-const themeIcon = document.getElementById("themeIcon");
-const raiz = document.documentElement;
-
-// Actualiza el icono y la descripción del botón
-function actualizarBotonTema() {
-    const oscuro = raiz.classList.contains("oscuro");
-
-    if (themeIcon) {
-        themeIcon.textContent = oscuro ? "☀" : "☾";
-    }
-
-    if (themeToggle) {
-        themeToggle.setAttribute(
-            "aria-label",
-            oscuro ? "Cambiar a modo claro" : "Cambiar a modo oscuro"
-        );
-
-        themeToggle.setAttribute(
-            "title",
-            oscuro ? "Modo oscuro" : "Modo claro"
-        );
-    }
-}
-
-// Actualiza el botón al cargar la página
-actualizarBotonTema();
-
-// Cambia el tema al hacer clic
-if (themeToggle) {
-    themeToggle.addEventListener("click", () => {
-        const oscuro = raiz.classList.toggle("oscuro");
-
-        localStorage.setItem("tema", oscuro ? "oscuro" : "claro");
-
-        actualizarBotonTema();
-    });
-}
-
-
 const spanUsername = document.getElementById("username");
-if (spanUsername) spanUsername.textContent = localStorage.getItem("nombre") || "invitado";
+const nombreUsuario = (localStorage.getItem("nombre") || "invitado").trim() || "invitado";
+if (spanUsername) spanUsername.textContent = nombreUsuario;
 
 const claves = {
 	productos: "productos",
@@ -436,11 +395,3 @@ if (document.getElementById("periodoActual")) {
 	actualizarResumen();
 }
 })();
-
-document.getElementById("logoutBtn").addEventListener("click", async () => {
-    try {
-        await fetch("/api/auth/logout", { method: "POST" });
-    } catch (e) {}
-    localStorage.removeItem("nombre");
-    window.location.replace("../inicio_sesion/login.html");
-});

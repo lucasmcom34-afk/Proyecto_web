@@ -7,27 +7,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <script>
-        (() => {
-            const temaGuardado = localStorage.getItem("tema");
-
-            if (temaGuardado === "oscuro") {
-                document.documentElement.classList.add("oscuro");
-            } else if (temaGuardado === "claro") {
-                document.documentElement.classList.remove("oscuro");
-            } else {
-                const prefiereOscuro = window.matchMedia(
-                    "(prefers-color-scheme: dark)"
-                ).matches;
-
-                document.documentElement.classList.toggle("oscuro", prefiereOscuro);
-            }
-        })();
-    </script>
+    <script src="../dashboard/appearance.js"></script>
     <link rel="stylesheet" href="../dashboard/styleIni.css">
     <link rel="stylesheet" href="inventario.css">
     <script src="inventario.js" defer></script>
     <script src="../dashboard/main.js" defer></script>
+    <script src="../dashboard/account.js" defer></script>
 </head>
 <body>
     <header>
@@ -37,9 +22,6 @@
             <a href="../historialRegistros/registros.html">Registros</a>
             <a href="../rendimiento/rendimiento.html">Rendimiento</a>
         </nav>
-        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Cambiar a modo claro">
-            <span id="themeIcon" aria-hidden="true">☀</span>
-        </button>
     </header>
 
     <aside id="aRapidas" aria-label="Acciones rápidas">

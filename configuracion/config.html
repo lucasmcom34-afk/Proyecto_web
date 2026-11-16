@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es" data-pagina="configuracion">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuración</title>
+    <script src="../dashboard/appearance.js"></script>
+    <link rel="stylesheet" href="../dashboard/styleIni.css">
+    <link rel="stylesheet" href="config.css">
+    <script src="config.js" defer></script>
+    <script src="../dashboard/account.js" defer></script>
+</head>
+<body class="pagina-configuracion">
+    <main>
+        <h1>Configuración</h1>
+        <h2 class="categoria-configuracion" id="tituloPreferencias">Preferencias</h2>
+        <section class="preferencias" aria-labelledby="tituloPreferencias">
+            <div class="subcategoria-preferencia">
+                <label class="ajuste-tema">
+                    <span>Activar modo oscuro</span>
+                    <input id="toggleModoOscuro" type="checkbox" role="switch" aria-label="Activar modo oscuro">
+                    <span class="interruptor" aria-hidden="true">
+                        <span class="interruptor-punto"></span>
+                    </span>
+                </label>
+            </div>
+            <div class="subcategoria-preferencia">
+                <label class="ajuste-fuente" for="selectorTamanoFuente">
+                    <span>Tamaño de fuente</span>
+                    <select id="selectorTamanoFuente">
+                        <option value="12px">Chico</option>
+                        <option value="16px">Normal</option>
+                        <option value="20px">Grande</option>
+                    </select>
+                </label>
+            </div>
+        </section>
+        <a class="volver-dashboard" href="../dashboard/dashboard.html">Volver al panel</a>
+    </main>
+</body>
+</html>

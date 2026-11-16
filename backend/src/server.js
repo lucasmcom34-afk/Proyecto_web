@@ -24,6 +24,7 @@ app.use("/registro", express.static(path.join(raiz, "registro")));
 app.use("/inventario", express.static(path.join(raiz, "inventario")));
 app.use("/historialRegistros", express.static(path.join(raiz, "historialRegistros")));
 app.use("/rendimiento", express.static(path.join(raiz, "rendimiento")));
+app.use("/configuracion", express.static(path.join(raiz, "configuracion")));
 
 
 // Dashboard protegido: sin cookie válida redirige al login

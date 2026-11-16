@@ -7,39 +7,20 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <script>
-        (() => {
-            const temaGuardado = localStorage.getItem("tema");
-
-            if (temaGuardado === "oscuro") {
-                document.documentElement.classList.add("oscuro");
-            } else if (temaGuardado === "claro") {
-                document.documentElement.classList.remove("oscuro");
-            } else {
-                const prefiereOscuro = window.matchMedia(
-                    "(prefers-color-scheme: dark)"
-                ).matches;
-
-                document.documentElement.classList.toggle("oscuro", prefiereOscuro);
-            }
-        })();
-    </script>
+    <script src="appearance.js"></script>
     <link rel="stylesheet" href="styleIni.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js" defer></script>
     <script src="main.js" defer></script>
+    <script src="account.js" defer></script>
 </head>
 <body>
     <header>
         <nav>
-            <button id="logoutBtn" type="button">Cerrar sesión</button>
             <a href="dashboard.html">Inicio</a>
             <a href="../inventario/inventario.html">Inventario</a>
             <a href="../historialRegistros/registros.html">Registros</a>
             <a href="../rendimiento/rendimiento.html">Rendimiento</a>
         </nav>
-        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Cambiar a modo claro">
-            <span id="themeIcon" aria-hidden="true">☀</span>
-        </button>
     </header>
     <main>
         <h1>Bienvenido/a , <span id="username" class="username"></span></h1>
@@ -124,7 +105,6 @@
             </div>
         </div>
     </section>
-
     <dialog class="modal" id="modalVenta" aria-labelledby="tituloVenta">
         <form id="formVenta" class="formulario-modal">
             <div class="encabezado-modal">
