@@ -609,6 +609,7 @@ main .encabezado-resumen p {
     gap: 0.4rem;
     width: 100%;
     margin: 0 0 1rem;
+    transform: translate(-30px, -20px);
     color: var(--titulos);
     font-size: 1.1rem;
     font-weight: 700;
