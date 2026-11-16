@@ -8,6 +8,7 @@
   --texto: #64748B;
   --fondo: #F8FAFC;
   --cta: #F43F5E;
+  --color-estrella: #E11D48;
   --borde: #E2E8F0;
   --blanco: #FFFFFF;
   --superficie: var(--blanco);     /* fondo de paneles y tarjetas */
@@ -24,6 +25,7 @@
   --fondo: #0F172A;
   --borde: #334155;
   --superficie: #1E293B;
+  --color-estrella: #7DD3FC;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -45,13 +47,14 @@ a:hover { color: var(--cta); }
 /* =========================
    FONDO
 ========================= */
-.background { position: fixed; inset: 0; overflow: hidden; background: var(--fondo); }
+.background { position: fixed; inset: 0; overflow: hidden; isolation: isolate; background: var(--fondo); }
 
 /* Cuadrícula suave */
 .background::after {
   content: "";
   position: absolute;
   inset: 0;
+  z-index: 1;
   background-image:
     linear-gradient(var(--borde) 1px, transparent 1px),
     linear-gradient(90deg, var(--borde) 1px, transparent 1px);
@@ -59,7 +62,7 @@ a:hover { color: var(--cta); }
   mask-image: linear-gradient(to right, black, transparent 85%);
 }
 
-.blob { position: absolute; border-radius: 50%; filter: blur(100px); }
+.blob { position: absolute; z-index: 0; border-radius: 50%; filter: blur(100px); }
 
 .blob-1 {
   width: 500px; height: 500px;
@@ -86,6 +89,135 @@ a:hover { color: var(--cta); }
 /* En modo oscuro los destellos se suavizan */
 :root.oscuro .blob-2 { background: var(--borde); opacity: 0.7; }
 :root.oscuro .blob-3 { opacity: 0.12; }
+
+.estrellas-fugaces {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.estrella-fugaz {
+  position: absolute;
+  width: 240px;
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--color-estrella) 70%, transparent) 55%, color-mix(in srgb, var(--color-estrella) 25%, #FFFFFF));
+  filter: drop-shadow(0 0 4px var(--color-estrella)) drop-shadow(0 0 9px color-mix(in srgb, var(--color-estrella) 45%, transparent));
+  opacity: 0;
+  transform: rotate(145deg) scaleX(0.25);
+  animation: cruzarCielo 7s ease-in-out infinite;
+}
+
+.estrella-fugaz::after {
+  position: absolute;
+  top: -2px;
+  right: 0;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-estrella);
+  box-shadow: 0 0 7px 2px var(--color-estrella), 0 0 12px 2px color-mix(in srgb, var(--color-estrella) 45%, transparent);
+  content: "";
+}
+
+.estrella-fugaz-1 {
+  top: 8%;
+  left: 78%;
+  --viaje-x: -100vw;
+  --viaje-y: 82vh;
+  animation-delay: 0s;
+}
+
+.estrella-fugaz-2 {
+  top: 24%;
+  left: 62%;
+  width: 190px;
+  --viaje-x: -92vw;
+  --viaje-y: 90vh;
+  animation-duration: 8s;
+  animation-delay: 1.8s;
+}
+
+.estrella-fugaz-3 {
+  top: 4%;
+  left: 94%;
+  width: 215px;
+  --viaje-x: -120vw;
+  --viaje-y: 110vh;
+  animation-duration: 9s;
+  animation-delay: 3.8s;
+}
+
+.estrella-fugaz-4 {
+  top: 36%;
+  left: 98%;
+  width: 165px;
+  --viaje-x: -100vw;
+  --viaje-y: 60vh;
+  animation-duration: 8.3s;
+  animation-delay: 2.7s;
+}
+
+.estrella-fugaz-5 {
+  top: 68%;
+  left: 76%;
+  width: 180px;
+  --viaje-x: -85vw;
+  --viaje-y: 48vh;
+  animation-duration: 9.2s;
+  animation-delay: 4.4s;
+}
+
+.estrella-fugaz-6 {
+  top: 14%;
+  left: 48%;
+  width: 155px;
+  --viaje-x: -70vw;
+  --viaje-y: 75vh;
+  animation-duration: 7.8s;
+  animation-delay: 6.1s;
+}
+
+.estrella-fugaz-7 {
+  top: 56%;
+  left: 100%;
+  width: 200px;
+  --viaje-x: -110vw;
+  --viaje-y: 35vh;
+  animation-duration: 9.6s;
+  animation-delay: 8s;
+}
+
+.estrella-fugaz-8 {
+  top: 90%;
+  left: 58%;
+  width: 145px;
+  --viaje-x: -72vw;
+  --viaje-y: 100vh;
+  animation-duration: 8.7s;
+  animation-delay: 10.1s;
+}
+
+@keyframes cruzarCielo {
+  0%, 35% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0) rotate(145deg) scaleX(0.25);
+  }
+  38% {
+    opacity: 0.68;
+    transform: translate3d(0, 0, 0) rotate(145deg) scaleX(1);
+  }
+  82% {
+    opacity: 0;
+    transform: translate3d(var(--viaje-x), var(--viaje-y), 0) rotate(145deg) scaleX(0.55);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(var(--viaje-x), var(--viaje-y), 0) rotate(145deg) scaleX(0.25);
+  }
+}
 
 @keyframes mover1 { to { transform: translate(180px, 100px) scale(1.15); } }
 @keyframes mover2 { to { transform: translate(-150px, -120px) scale(1.2); } }
@@ -146,40 +278,10 @@ main {
   animation: llegarDesdeIzquierda 1.4s cubic-bezier(.22, 1, .36, 1) forwards;
 }
 
-.hero h1 span.hero-message-fact {
-  display: block;
-  font-size: clamp(1.08rem, 1.58vw, 1.3rem);
-  font-weight: 500;
-  line-height: 1.45;
-  letter-spacing: normal;
-}
-
-.hero-message-fact strong {
-  display: block;
-  margin-bottom: 0.569em;
-  font-size: 1.2em;
-  font-weight: 800;
-  line-height: 1.15;
-}
-
-.hero-message-fact span {
-  display: block;
-  opacity: 0;
-  animation: llegarDesdeIzquierda 1.4s cubic-bezier(.22, 1, .36, 1) forwards;
-}
-
 /* Se desliza hacia su lugar mientras sube la opacidad */
 @keyframes llegarDesdeIzquierda {
   from { opacity: 0; transform: translateX(-120px); }
   to   { opacity: 1; transform: translateX(0); }
-}
-
-.hero h1.saliendo {
-  animation: salirHaciaIzquierda .8s ease-in forwards;
-}
-
-@keyframes salirHaciaIzquierda {
-  to { opacity: 0; transform: translateX(-120px); }
 }
 
 /* =========================
@@ -358,7 +460,8 @@ input:focus {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .blob, .hero h1 > span, .hero-message-fact span { animation: none; opacity: 1; }
+  .blob, .hero h1 > span { animation: none; opacity: 1; }
+  .estrellas-fugaces { display: none; }
   * { transition: none !important; }
 }
 
