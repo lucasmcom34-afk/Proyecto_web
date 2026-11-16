@@ -67,6 +67,7 @@ async function inicializarNombrePreferido() {
 
 		inputNombre.setCustomValidity("");
 		localStorage.setItem(claveNombrePreferido, nombreElegido);
+		localStorage.setItem(`ultimoCambioNombre:${idUsuario}`, String(Date.now()));
 		if (spanUsername) spanUsername.textContent = `, ${nombreElegido}`;
 		actualizarNombrePanel(nombreElegido);
 		promptNombrePreferido.close();

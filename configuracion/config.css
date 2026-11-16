@@ -73,6 +73,65 @@
     outline-offset: 1px;
 }
 
+.form-cambio-nombre {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+}
+
+.form-cambio-nombre h3 {
+    margin: 0;
+    font-size: 1rem;
+}
+
+.form-cambio-nombre label {
+    color: var(--texto);
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.control-cambio-nombre {
+    display: flex;
+    gap: 0.65rem;
+}
+
+.control-cambio-nombre input {
+    flex: 1;
+    min-width: 0;
+    padding: 0.55rem 0.75rem;
+    color: var(--titulos);
+    background: var(--fondo-control);
+    border: 1px solid var(--borde);
+    border-radius: 8px;
+    font: inherit;
+}
+
+.control-cambio-nombre input:focus-visible {
+    border-color: var(--cta);
+    outline: 2px solid rgba(244, 63, 94, 0.2);
+    outline-offset: 1px;
+}
+
+.control-cambio-nombre button {
+    padding: 0.55rem 0.9rem;
+    border-radius: 8px;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.control-cambio-nombre button:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+#mensajeCambioNombre {
+    min-height: 1.2em;
+    margin: 0;
+    color: var(--texto);
+    font-size: 0.85rem;
+}
+
 .ajuste-tema input {
     position: absolute;
     width: 1px;

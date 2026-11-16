@@ -34,6 +34,17 @@
                     </select>
                 </label>
             </div>
+            <div class="subcategoria-preferencia">
+                <form class="form-cambio-nombre" id="formCambioNombre">
+                    <h3>Cambiar nombre</h3>
+                    <label for="inputCambioNombre">Nombre visible</label>
+                    <div class="control-cambio-nombre">
+                        <input id="inputCambioNombre" type="text" maxlength="60" autocomplete="nickname" required>
+                        <button class="boton-principal" type="submit">Guardar</button>
+                    </div>
+                    <p id="mensajeCambioNombre" role="status"></p>
+                </form>
+            </div>
         </section>
         <a class="volver-dashboard" href="../dashboard/dashboard.html">Volver al panel</a>
     </main>
