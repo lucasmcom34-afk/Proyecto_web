@@ -65,7 +65,20 @@
 
 .total-registro-venta {
     flex-shrink: 0;
-    color: var(--cta);
+    color: #15803D;
+}
+
+.total-registro-gasto {
+    flex-shrink: 0;
+    color: #B42332;
+}
+
+:root.oscuro .total-registro-venta {
+    color: #4ADE80;
+}
+
+:root.oscuro .total-registro-gasto {
+    color: #FB7185;
 }
 
 @media (max-width: 520px) {

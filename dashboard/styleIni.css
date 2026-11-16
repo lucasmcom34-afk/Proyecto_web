@@ -311,6 +311,14 @@ main .encabezado-resumen p {
     white-space: nowrap;
 }
 
+:root.oscuro .tabla-actividad .monto-venta {
+    color: #4ADE80;
+}
+
+:root.oscuro .tabla-actividad .monto-gasto {
+    color: #FB7185;
+}
+
 .tabla-actividad .sin-actividad {
     padding: 1.5rem 0.75rem;
     color: var(--texto);
@@ -737,5 +745,291 @@ main .encabezado-resumen p {
         z-index: 20;
         width: min(250px, calc(100vw - 24px));
         margin: 0;
+    }
+}
+
+body:has(#graficoRendimiento) {
+    background:
+        radial-gradient(ellipse at 82% 0, rgba(244, 63, 94, 0.07), transparent 30rem),
+        #F1F5F9;
+}
+
+:root.oscuro body:has(#graficoRendimiento) {
+    background:
+        radial-gradient(ellipse at 82% 0, rgba(244, 63, 94, 0.1), transparent 30rem),
+        #0B1220;
+}
+
+main:has(#graficoRendimiento),
+body:has(#graficoRendimiento) #rendMensual,
+body:has(#graficoRendimiento) #actReciente {
+    width: min(1120px, calc(100% - 3rem));
+    max-width: 1120px;
+    margin: 1.5rem auto;
+}
+
+main:has(#graficoRendimiento) {
+    padding: clamp(1.5rem, 3vw, 2.25rem);
+    background: var(--superficie);
+    border: 1px solid var(--borde);
+    border-radius: 24px;
+    box-shadow: 0 16px 40px rgba(15, 23, 42, 0.07);
+}
+
+main:has(#graficoRendimiento) h1 {
+    margin-bottom: 0.35rem;
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    font-weight: 800;
+    letter-spacing: -0.05em;
+}
+
+main:has(#graficoRendimiento) h1::before {
+    display: block;
+    margin-bottom: 0.65rem;
+    color: var(--cta);
+    content: "PANEL GENERAL";
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.13em;
+}
+
+main:has(#graficoRendimiento) .encabezado-resumen p {
+    display: inline-flex;
+    align-items: center;
+    min-height: 1.8rem;
+    padding: 0.25rem 0.7rem;
+    background: var(--fondo);
+    border: 1px solid var(--borde);
+    border-radius: 999px;
+    font-size: 0.78rem;
+}
+
+main:has(#graficoRendimiento) .grafico-contenedor {
+    height: 340px;
+    margin-top: 1.5rem;
+    padding: 1.2rem 1.25rem;
+    background: var(--fondo);
+    border: 1px solid var(--borde);
+    border-radius: 18px;
+}
+
+main:has(#graficoRendimiento) .grafico-contenedor.torta-activa {
+    height: auto;
+    min-height: 0;
+}
+
+main:has(#graficoRendimiento) .graficos-torta {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.9rem;
+}
+
+main:has(#graficoRendimiento) .graficos-torta[hidden] {
+    display: none;
+}
+
+main:has(#graficoRendimiento) .tarjeta-grafico-mes {
+    min-width: 0;
+    min-height: 250px;
+    padding: 1rem;
+    background: var(--superficie);
+    border: 1px solid var(--borde);
+    border-radius: 14px;
+}
+
+main:has(#graficoRendimiento) .tarjeta-grafico-mes h3 {
+    margin-bottom: 0.5rem;
+    font-size: 0.88rem;
+    font-weight: 700;
+    text-align: center;
+    text-transform: capitalize;
+}
+
+main:has(#graficoRendimiento) .tarjeta-grafico-mes canvas {
+    width: 100% !important;
+    height: 190px !important;
+}
+
+main:has(#graficoRendimiento) .mes-sin-movimientos {
+    display: grid;
+    min-height: 190px;
+    margin: 0;
+    color: var(--texto);
+    font-size: 0.85rem;
+    place-items: center;
+}
+
+main:has(#graficoRendimiento) .grafico-contenedor h2 {
+    margin-bottom: 0.75rem;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+main:has(#graficoRendimiento) .estado-grafico {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 240px;
+    margin: 0;
+    color: var(--texto);
+    text-align: center;
+}
+
+main:has(#graficoRendimiento) .estado-grafico[hidden],
+main:has(#graficoRendimiento) canvas[hidden] {
+    display: none;
+}
+
+body:has(#graficoRendimiento) #rendMensual {
+    gap: 0.85rem;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+}
+
+body:has(#graficoRendimiento) #rendMensual h2,
+body:has(#graficoRendimiento) #actReciente h2 {
+    margin: 0;
+    font-size: 1.15rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+}
+
+body:has(#graficoRendimiento) .kpi-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.85rem;
+}
+
+body:has(#graficoRendimiento) .tarjeta-kpi {
+    position: relative;
+    min-height: 112px;
+    overflow: hidden;
+    padding: 1.15rem 1.2rem;
+    background: var(--superficie);
+    border: 1px solid var(--borde);
+    border-radius: 16px;
+    box-shadow: 0 8px 22px rgba(15, 23, 42, 0.045);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+body:has(#graficoRendimiento) .tarjeta-kpi:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 28px rgba(15, 23, 42, 0.09);
+}
+
+body:has(#graficoRendimiento) .tarjeta-kpi::before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 3px;
+    background: var(--cta);
+    content: "";
+}
+
+body:has(#graficoRendimiento) .tarjeta-kpi:nth-child(1)::before {
+    background: #16A36A;
+}
+
+body:has(#graficoRendimiento) .tarjeta-kpi:nth-child(3)::before {
+    background: #6366F1;
+}
+
+body:has(#graficoRendimiento) .tarjeta-kpi h3 {
+    margin-bottom: 0.6rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.035em;
+}
+
+body:has(#graficoRendimiento) .tarjeta-kpi .valor-kpi {
+    font-size: clamp(1.1rem, 1.8vw, 1.45rem);
+}
+
+body:has(#graficoRendimiento) .tarjeta-anterior {
+    background: #172033;
+    border-color: #172033;
+}
+
+body:has(#graficoRendimiento) .tarjeta-anterior h3,
+body:has(#graficoRendimiento) .tarjeta-anterior .detalle-anterior,
+body:has(#graficoRendimiento) .tarjeta-anterior .detalle-anterior strong {
+    color: #E2E8F0;
+}
+
+body:has(#graficoRendimiento) #actReciente {
+    gap: 1rem;
+    padding: 1.5rem;
+    background: var(--superficie);
+    border: 1px solid var(--borde);
+    border-radius: 20px;
+    box-shadow: 0 12px 32px rgba(15, 23, 42, 0.06);
+}
+
+body:has(#graficoRendimiento) .tabla-actividad thead {
+    background: var(--fondo);
+}
+
+body:has(#graficoRendimiento) .tabla-actividad th {
+    padding-top: 0.95rem;
+    padding-bottom: 0.95rem;
+}
+
+body:has(#graficoRendimiento) .tabla-actividad tbody tr {
+    transition: background-color 0.15s ease;
+}
+
+body:has(#graficoRendimiento) .tabla-actividad tbody tr:hover {
+    background: rgba(244, 63, 94, 0.045);
+}
+
+@media (max-width: 900px) {
+    main:has(#graficoRendimiento),
+    body:has(#graficoRendimiento) #rendMensual,
+    body:has(#graficoRendimiento) #actReciente {
+        width: calc(100% - 2rem);
+    }
+
+    body:has(#graficoRendimiento) .kpi-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    main:has(#graficoRendimiento) .graficos-torta {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 720px) {
+    main:has(#graficoRendimiento),
+    body:has(#graficoRendimiento) #actReciente {
+        width: calc(100% - 1.25rem);
+        margin: 1rem auto;
+        padding: 1.2rem;
+        border-radius: 18px;
+    }
+
+    body:has(#graficoRendimiento) #rendMensual {
+        width: calc(100% - 1.25rem);
+        margin: 1rem auto;
+    }
+
+    main:has(#graficoRendimiento) .grafico-contenedor {
+        height: 260px;
+        padding: 0.9rem;
+    }
+
+    main:has(#graficoRendimiento) .grafico-contenedor.torta-activa {
+        height: auto;
+    }
+
+    main:has(#graficoRendimiento) .graficos-torta {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 440px) {
+    body:has(#graficoRendimiento) .kpi-grid {
+        grid-template-columns: 1fr;
     }
 }

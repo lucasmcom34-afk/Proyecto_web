@@ -48,7 +48,8 @@
     cursor: pointer;
 }
 
-.ajuste-fuente {
+.ajuste-fuente,
+.ajuste-tipo-grafico {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -57,7 +58,8 @@
     font-weight: 600;
 }
 
-.ajuste-fuente select {
+.ajuste-fuente select,
+.ajuste-tipo-grafico select {
     min-width: 7rem;
     padding: 0.45rem 0.65rem;
     color: var(--titulos);
@@ -67,10 +69,17 @@
     font: inherit;
 }
 
-.ajuste-fuente select:focus-visible {
+.ajuste-fuente select:focus-visible,
+.ajuste-tipo-grafico select:focus-visible {
     border-color: var(--cta);
     outline: 2px solid rgba(244, 63, 94, 0.2);
     outline-offset: 1px;
+}
+
+.ayuda-tipo-grafico {
+    margin: 0.55rem 0 0;
+    color: var(--texto);
+    font-size: 0.82rem;
 }
 
 .form-cambio-nombre {

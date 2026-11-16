@@ -38,8 +38,10 @@
             <p id="periodoActual" aria-live="polite"></p>
         </div>
         <div id="aviso"></div>
-        <div class="grafico-contenedor">
+        <div class="grafico-contenedor" id="contenedorGraficoRendimiento">
             <h2>Rendimiento de los últimos 3 meses</h2>
+            <p id="estadoGrafico" class="estado-grafico" role="status" hidden>No hay ingresos ni gastos registrados en los últimos tres meses.</p>
+            <div id="graficosTorta" class="graficos-torta" hidden></div>
             <canvas id="graficoRendimiento" aria-label="Comparación de ingresos y gastos de los últimos tres meses" role="img"></canvas>
         </div>
     </main>

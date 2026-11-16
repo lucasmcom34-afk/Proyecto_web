@@ -99,6 +99,34 @@ const obtenerFechaLocal = () => {
 	const dia = String(hoy.getDate()).padStart(2, "0");
 	return `${anio}-${mes}-${dia}`;
 };
+const obtenerPeriodo = (fecha) => `${fecha.getFullYear()}-${String(fecha.getMonth() + 1).padStart(2, "0")}`;
+function obtenerPeriodoRegistro(registro) {
+	const valorFecha = String(registro.fecha || "");
+	const fechaIso = valorFecha.match(/^(\d{4})-(\d{2})-(\d{2})(?:$|T)/);
+	let fecha;
+
+	if (fechaIso) {
+		const [, anioTexto, mesTexto, diaTexto] = fechaIso;
+		const anio = Number(anioTexto);
+		const mes = Number(mesTexto);
+		const dia = Number(diaTexto);
+		fecha = new Date(anio, mes - 1, dia);
+		if (fecha.getFullYear() !== anio || fecha.getMonth() !== mes - 1 || fecha.getDate() !== dia) {
+			return null;
+		}
+	} else {
+		fecha = new Date(valorFecha);
+		if (Number.isNaN(fecha.getTime())) return null;
+	}
+
+	return obtenerPeriodo(fecha);
+}
+const sumarEnPeriodo = (registros, periodo, propiedad) => registros
+	.filter((registro) => obtenerPeriodoRegistro(registro) === periodo)
+	.reduce((total, registro) => {
+		const monto = Number(registro[propiedad]);
+		return total + (Number.isFinite(monto) ? monto : 0);
+	}, 0);
 const transaccionesPrueba = [
 	{ fecha: "2026-11-06", tipo: "Venta", detalle: "Café molido · 2 un.", monto: 8400 },
 	{ fecha: "2026-11-05", tipo: "Gasto", detalle: "Compra de insumos", monto: 3200 },
@@ -112,7 +140,10 @@ const dialogos = {
 	gasto: document.getElementById("modalGasto")
 };
 
-function inicializarGraficoRendimiento() {
+let graficoRendimiento = null;
+let graficosTorta = [];
+
+function renderizarGraficoRendimiento(ventas, gastos, fechaReferencia = new Date()) {
 	const canvas = document.getElementById("graficoRendimiento");
 	if (!canvas) return;
 	if (typeof Chart === "undefined") {
@@ -120,64 +151,216 @@ function inicializarGraficoRendimiento() {
 		return;
 	}
 
-	const ahora = new Date();
-	const etiquetasMeses = [2, 1, 0].map((mesesAtras) => {
-		const fecha = new Date(ahora.getFullYear(), ahora.getMonth() - mesesAtras, 1);
-		return new Intl.DateTimeFormat("es-AR", { month: "short" })
+	const periodos = [2, 1, 0].map((mesesAtras) => new Date(
+		fechaReferencia.getFullYear(),
+		fechaReferencia.getMonth() - mesesAtras,
+		1
+	));
+	const periodosConEtiqueta = periodos.map((fecha) => ({
+		periodo: obtenerPeriodo(fecha),
+		etiqueta: new Intl.DateTimeFormat("es-AR", { month: "short" })
 			.format(fecha)
-			.replace(".", "");
+			.replace(".", ""),
+		titulo: new Intl.DateTimeFormat("es-AR", { month: "long", year: "numeric" })
+			.format(fecha)
+	}));
+	const ingresosPorMes = periodosConEtiqueta.map(({ periodo }) => sumarEnPeriodo(ventas, periodo, "total"));
+	const gastosPorMes = periodosConEtiqueta.map(({ periodo }) => sumarEnPeriodo(gastos, periodo, "monto"));
+	const tipoGuardado = localStorage.getItem("tipoGrafico");
+	const tiposPermitidos = ["bar", "pie"];
+	const tipoGrafico = tipoGuardado && tiposPermitidos.includes(tipoGuardado) ? tipoGuardado : "bar";
+
+	if (tipoGuardado && !tiposPermitidos.includes(tipoGuardado)) {
+		console.error(`El tipo de gráfico guardado "${tipoGuardado}" no es válido. Se mostrarán barras.`);
+	}
+
+	const estadoGrafico = document.getElementById("estadoGrafico");
+	const graficosTortaContenedor = document.getElementById("graficosTorta");
+	const contenedorGrafico = document.getElementById("contenedorGraficoRendimiento");
+	const hayDatos = ingresosPorMes.some((monto) => monto !== 0)
+		|| gastosPorMes.some((monto) => monto !== 0);
+	canvas.hidden = !hayDatos || tipoGrafico === "pie";
+	if (estadoGrafico) {
+		estadoGrafico.hidden = hayDatos;
+	}
+	if (!graficosTortaContenedor || !contenedorGrafico) {
+		console.error("Faltan contenedores necesarios para mostrar el gráfico de rendimiento.");
+		return;
+	}
+	graficosTortaContenedor.hidden = !hayDatos || tipoGrafico !== "pie";
+	graficosTortaContenedor.replaceChildren();
+	contenedorGrafico.classList.toggle("torta-activa", tipoGrafico === "pie" && hayDatos);
+
+	if (graficoRendimiento) {
+		graficoRendimiento.destroy();
+		graficoRendimiento = null;
+	}
+	graficosTorta.forEach((grafico) => grafico.destroy());
+	graficosTorta = [];
+	if (!hayDatos) return;
+
+	const colores = {
+		ingresos: { fondo: "rgba(22, 163, 106, 0.82)", borde: "#16A36A" },
+		gastos: { fondo: "rgba(244, 63, 94, 0.82)", borde: "#F43F5E" }
+	};
+	const etiquetasMeses = periodosConEtiqueta.map(({ etiqueta }) => etiqueta);
+	const contextoEstilos = getComputedStyle(document.documentElement);
+	const colorTexto = contextoEstilos.getPropertyValue("--texto").trim();
+
+	if (tipoGrafico === "pie") {
+		periodosConEtiqueta.forEach(({ titulo }, indice) => {
+			const tarjeta = document.createElement("article");
+			tarjeta.className = "tarjeta-grafico-mes";
+			const encabezado = document.createElement("h3");
+			encabezado.textContent = titulo.charAt(0).toLocaleUpperCase("es-AR") + titulo.slice(1);
+			tarjeta.append(encabezado);
+
+			const valoresDelMes = [ingresosPorMes[indice], gastosPorMes[indice]];
+			if (valoresDelMes.every((monto) => monto === 0)) {
+				const mensaje = document.createElement("p");
+				mensaje.className = "mes-sin-movimientos";
+				mensaje.textContent = "Sin movimientos";
+				tarjeta.append(mensaje);
+			} else {
+				const lienzo = document.createElement("canvas");
+				lienzo.setAttribute("role", "img");
+				lienzo.setAttribute("aria-label", `Ingresos y gastos de ${titulo}`);
+				tarjeta.append(lienzo);
+
+				const totalMes = valoresDelMes.reduce((total, monto) => total + monto, 0);
+				const grafico = new Chart(lienzo, {
+					type: "pie",
+					data: {
+						labels: ["Ingresos", "Gastos"],
+						datasets: [{
+							data: valoresDelMes,
+							backgroundColor: [colores.ingresos.fondo, colores.gastos.fondo],
+							borderColor: contextoEstilos.getPropertyValue("--superficie").trim(),
+							borderWidth: 3,
+							hoverOffset: 8
+						}]
+					},
+					options: {
+						responsive: true,
+						maintainAspectRatio: false,
+						animation: { duration: 450 },
+						plugins: {
+							legend: {
+								position: "bottom",
+								labels: {
+									color: colorTexto,
+									usePointStyle: true,
+									pointStyle: "circle",
+									padding: 12,
+									font: { family: "Plus Jakarta Sans", size: 11, weight: "600" }
+								}
+							},
+							tooltip: {
+								callbacks: {
+									label: (contexto) => {
+										const monto = Number(contexto.parsed) || 0;
+										const porcentaje = totalMes > 0 ? (monto / totalMes) * 100 : 0;
+										return `${contexto.label}: ${formatoMoneda.format(monto)} (${porcentaje.toFixed(1)}%)`;
+									}
+								}
+							}
+						}
+					}
+				});
+				graficosTorta.push(grafico);
+			}
+
+			graficosTortaContenedor.append(tarjeta);
+		});
+		return;
+	}
+
+	const colorBorde = contextoEstilos.getPropertyValue("--borde").trim();
+	const formatoEje = new Intl.NumberFormat("es-AR", {
+		style: "currency",
+		currency: "ARS",
+		notation: "compact",
+		maximumFractionDigits: 1
 	});
 
-	new Chart(canvas, {
-		type: "bar",
-		data: {
-			labels: etiquetasMeses,
-			datasets: [
-				{
-					label: "Ingresos",
-					data: [120000, 148000, 135000],
-					backgroundColor: "rgba(34, 197, 94, 0.75)",
-					borderColor: "#16A34A",
-					borderWidth: 1
-				},
-				{
-					label: "Gastos",
-					data: [68000, 72000, 81000],
-					backgroundColor: "rgba(244, 63, 94, 0.75)",
-					borderColor: "#E11D48",
-					borderWidth: 1
-				}
-			]
-		},
-		options: {
-			responsive: true,
-			maintainAspectRatio: false,
-			scales: {
-				y: {
-					beginAtZero: true,
-					ticks: {
-						callback: (valor) => formatoMoneda.format(valor)
-					}
+	const opciones = {
+		responsive: true,
+		maintainAspectRatio: false,
+		animation: { duration: 450 },
+		plugins: {
+			legend: {
+				position: "top",
+				labels: {
+					color: colorTexto,
+					usePointStyle: true,
+					pointStyle: "circle",
+					padding: 20,
+					font: { family: "Plus Jakarta Sans", size: 12, weight: "600" }
 				}
 			},
-			plugins: {
-				tooltip: {
-					callbacks: {
-						label: (contexto) => `${contexto.dataset.label}: ${formatoMoneda.format(contexto.parsed.y)}`
-					}
+			tooltip: {
+				callbacks: {
+					label: (contexto) => `${contexto.dataset.label}: ${formatoMoneda.format(Number(contexto.parsed.y) || 0)}`
 				}
 			}
 		}
-	});
+	};
+
+	const datos = {
+		labels: etiquetasMeses,
+		datasets: [
+			{
+				label: "Ingresos",
+				data: ingresosPorMes,
+				backgroundColor: colores.ingresos.fondo,
+				borderColor: colores.ingresos.borde,
+				borderWidth: 1,
+				borderRadius: 7,
+				borderSkipped: false,
+				maxBarThickness: 46
+			},
+			{
+				label: "Gastos",
+				data: gastosPorMes,
+				backgroundColor: colores.gastos.fondo,
+				borderColor: colores.gastos.borde,
+				borderWidth: 1,
+				borderRadius: 7,
+				borderSkipped: false,
+				maxBarThickness: 46
+			}
+		]
+	};
+
+	opciones.scales = {
+		x: {
+			grid: { display: false },
+			ticks: { color: colorTexto, font: { family: "Plus Jakarta Sans" } },
+			border: { display: false }
+		},
+		y: {
+			beginAtZero: true,
+			grid: { color: colorBorde, drawBorder: false },
+			ticks: {
+				color: colorTexto,
+				callback: (valor) => formatoEje.format(valor),
+				font: { family: "Plus Jakarta Sans" }
+			},
+			border: { display: false }
+		}
+	};
+
+	canvas.setAttribute("aria-label", "Comparación de ingresos y gastos por mes durante los últimos tres meses");
+	graficoRendimiento = new Chart(canvas, { type: "bar", data: datos, options: opciones });
 }
 
 function actualizarResumen() {
 	if (!document.getElementById("periodoActual")) return;
 
 	const ahora = new Date();
-	const periodoActual = `${ahora.getFullYear()}-${String(ahora.getMonth() + 1).padStart(2, "0")}`;
+	const periodoActual = obtenerPeriodo(ahora);
 	const fechaMesAnterior = new Date(ahora.getFullYear(), ahora.getMonth() - 1, 1);
-	const periodoAnterior = `${fechaMesAnterior.getFullYear()}-${String(fechaMesAnterior.getMonth() + 1).padStart(2, "0")}`;
+	const periodoAnterior = obtenerPeriodo(fechaMesAnterior);
 	const tituloPeriodo = document.getElementById("periodoActual");
 	const textoPeriodo = new Intl.DateTimeFormat("es-AR", {
 		month: "long",
@@ -187,13 +370,10 @@ function actualizarResumen() {
 
 	const ventas = obtenerRegistros(claves.ventas);
 	const gastos = obtenerRegistros(claves.gastos);
-	const sumarMes = (registros, periodo, propiedad) => registros
-		.filter((registro) => String(registro.fecha || "").slice(0, 7) === periodo)
-		.reduce((total, registro) => total + (Number(registro[propiedad]) || 0), 0);
-	const ingresos = sumarMes(ventas, periodoActual, "total");
-	const totalGastos = sumarMes(gastos, periodoActual, "monto");
-	const ingresosAnteriores = sumarMes(ventas, periodoAnterior, "total");
-	const gastosAnteriores = sumarMes(gastos, periodoAnterior, "monto");
+	const ingresos = sumarEnPeriodo(ventas, periodoActual, "total");
+	const totalGastos = sumarEnPeriodo(gastos, periodoActual, "monto");
+	const ingresosAnteriores = sumarEnPeriodo(ventas, periodoAnterior, "total");
+	const gastosAnteriores = sumarEnPeriodo(gastos, periodoAnterior, "monto");
 
 	document.getElementById("ingresosMes").textContent = formatoMoneda.format(ingresos);
 	document.getElementById("gastosMes").textContent = formatoMoneda.format(totalGastos);
@@ -215,6 +395,7 @@ function actualizarResumen() {
 	});
 
 	actualizarActividadReciente(ventas, gastos);
+	renderizarGraficoRendimiento(ventas, gastos, ahora);
 }
 
 function actualizarActividadReciente(ventas, gastos) {
@@ -464,7 +645,6 @@ document.querySelectorAll('input[type="date"][name="fecha"]').forEach((fecha) =>
 	fecha.value = obtenerFechaLocal();
 });
 if (document.getElementById("periodoActual")) {
-	inicializarGraficoRendimiento();
 	actualizarResumen();
 }
 })();

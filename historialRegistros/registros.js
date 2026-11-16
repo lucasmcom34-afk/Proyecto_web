@@ -109,7 +109,7 @@ function agregarGastos() {
 		detalle.append(descripcion, fecha, categoria);
 
 		const monto = document.createElement("strong");
-		monto.className = "total-registro-venta";
+		monto.className = "total-registro-gasto";
 		monto.textContent = formatoMoneda.format(Number(gasto.monto));
 		const acciones = document.createElement("div");
 		acciones.className = "acciones-registro";

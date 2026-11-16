@@ -1,8 +1,12 @@
 const toggleModoOscuro = document.getElementById("toggleModoOscuro");
 const selectorTamanoFuente = document.getElementById("selectorTamanoFuente");
+const selectorTipoGrafico = document.getElementById("selectorTipoGrafico");
 const tamanosFuente = ["12px", "16px", "20px"];
+const tiposGrafico = ["bar", "pie"];
 const tamanoGuardado = localStorage.getItem("tamanoFuente");
 const tamanoInicial = tamanosFuente.includes(tamanoGuardado) ? tamanoGuardado : "16px";
+const tipoGraficoGuardado = localStorage.getItem("tipoGrafico");
+const tipoGraficoInicial = tiposGrafico.includes(tipoGraficoGuardado) ? tipoGraficoGuardado : "bar";
 const nombreBase = (localStorage.getItem("nombre") || "invitado").trim() || "invitado";
 const idUsuario = localStorage.getItem("idUsuario") || nombreBase;
 const claveNombrePreferido = `nombrePreferido:${idUsuario}`;
@@ -15,6 +19,7 @@ const duracionBloqueoNombre = 3 * 24 * 60 * 60 * 1000;
 
 toggleModoOscuro.checked = document.documentElement.classList.contains("oscuro");
 selectorTamanoFuente.value = tamanoInicial;
+selectorTipoGrafico.value = tipoGraficoInicial;
 inputCambioNombre.value = localStorage.getItem(claveNombrePreferido) || nombreBase;
 
 function actualizarEstadoCambioNombre() {
@@ -55,6 +60,15 @@ selectorTamanoFuente.addEventListener("change", () => {
     }
 
     localStorage.setItem("tamanoFuente", tamanoFuente);
+});
+
+selectorTipoGrafico.addEventListener("change", () => {
+    const tipoGrafico = selectorTipoGrafico.value;
+    if (!tiposGrafico.includes(tipoGrafico)) {
+        throw new RangeError("El tipo de gráfico seleccionado no es válido.");
+    }
+
+    localStorage.setItem("tipoGrafico", tipoGrafico);
 });
 
 formCambioNombre.addEventListener("submit", (evento) => {
