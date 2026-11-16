@@ -1,7 +1,79 @@
 (function () {
 const spanUsername = document.getElementById("username");
-const nombreUsuario = (localStorage.getItem("nombre") || "invitado").trim() || "invitado";
-if (spanUsername) spanUsername.textContent = nombreUsuario;
+const promptNombrePreferido = document.getElementById("promptNombrePreferido");
+const formNombrePreferido = document.getElementById("formNombrePreferido");
+
+async function obtenerIdentificadorUsuario() {
+	const idGuardado = localStorage.getItem("idUsuario");
+	if (idGuardado) return idGuardado;
+
+	try {
+		const respuesta = await fetch("/api/auth/me");
+		if (respuesta.ok) {
+			const datos = await respuesta.json();
+			if (!datos.usuario || datos.usuario.id === undefined || datos.usuario.id === null) {
+				throw new TypeError("La respuesta de sesión no incluye el identificador del usuario.");
+			}
+
+			const idUsuario = String(datos.usuario.id);
+			localStorage.setItem("idUsuario", idUsuario);
+			if (datos.usuario.nombre && !localStorage.getItem("nombre")) {
+				localStorage.setItem("nombre", datos.usuario.nombre);
+			}
+			return idUsuario;
+		}
+
+		if (respuesta.status !== 401) {
+			console.error(`No se pudo obtener el usuario actual (HTTP ${respuesta.status}).`);
+		}
+	} catch (error) {
+		console.error("No se pudo identificar al usuario actual.", error);
+	}
+
+	return (localStorage.getItem("nombre") || "invitado").trim() || "invitado";
+}
+
+function actualizarNombrePanel(nombre) {
+	const nombreUsuarioPanel = document.getElementById("nombreUsuarioPanel");
+	if (nombreUsuarioPanel) nombreUsuarioPanel.textContent = nombre;
+
+	const avatarUsuario = document.getElementById("avatarUsuario");
+	if (avatarUsuario) avatarUsuario.textContent = Array.from(nombre)[0].toLocaleUpperCase("es");
+}
+
+async function inicializarNombrePreferido() {
+	const idUsuario = await obtenerIdentificadorUsuario();
+	const claveNombrePreferido = `nombrePreferido:${idUsuario}`;
+	const nombrePreferido = localStorage.getItem(claveNombrePreferido);
+
+	if (spanUsername) spanUsername.textContent = nombrePreferido ? `, ${nombrePreferido}` : "";
+	if (nombrePreferido) actualizarNombrePanel(nombrePreferido);
+	if (!promptNombrePreferido || nombrePreferido) return;
+
+	promptNombrePreferido.addEventListener("cancel", (evento) => evento.preventDefault());
+	promptNombrePreferido.showModal();
+
+	const inputNombre = document.getElementById("nombrePreferido");
+	inputNombre.addEventListener("input", () => inputNombre.setCustomValidity(""));
+	formNombrePreferido.addEventListener("submit", (evento) => {
+		evento.preventDefault();
+		const nombreElegido = inputNombre.value.trim();
+
+		if (!nombreElegido) {
+			inputNombre.setCustomValidity("Escribí cómo te gustaría que te llamemos.");
+			inputNombre.reportValidity();
+			return;
+		}
+
+		inputNombre.setCustomValidity("");
+		localStorage.setItem(claveNombrePreferido, nombreElegido);
+		if (spanUsername) spanUsername.textContent = `, ${nombreElegido}`;
+		actualizarNombrePanel(nombreElegido);
+		promptNombrePreferido.close();
+	});
+}
+
+if (promptNombrePreferido) inicializarNombrePreferido();
 
 const claves = {
 	productos: "productos",

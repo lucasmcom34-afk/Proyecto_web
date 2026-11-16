@@ -1,7 +1,9 @@
 (() => {
     const sidebar = document.getElementById("aRapidas");
 
-    const nombre = (localStorage.getItem("nombre") || "invitado").trim() || "invitado";
+    const nombreBase = (localStorage.getItem("nombre") || "invitado").trim() || "invitado";
+    const idUsuario = localStorage.getItem("idUsuario") || nombreBase;
+    const nombre = localStorage.getItem(`nombrePreferido:${idUsuario}`) || nombreBase;
     const panel = document.createElement("aside");
     panel.className = "panel-usuario";
     panel.setAttribute("aria-label", "Cuenta de usuario");
@@ -36,6 +38,7 @@
             console.error("No se pudo cerrar la sesión en el servidor.", error);
         }
         localStorage.removeItem("nombre");
+        localStorage.removeItem("idUsuario");
         window.location.replace("../inicio_sesion/login.html");
     });
 })();

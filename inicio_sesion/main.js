@@ -158,6 +158,7 @@ loginForm.addEventListener("submit", async (event) => {
         }
 
         localStorage.setItem("nombre", datos.usuario.nombre);
+        localStorage.setItem("idUsuario", String(datos.usuario.id));
 
         setTimeout(() => {
             window.location.href = "../dashboard/dashboard.html";

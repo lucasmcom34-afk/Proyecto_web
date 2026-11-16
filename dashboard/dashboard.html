@@ -23,7 +23,17 @@
         </nav>
     </header>
     <main>
-        <h1>Bienvenido/a , <span id="username" class="username"></span></h1>
+        <h1>Bienvenido/a<span id="username" class="username"></span></h1>
+        <dialog class="modal modal-nombre" id="promptNombrePreferido" aria-labelledby="tituloPromptNombre">
+            <form id="formNombrePreferido" class="formulario-modal">
+                <h2 id="tituloPromptNombre">Antes de comenzar, ¿cómo te gustaría que te llamemos?</h2>
+                <label for="nombrePreferido">Nombre</label>
+                <input id="nombrePreferido" name="nombrePreferido" type="text" maxlength="60" autocomplete="nickname" required>
+                <div class="acciones-modal">
+                    <button class="boton-principal" type="submit">Continuar</button>
+                </div>
+            </form>
+        </dialog>
         <div class="encabezado-resumen">
             <p id="periodoActual" aria-live="polite"></p>
         </div>

@@ -125,6 +125,7 @@
 
 .volver-dashboard {
     align-self: flex-start;
+    margin-top: 20px;
     padding: 0.7rem 1rem;
     color: #FFFFFF;
     background: var(--cta);
