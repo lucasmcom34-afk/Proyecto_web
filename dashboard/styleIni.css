@@ -748,16 +748,41 @@ main .encabezado-resumen p {
     }
 }
 
-body:has(#graficoRendimiento) {
+body:has(#graficoRendimiento),
+body:has(.encabezado-inventario),
+body:has(.encabezado-registros) {
+    position: relative;
+    isolation: isolate;
     background:
         radial-gradient(ellipse at 82% 0, rgba(244, 63, 94, 0.07), transparent 30rem),
         #F1F5F9;
 }
 
-:root.oscuro body:has(#graficoRendimiento) {
+:root.oscuro body:has(#graficoRendimiento),
+:root.oscuro body:has(.encabezado-inventario),
+:root.oscuro body:has(.encabezado-registros) {
     background:
         radial-gradient(ellipse at 82% 0, rgba(244, 63, 94, 0.1), transparent 30rem),
         #0B1220;
+}
+
+body:has(#graficoRendimiento)::before,
+body:has(.encabezado-inventario)::before,
+body:has(.encabezado-registros)::before {
+    position: fixed;
+    z-index: -1;
+    inset: 0;
+    background: repeating-linear-gradient(
+        45deg,
+        rgba(244, 63, 94, 0.16) 0,
+        rgba(244, 63, 94, 0.16) 6px,
+        transparent 6px,
+        transparent 120px
+    );
+    background-size: 169.706px 169.706px;
+    content: "";
+    pointer-events: none;
+    animation: mover-lineas-fondo 18s linear infinite;
 }
 
 main:has(#graficoRendimiento),
@@ -1031,5 +1056,23 @@ body:has(#graficoRendimiento) .tabla-actividad tbody tr:hover {
 @media (max-width: 440px) {
     body:has(#graficoRendimiento) .kpi-grid {
         grid-template-columns: 1fr;
+    }
+}
+
+@keyframes mover-lineas-fondo {
+    from {
+        background-position: 0 0;
+    }
+
+    to {
+        background-position: -169.706px 0;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    body:has(#graficoRendimiento)::before,
+    body:has(.encabezado-inventario)::before,
+    body:has(.encabezado-registros)::before {
+        animation: none;
     }
 }
