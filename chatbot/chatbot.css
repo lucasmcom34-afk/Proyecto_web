@@ -1,0 +1,15 @@
+body.pagina-chatbot {
+    min-height: 100vh;
+    padding-left: 0;
+}
+
+body.pagina-chatbot main {
+    min-height: 18rem;
+    align-items: center;
+    justify-content: center;
+}
+
+body.pagina-chatbot main h1 {
+    margin: 0;
+    font-size: clamp(2rem, 5vw, 3rem);
+}

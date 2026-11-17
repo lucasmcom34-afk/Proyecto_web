@@ -67,10 +67,15 @@ header p {
 
 nav {
     display: flex;
-    gap: 2rem;
+    align-items: center;
+    width: 100%;
+    gap: calc(2rem + 15px);
 }
 
 nav a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.6rem;
     color: var(--texto);
     text-decoration: none;
     font-weight: 500;
@@ -79,6 +84,32 @@ nav a {
 
 nav a:hover {
     color: var(--titulos);
+}
+
+nav .enlace-impulbot {
+    display: inline-flex;
+    align-items: center;
+    margin-left: auto;
+    gap: 0.65rem;
+    color: var(--cta);
+    font-size: 1.05rem;
+    font-weight: 800;
+    letter-spacing: -0.035em;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+nav .enlace-impulbot:hover {
+    color: var(--cta-hover);
+}
+
+nav .icono-impulbot {
+    display: block;
+    width: 2.6rem;
+    height: 2.6rem;
+    border: 2px solid rgba(244, 63, 94, 0.35);
+    border-radius: 50%;
+    object-fit: cover;
 }
 
 /* ================= CONTENEDORES GENERALES ================= */
