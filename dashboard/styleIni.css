@@ -781,7 +781,8 @@ main .encabezado-resumen p {
 
 body:has(#graficoRendimiento),
 body:has(.encabezado-inventario),
-body:has(.encabezado-registros) {
+body:has(.encabezado-registros),
+body.pagina-chatbot {
     position: relative;
     isolation: isolate;
     background:
@@ -791,7 +792,8 @@ body:has(.encabezado-registros) {
 
 :root.oscuro body:has(#graficoRendimiento),
 :root.oscuro body:has(.encabezado-inventario),
-:root.oscuro body:has(.encabezado-registros) {
+:root.oscuro body:has(.encabezado-registros),
+:root.oscuro body.pagina-chatbot {
     background:
         radial-gradient(ellipse at 82% 0, rgba(244, 63, 94, 0.1), transparent 30rem),
         #0B1220;
@@ -799,7 +801,8 @@ body:has(.encabezado-registros) {
 
 body:has(#graficoRendimiento)::before,
 body:has(.encabezado-inventario)::before,
-body:has(.encabezado-registros)::before {
+body:has(.encabezado-registros)::before,
+body.pagina-chatbot::before {
     position: fixed;
     z-index: -1;
     inset: 0;
@@ -958,38 +961,65 @@ body:has(#graficoRendimiento) .kpi-grid {
 }
 
 body:has(#graficoRendimiento) .tarjeta-kpi {
+    --acento-tarjeta: var(--cta);
     position: relative;
     min-height: 112px;
     overflow: hidden;
     padding: 1.15rem 1.2rem;
-    background: var(--superficie);
+    background:
+        linear-gradient(145deg, rgba(255, 255, 255, 0.12), transparent 58%),
+        var(--superficie);
     border: 1px solid var(--borde);
     border-radius: 16px;
-    box-shadow: 0 8px 22px rgba(15, 23, 42, 0.045);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow:
+        -3px 4px 0 rgba(15, 23, 42, 0.1),
+        -8px 12px 18px rgba(15, 23, 42, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.42);
+    transition: transform 0.22s ease, box-shadow 0.22s ease;
 }
 
 body:has(#graficoRendimiento) .tarjeta-kpi:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 14px 28px rgba(15, 23, 42, 0.09);
+    transform: translate(-2px, -4px);
+    box-shadow:
+        -4px 6px 0 rgba(15, 23, 42, 0.12),
+        -10px 16px 22px rgba(15, 23, 42, 0.16),
+        inset 0 1px 0 rgba(255, 255, 255, 0.42);
+}
+
+:root.oscuro body:has(#graficoRendimiento) .tarjeta-kpi {
+    background:
+        linear-gradient(145deg, rgba(255, 255, 255, 0.08), transparent 58%),
+        var(--superficie);
+    box-shadow:
+        -3px 4px 0 rgba(0, 0, 0, 0.22),
+        -8px 12px 18px rgba(0, 0, 0, 0.28),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+:root.oscuro body:has(#graficoRendimiento) .tarjeta-kpi:hover {
+    box-shadow:
+        -4px 6px 0 rgba(0, 0, 0, 0.26),
+        -10px 16px 22px rgba(0, 0, 0, 0.34),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
 body:has(#graficoRendimiento) .tarjeta-kpi::before {
     position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    height: 3px;
-    background: var(--cta);
+    z-index: 1;
+    inset: 0;
+    border-left: 3px solid var(--acento-tarjeta);
+    border-bottom: 3px solid var(--acento-tarjeta);
+    border-radius: inherit;
     content: "";
+    pointer-events: none;
 }
 
-body:has(#graficoRendimiento) .tarjeta-kpi:nth-child(1)::before {
-    background: #16A36A;
+body:has(#graficoRendimiento) .tarjeta-kpi:nth-child(1) {
+    --acento-tarjeta: #16A36A;
 }
 
-body:has(#graficoRendimiento) .tarjeta-kpi:nth-child(3)::before {
-    background: #6366F1;
+body:has(#graficoRendimiento) .tarjeta-kpi:nth-child(3) {
+    --acento-tarjeta: #6366F1;
 }
 
 body:has(#graficoRendimiento) .tarjeta-kpi h3 {
@@ -1001,17 +1031,6 @@ body:has(#graficoRendimiento) .tarjeta-kpi h3 {
 
 body:has(#graficoRendimiento) .tarjeta-kpi .valor-kpi {
     font-size: clamp(1.1rem, 1.8vw, 1.45rem);
-}
-
-body:has(#graficoRendimiento) .tarjeta-anterior {
-    background: #172033;
-    border-color: #172033;
-}
-
-body:has(#graficoRendimiento) .tarjeta-anterior h3,
-body:has(#graficoRendimiento) .tarjeta-anterior .detalle-anterior,
-body:has(#graficoRendimiento) .tarjeta-anterior .detalle-anterior strong {
-    color: #E2E8F0;
 }
 
 body:has(#graficoRendimiento) #actReciente {
@@ -1103,7 +1122,8 @@ body:has(#graficoRendimiento) .tabla-actividad tbody tr:hover {
 @media (prefers-reduced-motion: reduce) {
     body:has(#graficoRendimiento)::before,
     body:has(.encabezado-inventario)::before,
-    body:has(.encabezado-registros)::before {
+    body:has(.encabezado-registros)::before,
+    body.pagina-chatbot::before {
         animation: none;
     }
 }

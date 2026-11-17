@@ -1,6 +1,12 @@
 const form = document.getElementById("forgotForm");
 const msg = document.getElementById("msg");
 const btn = document.getElementById("btn");
+const backLink = document.getElementById("backLink");
+
+if (new URLSearchParams(window.location.search).get("desde") === "impulbot") {
+    backLink.href = "../chatbot/chatbot.html";
+    backLink.textContent = "Volver atrás";
+}
 
 form.addEventListener("submit", async (e) => {
     e.preventDefault();
