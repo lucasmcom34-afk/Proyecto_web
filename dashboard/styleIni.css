@@ -784,10 +784,13 @@ body:has(.encabezado-inventario),
 body:has(.encabezado-registros),
 body.pagina-chatbot {
     position: relative;
+    min-height: 100vh;
     isolation: isolate;
     background:
-        radial-gradient(ellipse at 82% 0, rgba(244, 63, 94, 0.07), transparent 30rem),
-        #F1F5F9;
+        radial-gradient(ellipse at 82% 0, rgba(244, 63, 94, 0.24), transparent 34rem),
+        radial-gradient(ellipse at 8% 70%, rgba(124, 58, 237, 0.14), transparent 28rem),
+        radial-gradient(ellipse at 65% 100%, rgba(251, 146, 60, 0.1), transparent 30rem),
+        #F8FAFC;
 }
 
 :root.oscuro body:has(#graficoRendimiento),
@@ -795,8 +798,10 @@ body.pagina-chatbot {
 :root.oscuro body:has(.encabezado-registros),
 :root.oscuro body.pagina-chatbot {
     background:
-        radial-gradient(ellipse at 82% 0, rgba(244, 63, 94, 0.1), transparent 30rem),
-        #0B1220;
+        radial-gradient(ellipse at 82% 0, rgba(244, 63, 94, 0.24), transparent 34rem),
+        radial-gradient(ellipse at 8% 70%, rgba(124, 58, 237, 0.16), transparent 28rem),
+        radial-gradient(ellipse at 65% 100%, rgba(251, 146, 60, 0.1), transparent 30rem),
+        #070A14;
 }
 
 body:has(#graficoRendimiento)::before,
@@ -806,17 +811,45 @@ body.pagina-chatbot::before {
     position: fixed;
     z-index: -1;
     inset: 0;
-    background: repeating-linear-gradient(
-        45deg,
-        rgba(244, 63, 94, 0.16) 0,
-        rgba(244, 63, 94, 0.16) 6px,
-        transparent 6px,
-        transparent 120px
-    );
-    background-size: 169.706px 169.706px;
+    background:
+        radial-gradient(520px circle at var(--sx, 78%) var(--sy, 12%), rgba(244, 63, 94, 0.14), transparent 70%);
     content: "";
     pointer-events: none;
-    animation: mover-lineas-fondo 18s linear infinite;
+}
+
+body:has(#graficoRendimiento)::after,
+body:has(.encabezado-inventario)::after,
+body:has(.encabezado-registros)::after,
+body.pagina-chatbot::after {
+    position: fixed;
+    z-index: -1;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(148, 163, 184, 0.13) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(148, 163, 184, 0.13) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse at 50% 25%, #000 10%, transparent 72%);
+    content: "";
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+:root:not(.oscuro) body:has(#graficoRendimiento)::before,
+:root:not(.oscuro) body:has(.encabezado-inventario)::before,
+:root:not(.oscuro) body:has(.encabezado-registros)::before,
+:root:not(.oscuro) body.pagina-chatbot::before {
+    background:
+        radial-gradient(520px circle at var(--sx, 78%) var(--sy, 12%), rgba(244, 63, 94, 0.22), transparent 70%);
+}
+
+:root:not(.oscuro) body:has(#graficoRendimiento)::after,
+:root:not(.oscuro) body:has(.encabezado-inventario)::after,
+:root:not(.oscuro) body:has(.encabezado-registros)::after,
+:root:not(.oscuro) body.pagina-chatbot::after {
+    background-image:
+        linear-gradient(rgba(100, 116, 139, 0.22) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(100, 116, 139, 0.22) 1px, transparent 1px);
+    opacity: 0.65;
 }
 
 main:has(#graficoRendimiento),
